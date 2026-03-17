@@ -732,7 +732,7 @@ public class MemberTests {
 	@Test
 	void testInsertBell5() {
 		// Given
-		Member m = memberRepo.findById(4).get();
+		Member m = memberRepo.findById(3).get();
 		BellMsg bm = bellMsgRepo.findById("D").get();
 		Likes l = likesRepo.findById(3).get();
 		
