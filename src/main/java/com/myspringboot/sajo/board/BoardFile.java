@@ -25,7 +25,7 @@ public class BoardFile {
 	@JoinColumn(name="board_idx")
 	Board boardIdx;
 	
-	@Column(columnDefinition="VARCHAR2(500 BYTE)")
+	@Column(columnDefinition="VARCHAR2(3000 BYTE)")
 	private String fileUrl;
 	
 	
