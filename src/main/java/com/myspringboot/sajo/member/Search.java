@@ -24,7 +24,7 @@ public class Search {
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member searchMemberNo;
+	private Member searchMemberNo;
 	
 	@Column(columnDefinition="VARCHAR2(1000 BYTE)")
 	private String searchKeyword;

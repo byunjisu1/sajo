@@ -2,6 +2,8 @@ package com.myspringboot.sajo.member;
 
 import java.time.LocalDateTime;
 
+import com.myspringboot.sajo.board.Board;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,19 +25,19 @@ public class Bell {
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member bellMemberNo;
+	private Member bellMemberNo;
 	
 	@ManyToOne
 	@JoinColumn(name="bell_type")
-	Member bellType;
+	private BellMsg bellType;
 	
 	@ManyToOne
 	@JoinColumn(name="like_idx")
-	Member likeIdx;
+	private Likes likeIdx;
 	
 	@ManyToOne
 	@JoinColumn(name="board_idx")
-	Member bellBoardIdx;
+	private Board bellBoardIdx;
 	
 	private LocalDateTime bellTime;
 }

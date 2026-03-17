@@ -23,7 +23,7 @@ public class Orders {
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member ordersMemberNo;
+	private Member ordersMemberNo;
 	
 	private int totalPrice;
 	

@@ -1,5 +1,7 @@
 package com.myspringboot.sajo.member;
 
+import com.myspringboot.sajo.item.Item;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,9 +23,9 @@ public class Cart {
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member cartMemberNo;
+	private Member cartMemberNo;
 	
 	@ManyToOne
 	@JoinColumn(name="item_idx")
-	Member cartItemIdx;
+	private Item cartItemIdx;
 }

@@ -22,7 +22,7 @@ public class Address {
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member addressMemberNo;
+	private Member addressMemberNo;
 	
 	@Column(columnDefinition="VARCHAR2(2000 BYTE)")
 	private String address;

@@ -23,7 +23,7 @@ public class OrderDetail {
 	
 	@ManyToOne
 	@JoinColumn(name="order_no")
-	Orders orderNo;
+	private Orders orderNo;
 	
 	@ManyToOne
 	@JoinColumn(name="item_idx")

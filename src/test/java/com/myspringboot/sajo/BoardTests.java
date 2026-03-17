@@ -98,6 +98,7 @@ public class BoardTests {
 		boardRepo.save(b);
 		//Then
 	}
+	
 	/**
 	 * testInsertBoardFile : BoardFile 테이블에 더미데이터 추가 
 	 */
@@ -113,6 +114,7 @@ public class BoardTests {
 		boardFileRepo.save(bf);
 		//Then
 	}
+	
 	@Test
 	void testInsertBoardFile2() {
 		//Given
@@ -125,6 +127,7 @@ public class BoardTests {
 		boardFileRepo.save(bf);
 		//Then
 	}
+	
 	@Test
 	void testInsertBoardFile3() {
 		//Given
@@ -137,6 +140,7 @@ public class BoardTests {
 		boardFileRepo.save(bf);
 		//Then
 	}
+	
 	/**
 	 * testInsertBoardComments : BoardComments 테이블에 더미데이터 추가 
 	 */
@@ -154,6 +158,7 @@ public class BoardTests {
 		boardCommentsRepo.save(bc);
 		//Then
 	}
+	
 	@Test
 	void testInsertBoardComments2() {
 		//Given
@@ -168,6 +173,7 @@ public class BoardTests {
 		boardCommentsRepo.save(bc);
 		//Then
 	}
+	
 	@Test
 	void testInsertBoardComments3() {
 		//Given

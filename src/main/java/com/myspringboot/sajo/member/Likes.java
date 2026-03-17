@@ -2,6 +2,8 @@ package com.myspringboot.sajo.member;
 
 import java.time.LocalDateTime;
 
+import com.myspringboot.sajo.item.Item;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,11 +25,11 @@ public class Likes {
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member likeMemberNo;
+	private Member likeMemberNo;
 	
 	@ManyToOne
 	@JoinColumn(name="item_idx")
-	Member likeItemIdx;
+	private Item likeItemIdx;
 	
 	private LocalDateTime like_date;
 	

@@ -37,6 +37,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	@Test
 	void testInsertItem2() {
 		// Given
@@ -55,6 +56,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	@Test
 	void testInsertItem3() {
 		// Given
@@ -69,6 +71,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	@Test
 	void testInsertItem4() {
 		// Given
@@ -83,6 +86,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	@Test
 	void testInsertItem5() {
 		// Given
@@ -101,6 +105,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	@Test
 	void testInsertItem6() {
 		// Given
@@ -119,6 +124,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	@Test
 	void testInsertItem7() {
 		// Given
@@ -133,6 +139,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	/**
 	 * testPicItem : pic_item 테이블 더미 데이터 추가
 	 */
@@ -149,6 +156,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	@Test
 	void testPicItem2() {
 		// Given
@@ -162,6 +170,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	@Test
 	void testPicItem3() {
 		// Given
@@ -175,6 +184,7 @@ public class ItemTests {
 		
 		// Then
 	}
+	
 	@Test
 	void testPicItem4() {
 		// Given
@@ -188,5 +198,4 @@ public class ItemTests {
 		
 		// Then
 	}
-	
 }
