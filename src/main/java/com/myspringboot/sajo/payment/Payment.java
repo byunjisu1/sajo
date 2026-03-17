@@ -2,11 +2,16 @@ package com.myspringboot.sajo.payment;
 
 import java.time.LocalDateTime;
 
+import com.myspringboot.sajo.member.Member;
+import com.myspringboot.sajo.member.Orders;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +25,13 @@ public class Payment {
 	@SequenceGenerator(name="seqPay", sequenceName="seq_payment_idx", allocationSize=1)
 	private Integer payment_idx;
 	
-	private int memberNo;
+	@ManyToOne
+	@JoinColumn(name="member_no")
+	private Member memberNo;
 	
-	private int orderNo;
+	@ManyToOne
+	@JoinColumn(name="Order_no")
+	private Orders orderNo;
 	
 	@Column(columnDefinition="VARCHAR2(100 BYTE)")
 	private String tid;

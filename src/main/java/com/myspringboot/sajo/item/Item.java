@@ -19,7 +19,7 @@ public class Item {
 	@SequenceGenerator(name="seqItem", sequenceName="seq_item_idx", allocationSize=1)
 	private Integer itemIdx;
 	
-	@Column(columnDefinition="VARCHAR2(500 BYTE)")
+	@Column(columnDefinition="VARCHAR2(3000 BYTE)")
 	private String itemName;
 	
 	@Column(columnDefinition="VARCHAR2(3000 BYTE)")
@@ -27,6 +27,6 @@ public class Item {
 	
 	private int itemPrice;
 	
-	@Column(columnDefinition="VARCHAR2(500 BYTE)")
+	@Column(columnDefinition="VARCHAR2(3000 BYTE)")
 	private String itemImg;
 }
