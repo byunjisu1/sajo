@@ -2,7 +2,6 @@ package com.myspringboot.sajo.member;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,21 +15,27 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Orders {
+public class Bell {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqOrder")
-	@SequenceGenerator(name="seqOrder", sequenceName="seq_order_no", allocationSize=1)
-	@Column(columnDefinition="VARCHAR2(1000 BYTE)")
-	private String orderNo;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqBell")
+	@SequenceGenerator(name="seqBell", sequenceName="seq_bell_idx", allocationSize=1)
+	private Integer bellIdx;
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member ordersMemberNo;
+	Member bellMemberNo;
 	
-	private int totalPrice;
+	@ManyToOne
+	@JoinColumn(name="bell_type")
+	Member bellType;
 	
-	private LocalDateTime orderDate;
+	@ManyToOne
+	@JoinColumn(name="like_idx")
+	Member likeIdx;
 	
-	@Column(columnDefinition="VARCHAR2(100 BYTE)")
-	private String orderStatus;
+	@ManyToOne
+	@JoinColumn(name="board_idx")
+	Member bellBoardIdx;
+	
+	private LocalDateTime bellTime;
 }

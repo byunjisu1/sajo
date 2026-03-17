@@ -1,5 +1,7 @@
 package com.myspringboot.sajo.member;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,19 +16,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Address {
+public class Search {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqAdd")
-	@SequenceGenerator(name="seqAdd", sequenceName="seq_address_idx", allocationSize=1)
-	private Integer addressIdx;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqSearch")
+	@SequenceGenerator(name="seqSearch", sequenceName="seq_search_idx", allocationSize=1)
+	private Integer searchIdx;
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member addressMemberNo;
+	Member searchMemberNo;
 	
-	@Column(columnDefinition="VARCHAR2(2000 BYTE)")
-	private String address;
+	@Column(columnDefinition="VARCHAR2(1000 BYTE)")
+	private String searchKeyword;
 	
-	@Column(columnDefinition="VARCHAR2(20 BYTE)")
-	private String postCode;
+	private LocalDateTime searchDate;
 }

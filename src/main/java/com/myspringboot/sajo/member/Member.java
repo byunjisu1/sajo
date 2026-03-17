@@ -16,7 +16,7 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqMem")
 	@SequenceGenerator(name="seqMem", sequenceName="seq_member_no", allocationSize=1)
-	private Integer member_no;
+	private Integer memberNo;
 	
 	@Column(columnDefinition="VARCHAR2(20 BYTE)")
 	private String nickname;
@@ -25,10 +25,10 @@ public class Member {
 	private String email;
 	
 	@Column(columnDefinition="VARCHAR2(20 BYTE)")
-	private String name_kor;
+	private String nameKor;
 	
 	@Column(columnDefinition="VARCHAR2(50 BYTE)")
-	private String name_eng;
+	private String nameEng;
 	
 	@Column(columnDefinition="VARCHAR2(20 BYTE)")
 	private String birth;
@@ -37,14 +37,14 @@ public class Member {
 	private String phone;
 	
 	@Column(columnDefinition="VARCHAR2(500 BYTE)")
-	private String profile_img;
+	private String profileImg;
 	
 	@Column(columnDefinition="VARCHAR2(20 BYTE)")
-	private String sns_type;
+	private String snsType;
 	
 	@Column(columnDefinition="VARCHAR2(500 BYTE)")
-	private String access_token;
+	private String accessToken;
 	
 	@Column(columnDefinition="VARCHAR2(500 BYTE)")
-	private String customs_id;
+	private String customsId;
 }

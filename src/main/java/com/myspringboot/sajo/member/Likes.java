@@ -1,6 +1,7 @@
 package com.myspringboot.sajo.member;
 
-import jakarta.persistence.Column;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,19 +15,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Address {
+public class Likes {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqAdd")
-	@SequenceGenerator(name="seqAdd", sequenceName="seq_address_idx", allocationSize=1)
-	private Integer addressIdx;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqLike")
+	@SequenceGenerator(name="seqLike", sequenceName="seq_like_idx", allocationSize=1)
+	private Integer likeIdx;
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member addressMemberNo;
+	Member likeMemberNo;
 	
-	@Column(columnDefinition="VARCHAR2(2000 BYTE)")
-	private String address;
+	@ManyToOne
+	@JoinColumn(name="item_idx")
+	Member likeItemIdx;
 	
-	@Column(columnDefinition="VARCHAR2(20 BYTE)")
-	private String postCode;
+	private LocalDateTime like_date;
+	
+	private int likePrice;
 }

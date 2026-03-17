@@ -1,6 +1,5 @@
 package com.myspringboot.sajo.member;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,19 +13,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Address {
+public class Cart {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqAdd")
-	@SequenceGenerator(name="seqAdd", sequenceName="seq_address_idx", allocationSize=1)
-	private Integer addressIdx;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqCart")
+	@SequenceGenerator(name="seqCart", sequenceName="seq_cart_idx", allocationSize=1)
+	private Integer cartIdx;
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	Member addressMemberNo;
+	Member cartMemberNo;
 	
-	@Column(columnDefinition="VARCHAR2(2000 BYTE)")
-	private String address;
-	
-	@Column(columnDefinition="VARCHAR2(20 BYTE)")
-	private String postCode;
+	@ManyToOne
+	@JoinColumn(name="item_idx")
+	Member cartItemIdx;
 }
