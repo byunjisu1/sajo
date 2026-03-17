@@ -18,8 +18,6 @@ import lombok.Setter;
 @Entity
 public class Orders {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqOrder")
-	@SequenceGenerator(name="seqOrder", sequenceName="seq_order_no", allocationSize=1)
 	@Column(columnDefinition="VARCHAR2(1000 BYTE)")
 	private String orderNo;
 	

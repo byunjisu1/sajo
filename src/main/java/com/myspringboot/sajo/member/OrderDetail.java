@@ -1,5 +1,7 @@
 package com.myspringboot.sajo.member;
 
+import com.myspringboot.sajo.item.Item;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +25,9 @@ public class OrderDetail {
 	@JoinColumn(name="order_no")
 	Orders orderNo;
 	
-	private int itemIdx;
+	@ManyToOne
+	@JoinColumn(name="item_idx")
+	private Item itemIdx;
 	
 	private int qty;
 	
