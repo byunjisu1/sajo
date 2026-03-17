@@ -14,7 +14,7 @@ import lombok.Setter;
 @Entity
 public class BellMsg {
 	@Id
-	@Column(columnDefinition="CHAR(1)")
+	@Column(columnDefinition="VARCHAR2(10 BYTE)")
 	private String bellType;
 	
 	@Column(columnDefinition="VARCHAR2(1000 BYTE)")
