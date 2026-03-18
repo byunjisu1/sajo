@@ -26,8 +26,7 @@ public class PaymentTests {
 	 * testInsertPayment : Payment 테이블 더미데이터 추가
 	 */
 	@Test
-	void testInsertPayment1() {
-		// Given
+	void testInsertPayment() {
 		Member m = memberRepo.findById(1).get();
 		Orders o = ordersRepo.findById("202603161111").get();
 		Payment pm = new Payment();
@@ -37,48 +36,28 @@ public class PaymentTests {
 		pm.setAmount(120000);
 		pm.setStatus("fail");
 		pm.setPaymentTime(LocalDateTime.now());
-		
-		// When
 		payRepo.save(pm);
 		
-		// Then
-	}
-	
-	@Test
-	void testInsertPayment2() {
-		// Given
-		Member m = memberRepo.findById(2).get();
-		Orders o = ordersRepo.findById("202603161112").get();
-		Payment pm = new Payment();
+		m = memberRepo.findById(2).get();
+		o = ordersRepo.findById("202603161112").get();
+		pm = new Payment();
 		pm.setMemberNo(m);
 		pm.setOrderNo(o);
 		pm.setTid("asdasda");
 		pm.setAmount(200000);
 		pm.setStatus("success");
 		pm.setPaymentTime(LocalDateTime.now());
-		
-		// When
 		payRepo.save(pm);
 		
-		// Then
-	}
-	
-	@Test
-	void testInsertPayment3() {
-		// Given
-		Member m = memberRepo.findById(3).get();
-		Orders o = ordersRepo.findById("202603161113").get();
-		Payment pm = new Payment();
+		m = memberRepo.findById(3).get();
+		o = ordersRepo.findById("202603161113").get();
+		pm = new Payment();
 		pm.setMemberNo(m);
 		pm.setOrderNo(o);
 		pm.setTid("qwewqeq");
 		pm.setAmount(350000);
 		pm.setStatus("success");
 		pm.setPaymentTime(LocalDateTime.now());
-		
-		// When
 		payRepo.save(pm);
-		
-		// Then
 	}
 }
