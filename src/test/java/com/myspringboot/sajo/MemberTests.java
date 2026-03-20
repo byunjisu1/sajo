@@ -6,28 +6,28 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.myspringboot.sajo.bell.Bell;
+import com.myspringboot.sajo.bell.BellMsg;
+import com.myspringboot.sajo.bell.BellMsgRepository;
+import com.myspringboot.sajo.bell.BellRepository;
 import com.myspringboot.sajo.board.Board;
 import com.myspringboot.sajo.board.BoardRepository;
+import com.myspringboot.sajo.cart.Cart;
+import com.myspringboot.sajo.cart.CartRepository;
 import com.myspringboot.sajo.item.Item;
 import com.myspringboot.sajo.item.ItemRepository;
+import com.myspringboot.sajo.likes.Likes;
+import com.myspringboot.sajo.likes.LikesRepository;
 import com.myspringboot.sajo.member.Address;
 import com.myspringboot.sajo.member.AddressRepository;
-import com.myspringboot.sajo.member.Bell;
-import com.myspringboot.sajo.member.BellMsg;
-import com.myspringboot.sajo.member.BellMsgRepository;
-import com.myspringboot.sajo.member.BellRepository;
-import com.myspringboot.sajo.member.Cart;
-import com.myspringboot.sajo.member.CartRepository;
-import com.myspringboot.sajo.member.Likes;
-import com.myspringboot.sajo.member.LikesRepository;
 import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberRepository;
-import com.myspringboot.sajo.member.OrderDetail;
-import com.myspringboot.sajo.member.OrderDetailRepository;
-import com.myspringboot.sajo.member.Orders;
-import com.myspringboot.sajo.member.OrdersRepository;
-import com.myspringboot.sajo.member.Search;
-import com.myspringboot.sajo.member.SearchRepository;
+import com.myspringboot.sajo.order.OrderDetail;
+import com.myspringboot.sajo.order.OrderDetailRepository;
+import com.myspringboot.sajo.order.Orders;
+import com.myspringboot.sajo.order.OrdersRepository;
+import com.myspringboot.sajo.search.Search;
+import com.myspringboot.sajo.search.SearchRepository;
 
 @SpringBootTest
 public class MemberTests {

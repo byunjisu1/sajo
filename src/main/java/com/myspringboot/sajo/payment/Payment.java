@@ -3,7 +3,7 @@ package com.myspringboot.sajo.payment;
 import java.time.LocalDateTime;
 
 import com.myspringboot.sajo.member.Member;
-import com.myspringboot.sajo.member.Orders;
+import com.myspringboot.sajo.order.Orders;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

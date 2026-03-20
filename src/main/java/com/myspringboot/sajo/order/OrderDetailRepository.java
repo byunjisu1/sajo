@@ -1,4 +1,4 @@
-package com.myspringboot.sajo.member;
+package com.myspringboot.sajo.order;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

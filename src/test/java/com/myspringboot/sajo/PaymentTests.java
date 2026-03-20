@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberRepository;
-import com.myspringboot.sajo.member.Orders;
-import com.myspringboot.sajo.member.OrdersRepository;
+import com.myspringboot.sajo.order.Orders;
+import com.myspringboot.sajo.order.OrdersRepository;
 import com.myspringboot.sajo.payment.Payment;
 import com.myspringboot.sajo.payment.PaymentRepository;
 

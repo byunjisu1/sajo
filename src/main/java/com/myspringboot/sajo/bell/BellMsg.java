@@ -1,4 +1,4 @@
-package com.myspringboot.sajo.member;
+package com.myspringboot.sajo.bell;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
