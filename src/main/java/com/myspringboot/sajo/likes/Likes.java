@@ -1,8 +1,9 @@
-package com.myspringboot.sajo.member;
+package com.myspringboot.sajo.likes;
 
 import java.time.LocalDateTime;
 
 import com.myspringboot.sajo.item.Item;
+import com.myspringboot.sajo.member.Member;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

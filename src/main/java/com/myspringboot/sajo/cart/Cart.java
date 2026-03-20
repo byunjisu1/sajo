@@ -1,6 +1,7 @@
-package com.myspringboot.sajo.member;
+package com.myspringboot.sajo.cart;
 
 import com.myspringboot.sajo.item.Item;
+import com.myspringboot.sajo.member.Member;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,21 +16,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class OrderDetail {
+public class Cart {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqOrderDetail")
-	@SequenceGenerator(name="seqOrderDetail", sequenceName="seq_order_detail_idx", allocationSize=1)
-	private Integer orderDetailIdx;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqCart")
+	@SequenceGenerator(name="seqCart", sequenceName="seq_cart_idx", allocationSize=1)
+	private Integer cartIdx;
 	
 	@ManyToOne
-	@JoinColumn(name="order_no")
-	private Orders orderNo;
+	@JoinColumn(name="member_no")
+	private Member cartMemberNo;
 	
 	@ManyToOne
 	@JoinColumn(name="item_idx")
-	private Item itemIdx;
-	
-	private int qty;
-	
-	private int orderPrice;
+	private Item cartItemIdx;
 }

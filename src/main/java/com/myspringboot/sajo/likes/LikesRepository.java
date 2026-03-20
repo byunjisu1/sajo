@@ -1,4 +1,4 @@
-package com.myspringboot.sajo.member;
+package com.myspringboot.sajo.likes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
