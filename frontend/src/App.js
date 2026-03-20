@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Likes from './pages/Likes';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
+import MyPage from './pages/MyPage';
 import Board from './pages/Board';
 import Rakuten from './pages/Rakuten';
 
@@ -20,6 +21,7 @@ function App() {
 			<Route path="/login" element={<Login/>}/>
 			<Route path="/board" element={<Board/>}/>
 			<Route path="/rakuten" element={<Rakuten/>}/>
+			<Route path="/mypage" element={<MyPage/>}/>
 		</Routes>
 		<Footer/>
 	</>
