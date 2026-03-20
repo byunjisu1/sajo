@@ -1,0 +1,45 @@
+.sazo-footer {
+  flex-shrink: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 20px 16px;
+  border-top: 1px solid #e3e3e3;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.sazo-footer p {
+  margin: 0 0 2px;
+}
+
+.sazo-policy-links a {
+  color: #444;
+  text-decoration: underline;
+}
+
+.sazo-footer-copy {
+  margin-top: 14px;
+}
+
+.sazo-footer-bottom {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.sazo-policy-links {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .sazo-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
