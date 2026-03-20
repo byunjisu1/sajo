@@ -1,0 +1,43 @@
+.MyPage-profile-header {
+	width: 100%;
+	max-width: 1193px;
+	margin: 0 auto;
+	padding: 40px 20px;
+	background-color: #fff;
+	border-bottom: 1px solid #f0f0f0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+}
+
+.MyPage-profile-info {
+  display: flex;
+  align-items: center;
+}
+
+.MyPage-nickname {
+  width: 40px;
+  height: 40px;
+  background-color: indianred;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 12px;
+}
+
+.MyPage-user-name {
+  font-size: 23px;
+  font-weight: 700;
+  margin-right: 10px;
+  color: #000;
+}
+
+.MyPage-chevron {
+  color: #999;
+  font-size: 18px;
+}
