@@ -1,14 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Board.css';
 
 const Board = () => {
+	const navigate = useNavigate();
+	
 	return (
 	    <div className="board-page" aria-label="문의게시판 홈">
 	      <div className="board-header">
 	        <div className="board-title-row">
 	          <h1 className="board-title">문의게시판</h1>
-	          <div className="board-write" aria-hidden="true">
-	            <span className="board-write-pill">📝 문의하기</span>
+	          <div className="board-write-title" aria-hidden="true">
+	            <span className="board-write-pill" onClick={() => navigate('/board/write')}>📝 문의하기</span>
 	          </div>
 	        </div>
 
