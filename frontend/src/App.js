@@ -8,6 +8,9 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Board from './pages/Board';
 import Rakuten from './pages/Rakuten';
+import MyPage from './pages/MyPage';
+import Address from './pages/Address';
+import MemberUpdate from './pages/MemberUpdate';
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
 			<Route path="/login" element={<Login/>}/>
 			<Route path="/board" element={<Board/>}/>
 			<Route path="/rakuten" element={<Rakuten/>}/>
+			<Route path="/mypage" element={<MyPage/>}/>
+			<Route path="/address" element={<Address/>}/>
+			<Route path="/memberupdate" element={<MemberUpdate/>}/>
 		</Routes>
 		<Footer/>
 	</>
