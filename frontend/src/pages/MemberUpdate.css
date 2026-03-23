@@ -116,11 +116,12 @@
 	align-items: center;
 }
 
-.link-group a {
+.link-group span {
 	font-size: 12px;
 	color: #333;
 	text-decoration: underline;
 	margin-left: 10px;
+	text-decoration: none;
 }
 
 .kor-input {
