@@ -41,7 +41,7 @@ const Board = () => {
 			          <span className={`board-badge ${isNotice ? "" : "general"}`}>
 			            {isNotice ? "공지" : "문의"}
 			          </span>
-			          <span className="board-title-text" title={post.title}>
+			          <span className="board-title-text" title={post.title} onClick={() => navigate('/boardDetail')}>
 			            {post.title}
 			          </span>
 			        </div>
