@@ -47,8 +47,7 @@ const MemberUpdate = () => {
 								<div className="label-row">
 									<label>이메일</label>
 									<div className="link-group">
-										<a href="#">회원탈퇴</a>
-										<a href="#">이메일 변경</a>
+										<span onClick={()=>navigate(`/`)}>회원탈퇴</span>
 									</div>
 								</div>
 								<input className="email-input" type="email" value="qotmdqls12@naver.com" readOnly={true} />
