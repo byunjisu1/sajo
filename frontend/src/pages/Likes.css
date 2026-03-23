@@ -148,7 +148,62 @@
   pointer-events: none;
 }
 
-.Likes-empty-card {
+.Likes-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.Likes-item-card {
+  width: 100%;
+  cursor: pointer;
+}
+
+.Likes-item-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f8f8f8;
+}
+
+.Likes-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.Likes-item-info {
+  padding: 12px 4px;
+}
+
+.Likes-item-title {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+  margin: 0 0 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.Likes-item-price-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.Likes-item-price {
+  font-weight: 700;
+  font-size: 15px;
+  color: #000;
+}
+
+.Likes-list {
   width: 100%;
   height: 300px;
   border: 1px solid #f0f0f0;
