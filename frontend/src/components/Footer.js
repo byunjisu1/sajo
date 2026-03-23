@@ -3,7 +3,7 @@ import './Footer.css';
 
 const Footer = () => {
 	return (
-	    <footer className="sazo-footer">
+	    <footer className="sajo-footer">
 	      <p>
 	        사줘는 관세법 등 법령을 준수하며, 분할배송·가격/품명 허위신고 등 불법 요청에는
 	        협조하지 않습니다.
@@ -14,13 +14,13 @@ const Footer = () => {
 	      </p>
 	      <p>의약품은 구매대행을 진행하지 않습니다.</p>
 
-	      <p className="sazo-footer-copy">
+	      <p className="sajo-footer-copy">
 	        © 2026 SAJO PRJ.
 	      </p>
 
-	      <div className="sazo-footer-bottom">
+	      <div className="sajo-footer-bottom">
 	        <span>SAJO 한국지사 - (주)SMJ</span>
-	        <div className="sazo-policy-links">
+	        <div className="sajo-policy-links">
 	          <a href="#terms">이용약관</a>
 	          <a href="#privacy">개인정보처리방침</a>
 	        </div>

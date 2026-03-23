@@ -3,7 +3,7 @@ import './Home.css';
 
 const Home = () => {
 	return (
-	    <div className="sazo-page">
+	    <div className="sajo-page">
 	      <main className="home-main" aria-label="홈 메인">
 		  
 	        <section className="home-banner-row" aria-label="메인 배너">

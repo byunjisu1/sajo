@@ -1,10 +1,10 @@
-.sazo-header {
+.sajo-header {
   flex-shrink: 0;
   background: #fff;
   padding-top: 8px;
 }
 
-.sazo-header-top {
+.sajo-header-top {
   max-width: 1200px;
   margin: 0 auto;
   padding: 8px 20px 12px;
@@ -13,7 +13,7 @@
   gap: 14px;
 }
 
-.sazo-logo {
+.sajo-logo {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
@@ -21,7 +21,7 @@
   line-height: 0;
 }
 
-.sazo-logo-img {
+.sajo-logo-img {
   display: block;
   height: 40px;
   width: auto;
@@ -29,11 +29,11 @@
   object-fit: contain;
 }
 
-.sazo-search-wrap {
+.sajo-search-wrap {
   flex: 1;
 }
 
-.sazo-search-box {
+.sajo-search-box {
   height: 44px;
   border: 1px solid #e3e3e3;
   border-radius: 22px;
@@ -44,7 +44,7 @@
   gap: 10px;
 }
 
-.sazo-search-prefix {
+.sajo-search-prefix {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +52,7 @@
   color: #6a6a6a;
 }
 
-.sazo-search-prefix-img {
+.sajo-search-prefix-img {
   display: block;
   height: 30px;
   width: auto;
@@ -61,17 +61,17 @@
   margin-left: 2px;
 }
 
-.sazo-search-svg {
+.sajo-search-svg {
   width: 25px;
   height: 25px;
   flex-shrink: 0;
   display: block;
-  fill: none;           /* 채우기 없음 */
-  stroke: #6a6a6a;      /* 선 색상을 흰색으로 */
-  stroke-width: 2;      /* 선 두께 */
+  fill: none;           
+  stroke: #6a6a6a;     
+  stroke-width: 2;    
 }
 
-.sazo-search-caret-wrap {
+.sajo-search-caret-wrap {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -80,13 +80,13 @@
   padding: 0 2px;
 }
 
-.sazo-search-caret-solid {
+.sajo-search-caret-solid {
   width: 10px;
   height: 6px;
   display: block;
 }
 
-.sazo-search {
+.sajo-search {
   flex: 1;
   height: 100%;
   border: none;
@@ -98,11 +98,11 @@
   color: #333;
 }
 
-.sazo-search::placeholder {
+.sajo-search::placeholder {
   color: #b8b8b8;
 }
 
-.sazo-search-btn {
+.sajo-search-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -118,18 +118,18 @@
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.sazo-search-btn:hover {
+.sajo-search-btn:hover {
   background-color: #f5f5f5;
   color: #333;
 }
 
-.sazo-icons {
+.sajo-icons {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.sazo-icon-btn {
+.sajo-icon-btn {
   width: 36px;
   height: 36px;
   padding: 0;
@@ -146,28 +146,28 @@
     color 0.2s ease;
 }
 
-.sazo-icon-btn:hover {
+.sajo-icon-btn:hover {
   background-color: #f0f0f0;
   color: #f04461;
 }
 
-.sazo-icon-btn:focus-visible {
+.sajo-icon-btn:focus-visible {
   outline: 2px solid #f04461;
   outline-offset: 2px;
 }
 
-.sazo-icon-svg {
+.sajo-icon-svg {
   width: 23px;
   height: 23px;
   flex-shrink: 0;
   pointer-events: none;
   display: block;
-  fill: none;           /* 채우기 없음 */
-  stroke: #6a6a6a;      /* 선 색상을 흰색으로 */
-  stroke-width: 2;      /* 선 두께 */
+  fill: none;          
+  stroke: #6a6a6a;     
+  stroke-width: 2;    
 }
 
-.sazo-login-btn {
+.sajo-login-btn {
   border: none;
   border-radius: 9px;
   padding: 10px 18px;
@@ -179,17 +179,17 @@
   transition: background-color 0.2s ease;
 }
 
-.sazo-login-btn:hover {
+.sajo-login-btn:hover {
   background-color: #e23d56;
 }
 
-.sazo-nav-shell {
+.sajo-nav-shell {
   max-width: 1200px;
   margin: 0 auto 12px;
   padding: 0 20px;
 }
 
-.sazo-header-nav {
+.sajo-header-nav {
   background: #fff;
   border: 1px solid #ececec;
   border-radius: 12px;
@@ -199,7 +199,7 @@
   gap: 22px;
 }
 
-.sazo-header-nav a {
+.sajo-header-nav a {
   color: #595959;
   text-decoration: none;
   font-size: 14px;
@@ -210,26 +210,26 @@
     border-color 0.2s ease;
 }
 
-.sazo-header-nav a:hover {
+.sajo-header-nav a:hover {
   color: #333;
 }
 
-.sazo-header-nav a.active {
+.sajo-header-nav a.active {
   color: #f04461;
   border-bottom-color: #f04461;
 }
 
 @media (max-width: 900px) {
-  .sazo-header-top {
+  .sajo-header-top {
     flex-wrap: wrap;
   }
 
-  .sazo-search-wrap {
+  .sajo-search-wrap {
     min-width: 100%;
     order: 3;
   }
 
-  .sazo-logo-img {
+  .sajo-logo-img {
     height: 34px;
     max-width: 130px;
   }
