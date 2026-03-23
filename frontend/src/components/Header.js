@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = ({ isLogin, setIsLogin }) => {
@@ -8,9 +8,9 @@ const Header = ({ isLogin, setIsLogin }) => {
 	return (
 		<header className="sajo-header">
 			<div className="sajo-header-top">
-				<a href="/" className="sajo-logo" aria-label="사줘 홈">
+				<Link to="/" className="sajo-logo" aria-label="사줘 홈">
 					<img src={`${process.env.PUBLIC_URL}/logo-sajo.png`} className="sajo-logo-img" decoding="async" />
-				</a>
+				</Link>
 
 				<div className="sajo-search-wrap">
 					<div className="sajo-search-box">
@@ -65,9 +65,9 @@ const Header = ({ isLogin, setIsLogin }) => {
 
 			<div className="sajo-nav-shell">
 				<nav className="sajo-header-nav" aria-label="메인 메뉴">
-					<a href="/">홈</a>
-					<a href="/board">문의게시판</a>
-					<a href="/rakuten">라쿠텐</a>
+					<Link to="/">홈</Link>
+					<Link to="/board">문의게시판</Link>
+					<Link to="/rakuten">라쿠텐</Link>
 				</nav>
 			</div>
 		</header>

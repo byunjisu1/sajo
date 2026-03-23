@@ -15,7 +15,6 @@ const ProductSection = ({ title, products }) => {
                     <div className="rk-product-card" key={index}>
                         <div className="rk-product-img-box">
                             <img src={product.img} alt={product.name} />
-                            {/* 북마크(🔖) 모양의 찜 버튼으로 변경 */}
                             <button className="rk-wish-icon"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="card-bookmark-icon fill-blackopacity-100 hover:fill-blackopacity-200" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg></button>
                         </div>
                         <div className="rk-product-info">

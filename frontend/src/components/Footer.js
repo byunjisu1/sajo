@@ -21,8 +21,8 @@ const Footer = () => {
 	      <div className="sajo-footer-bottom">
 	        <span>SAJO 한국지사 - (주)SMJ</span>
 	        <div className="sajo-policy-links">
-	          <a href="#terms">이용약관</a>
-	          <a href="#privacy">개인정보처리방침</a>
+	          <span>이용약관</span>
+	          <span>개인정보처리방침</span>
 	        </div>
 	      </div>
 	    </footer>

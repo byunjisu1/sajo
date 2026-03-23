@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
 const Cart = () => {
     const [showList, setShowList] = useState(false);
+	const navigate = useNavigate();
 
     return (
         <div className="cart-page">
@@ -11,7 +13,7 @@ const Cart = () => {
                     <h2 className="cart-empty-title">카트에 담긴 상품이 없습니다.</h2>
                     <p className="cart-empty-desc">원하시는 상품을 찾아보세요.</p>
                     <div className="cart-empty-button-group">
-                        <button className="cart-btn-go-shopping" onClick={() => window.location.href = '/'}>
+                        <button className="cart-btn-go-shopping" onClick={() => navigate(`/`)}>
                             <span className="cart-btn-icon">🛍️</span>
                             상품 보러 가기
                         </button>
@@ -87,7 +89,7 @@ const Cart = () => {
                                 <span className="cart-total-price-value">₩78,941</span>
                             </div>
                         </div>
-                        <button className="cart-btn-submit-pay" onClick={() => window.location.href = '/payment'}>
+                        <button className="cart-btn-submit-pay" onClick={() => navigate(`/payment`)}>
                             <span className="cart-btn-icon">💳</span>
                             <span className="cart-btn-text" >결제하기</span>
                         </button>
