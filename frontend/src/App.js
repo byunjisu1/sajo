@@ -22,7 +22,7 @@ function App() {
     <>
 		<Header isLogin={ isLogin } setIsLogin={ setIsLogin }/>
 		<Routes>
-			<Route path="/" element={<Home isLoggin={isLogin}/>}/>
+			<Route path="/" element={<Home isLogin={isLogin}/>}/>
 			<Route path="/likes" element={<Likes/>}/>
 			<Route path="/cart" element={<Cart/>}/>
 			<Route path="/login" element={<Login setIsLogin={setIsLogin}/>}/>
