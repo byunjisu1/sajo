@@ -27,9 +27,9 @@ function App() {
 			<Route path="/boardWrite" element={<BoardWrite/>}/>
 			<Route path="/rakuten" element={<Rakuten/>}/>
 			<Route path="/itemDetail" element={<ItemDetail/>}/>
-			<Route path="/mypage" element={<MyPage/>}/>
+			<Route path="/myPage" element={<MyPage/>}/>
 			<Route path="/address" element={<Address/>}/>
-			<Route path="/memberupdate" element={<MemberUpdate/>}/>
+			<Route path="/memberUpdate" element={<MemberUpdate/>}/>
 		</Routes>
 		<Footer/>
 	</>
