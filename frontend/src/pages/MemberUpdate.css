@@ -81,8 +81,7 @@
 	cursor: pointer;
 	font-size: 15px;
 }
-
-.member-update-sidebar li.active {
+.member-update-sidebar li:hover {
 	color: #333;
 	font-weight: bold;
 }

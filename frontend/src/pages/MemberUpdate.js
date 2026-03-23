@@ -22,7 +22,7 @@ const MemberUpdate = () => {
 					<div className="menu-group">
 						<h3 className="menu-title">쇼핑</h3>
 						<ul>
-							<li onClick={() => navigate('/mypage')} className="active">주문 내역</li>
+							<li onClick={() => navigate('/mypage')}>주문 내역</li>
 						</ul>
 					</div>
 					<div className="menu-group">

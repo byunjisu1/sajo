@@ -78,7 +78,7 @@
 	font-size: 15px;
 }
 
-.address-sidebar li.active {
+.address-sidebar li:hover {
 	color: #333;
 	font-weight: bold;
 }
