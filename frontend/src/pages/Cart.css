@@ -1,0 +1,221 @@
+/* 기본 레이아웃 및 폰트 */
+.cart-page {
+    padding: 50px 20px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+}
+
+/* 1. 상품 리스트 및 주문 개요 컨테이너 */
+.cart-container {
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    gap: 40px;
+}
+
+.cart-left-section { flex: 1.5; }
+.cart-right-section { flex: 0.8; }
+
+/* 2. 빈 장바구니 화면 (상품 보러 가기 / 목록 보이기 버튼 그룹) */
+.cart-empty-content {
+    width: 100%;
+    max-width: 1100px;
+    text-align: left;
+}
+
+.empty-button-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* [개별 스타일] 상품 보러 가기 버튼 */
+.btn-go-shopping {
+    background-color: #E6546A;
+    color: white;
+    padding: 0 35px;
+    height: 56px;
+    border: none;
+    border-radius: 18px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(230, 84, 106, 0.2);
+}
+
+.btn-go-shopping:hover {
+    background-color: #d1475c;
+    transform: translateY(-2px);
+}
+
+/* [개별 스타일] 목록 보이기 버튼 (임시/테스트용) */
+.btn-test-toggle {
+    background-color: #f1f1f1;
+    color: #666;
+    padding: 0 25px;
+    height: 56px;
+    border: 1px solid #ddd;
+    border-radius: 18px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-test-toggle:hover {
+    background-color: #e5e5e5;
+    color: #333;
+}
+
+/* 3. 장바구니 헤더 및 아이템 리스트 */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.custom-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+/* 커스텀 체크박스 */
+input[type="checkbox"] {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background-color: #E6546A;
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    left: 5px;
+    top: 1px;
+}
+
+.btn-delete {
+    background: #f8f8f8;
+    border: 1px solid #eee;
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: #888;
+    cursor: pointer;
+}
+
+/* 상품 아이템 */
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 30px 0;
+    border-bottom: 1px solid #f5f5f5;
+    position: relative;
+}
+
+.item-thumb {
+    width: 100px;
+    height: 100px;
+    margin: 0 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.item-title { font-size: 17px; margin-bottom: 10px; color: #333; }
+.item-price { font-size: 22px; font-weight: 800; }
+
+.btn-close {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    font-size: 24px;
+    color: #ccc;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* 4. 주문 개요 카드 */
+.order-card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.price-info .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.total-row {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-price { font-size: 28px; font-weight: 800; }
+
+/* 5. [개별 스타일] 결제하기 버튼 */
+.btn-submit-pay {
+    width: 100%;
+    background-color: #E6546A;
+    color: white;
+    height: 64px;
+    border: none;
+    border-radius: 20px;
+    font-size: 19px;
+    font-weight: 700;
+    margin-top: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(230, 84, 106, 0.3);
+}
+
+.btn-submit-pay:hover { background-color: #d1475c; }
+.btn-submit-pay:active { transform: scale(0.98); }
+
+.btn-icon {
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+}
+
+/* 기타 유틸리티 */
+.btn-back-link {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 5px 12px;
+    margin-top: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #888;
+}
