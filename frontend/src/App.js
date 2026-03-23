@@ -13,6 +13,7 @@ import ItemDetail from './pages/ItemDetail';
 import MyPage from './pages/MyPage';
 import Address from './pages/Address';
 import MemberUpdate from './pages/MemberUpdate';
+import Payment from './pages/Payment';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
 			<Route path="/myPage" element={<MyPage/>}/>
 			<Route path="/address" element={<Address/>}/>
 			<Route path="/memberUpdate" element={<MemberUpdate/>}/>
+			<Route path="/payment" element={<Payment/>}/>
 		</Routes>
 		<Footer/>
 	</>

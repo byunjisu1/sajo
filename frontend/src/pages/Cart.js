@@ -87,9 +87,9 @@ const Cart = () => {
                                 <span className="cart-total-price-value">₩78,941</span>
                             </div>
                         </div>
-                        <button className="cart-btn-submit-pay">
+                        <button className="cart-btn-submit-pay" onClick={() => window.location.href = '/payment'}>
                             <span className="cart-btn-icon">💳</span>
-                            <span className="cart-btn-text">결제하기</span>
+                            <span className="cart-btn-text" >결제하기</span>
                         </button>
                     </div>
                 </div>
