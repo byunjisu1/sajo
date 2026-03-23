@@ -11,7 +11,7 @@ const Board = () => {
 	        <div className="board-title-row">
 	          <h1 className="board-title">문의게시판</h1>
 	          <div className="board-write-title" aria-hidden="true">
-	            <span className="board-write-pill" onClick={() => navigate('/board/write')}>📝 문의하기</span>
+	            <span className="board-write-pill" onClick={() => navigate('/boardWrite')}>📝 문의하기</span>
 	          </div>
 	        </div>
 

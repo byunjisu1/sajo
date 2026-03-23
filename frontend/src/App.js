@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Board from './pages/Board';
 import BoardWrite from './pages/BoardWrite';
 import Rakuten from './pages/Rakuten';
+import ItemDetail from './pages/ItemDetail';
 
 function App() {
   return (
@@ -20,8 +21,9 @@ function App() {
 			<Route path="/cart" element={<Cart/>}/>
 			<Route path="/login" element={<Login/>}/>
 			<Route path="/board" element={<Board/>}/>
-			<Route path="/board/write" element={<BoardWrite/>}/>
+			<Route path="/boardWrite" element={<BoardWrite/>}/>
 			<Route path="/rakuten" element={<Rakuten/>}/>
+			<Route path="/itemDetail" element={<ItemDetail/>}/>
 		</Routes>
 		<Footer/>
 	</>
