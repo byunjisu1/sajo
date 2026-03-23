@@ -1,9 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-const Login = () => {
+const Login = ({ setIsLogin }) => {
 	const navigate = useNavigate();
-
+	const handleTestLogin = () => {
+		setIsLogin(true);
+		alert("테스트 계정으로 로그인 되었습니다.");
+		navigate("/");
+	};
 	return (
 		<>
 			<div className="login-wrapper">
@@ -19,7 +23,7 @@ const Login = () => {
 					<button className="login-btn google" onClick={() => navigate(`/google`)}>
 						<span className="icon">G</span> 구글로 계속하기
 					</button>
-					<button className="login-btn test" onClick={() => navigate(`/test`)}>
+					<button className="login-btn test" onClick={handleTestLogin}>
 						<span className="icon">T</span> 테스트 로그인버튼
 					</button>
 				</div>

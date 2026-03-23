@@ -21,13 +21,13 @@ const MyPage = () => {
 					<div className="menu-group">
 						<h3 className="menu-title">쇼핑</h3>
 						<ul>
-							<li onClick={() => navigate('/mypage')} className="active">주문 내역</li>
+							<li onClick={() => navigate('/myPage')} className="active">주문 내역</li>
 						</ul>
 					</div>
 					<div className="menu-group">
 						<h3 className="menu-title">설정</h3>
 						<ul>
-							<li onClick={() => navigate(`/memberupdate`)}>회원 정보 수정</li>
+							<li onClick={() => navigate(`/memberUpdate`)}>회원 정보 수정</li>
 							<li onClick={() => navigate(`/address`)}>배송지 관리</li>
 						</ul>
 					</div>

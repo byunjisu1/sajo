@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import React from 'react';
+import React,{ useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -17,14 +17,15 @@ import MemberUpdate from './pages/MemberUpdate';
 import Payment from './pages/Payment';
 
 function App() {
+	const [ isLogin, setIsLogin ] = useState(false);
   return (
     <>
-		<Header/>
+		<Header isLogin={ isLogin } setIsLogin={ setIsLogin }/>
 		<Routes>
-			<Route path="/" element={<Home/>}/>
+			<Route path="/" element={<Home isLoggin={isLogin}/>}/>
 			<Route path="/likes" element={<Likes/>}/>
 			<Route path="/cart" element={<Cart/>}/>
-			<Route path="/login" element={<Login/>}/>
+			<Route path="/login" element={<Login setIsLogin={setIsLogin}/>}/>
 			<Route path="/board" element={<Board/>}/>
 			<Route path="/boardDetail" element={<BoardDetail/>}/>
 			<Route path="/boardWrite" element={<BoardWrite/>}/>
@@ -34,6 +35,7 @@ function App() {
 			<Route path="/address" element={<Address/>}/>
 			<Route path="/memberUpdate" element={<MemberUpdate/>}/>
 			<Route path="/payment" element={<Payment/>}/>
+			<Route path="/test" element={<Home/>}/>
 		</Routes>
 		<Footer/>
 	</>
