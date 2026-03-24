@@ -24,6 +24,7 @@ import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberDto;
 import com.myspringboot.sajo.member.MemberRepository;
 import com.myspringboot.sajo.member.MemberService;
+import com.myspringboot.sajo.member.MemberUpdateDto;
 import com.myspringboot.sajo.order.OrderDetail;
 import com.myspringboot.sajo.order.OrderDetailRepository;
 import com.myspringboot.sajo.order.Orders;
@@ -447,5 +448,20 @@ public class MemberTests {
 	void testMemberHeaderProfile() {
 		MemberDto dto = mSvc.getMemberHeaderProfile(1);
 		System.out.println(dto.getNickname() + " : " + dto.getProfile_img());
+	}
+	/*
+	 * testMemberUpdateProfile : 회원정보 가져오기 
+	 * input : member_no
+	 * output : 해당 member_no의 birth, email, phone, nameKor, nameEng, nickname 가져오기 
+	 */
+	@Test
+	void testMemberUpdateProfile() {
+		//Given
+		int MemberNo = 1;
+		//When
+		MemberUpdateDto dto = mSvc.getMemberUpdateProfile(MemberNo);
+		//Then
+		System.out.println(dto.getBirth() + " : " + "생년월일" + dto.getEmail() + " : " + "이메일");
+		 
 	}
 }

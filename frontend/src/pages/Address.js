@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import './Address.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Address = () => {
+	const [headerProfile, setHeaderProfile] = useState({});
+	const memberNo = sessionStorage.getItem("member_no");
+	const getHeaderProfile=()=>{
+		axios.get(`/sajo/member/${memberNo}`)
+		.then((res)=>{
+			console.log(res.data);
+			setHeaderProfile(res.data);
+		})
+		.catch((err)=>{
+			console.error(err);
+		})	
+	};
+	useEffect(()=>{getHeaderProfile(memberNo)},[]);
 	const navigate = useNavigate();
 	return (
 		<div className="address-container">
 			<header className="address-profile">
 				<div className="address-profile-info">
-					<span className="address-nickname">지수</span>
-					<span className="address-user-name">변지수 님</span>
+					<span className="address-nickname">{headerProfile.profileImg}</span>
+					<span className="address-user-name">{headerProfile.nickname} 님</span>
 					<span className="address-chevron">〉</span>
 				</div>
 			</header>
