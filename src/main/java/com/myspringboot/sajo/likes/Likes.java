@@ -26,13 +26,13 @@ public class Likes {
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
-	private Member likeMemberNo;
+	private Member memberNo;
 	
 	@ManyToOne
 	@JoinColumn(name="item_idx")
 	private Item likeItemIdx;
 	
-	private LocalDateTime like_date;
+	private LocalDateTime likeDate;
 	
 	private int likePrice;
 }

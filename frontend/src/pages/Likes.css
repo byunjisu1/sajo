@@ -22,7 +22,7 @@
   align-items: center;
 }
 
-.Likes-nickname {
+.Likes-profileImg {
   width: 40px;
   height: 40px;
   background-color: indianred;
@@ -36,7 +36,7 @@
   margin-right: 12px;
 }
 
-.Likes-user-name {
+.Likes-nickname {
   font-size: 23px;
   font-weight: 700;
   margin-right: 10px;
@@ -201,6 +201,16 @@
   font-weight: 700;
   font-size: 15px;
   color: #000;
+}
+
+.Likes-wish-icon {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+    background: none;
+    border: none;
+	z-index: 10;
+    cursor: pointer;
 }
 
 .Likes-list {

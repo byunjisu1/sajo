@@ -1,15 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Likes.css';
 
 const Likes = () => {
-	const [ hasLikes, setHasLikes ] = useState(false);
+	const [ headerProfile, setHeaderProfile ] = useState({});
+	const [ wishList, setWishList ] = useState([]);
+	const [sortType, setSortType] = useState("latest");
+	const memberNo = sessionStorage.getItem("member_no");
+	
+	const getHeaderProfile = () => {
+		axios.get(`/sajo/member/${memberNo}`)
+		.then(res => {
+			console.log(res.data);
+			setHeaderProfile(res.data);
+		})
+		.catch(err => {
+			console.error(err);
+		});
+	}
+	
+	const getWishList = (sort) => {
+		console.log("요청하는 정렬 방식:", sort);
+		axios.get(`/sajo/likes/${memberNo}?sort=${sort}`)
+		.then(res => {
+			setWishList(res.data);
+		})
+		.catch(err => {
+			console.error(err);
+		});
+	}
+	
+	const handleSortChange = (e) => {
+		setSortType(e.target.value);
+	}
+	
+	const handleWishChange = () => {
+		alert("삭제");
+	}
+	
+	useEffect(
+		() => {
+			getHeaderProfile();
+			getWishList(sortType);
+		}, [sortType]
+	);
 	
 	return (
 		<div className="Likes-wrapper">
 			<header className="Likes-profile-header">
 			    <div className="Likes-profile-info">
-			      <span className="Likes-nickname">지수</span>
-			      <span className="Likes-user-name">변지수 님</span>
+			      <span className="Likes-profileImg">{headerProfile.profileImg}</span>
+			      <span className="Likes-nickname">{headerProfile.nickname} 님</span>
 			      <span className="Likes-chevron">〉</span>
 			    </div>
 			</header>
@@ -24,8 +65,7 @@ const Likes = () => {
 			
 				<div className="Likes-filter-bar">
 				  <div className="Likes-select-container">
-				  	<button onClick={() => setHasLikes(!hasLikes)}>찜 (현재: {hasLikes ? '찜 있음' : '찜 없음'})</button>
-				    <select className="Likes-sort-select">
+				    <select className="Likes-sort-select" onChange={handleSortChange} value={sortType}>
 				      <option value="latest">최신순</option>
 				      <option value="name">이름순</option>
 				    </select>
@@ -33,22 +73,27 @@ const Likes = () => {
 				  </div>
 				</div>
 			
-			    <div className={hasLikes ? "Likes-grid" : "Likes-list"}>
+			    <div className={wishList.length > 0 ? "Likes-grid" : "Likes-list"}>
 				{
-					hasLikes ?
-					(
-						<div className="Likes-item-card">
+					wishList.length > 0 ?
+					(wishList.map(({itemIdx, itemImg, itemName, itemPrice}) => (
+						<div key={itemIdx} className="Likes-item-card">
 					      <div className="Likes-item-image-wrapper">
-					        <img src="https://shop.r10s.jp/book/cabinet/9001/6942630809001.jpg" alt="상품 이미지" className="Likes-item-image"/>
+					        <img src={itemImg} alt="상품 이미지" className="Likes-item-image"/>
+							<button className="Likes-wish-icon" onClick={handleWishChange}>
+						  		<svg viewBox="0 0 24 24" height="18" width="18" xmlns="http://www.w3.org/2000/svg" fill="#f04461" stroke="#f04461" strokeWidth="1">
+									<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+								</svg>
+						    </button>
 					      </div>
 					      <div className="Likes-item-info">
-					        <p className="Likes-item-title">1/7 “젠리스 존 제로” 키요스미가 마사요 호시미 버전을 교정합니다.(미리 도색된 완성된 피규어) 장난감</p>
+					        <p className="Likes-item-title">{itemName}</p>
 					        <div className="Likes-item-price-row">
-					          <span className="Likes-item-price">￦372,356</span>
+					          <span className="Likes-item-price">￦{itemPrice?.toLocaleString()}</span>
 					        </div>
 					      </div>
 					    </div>	
-					) : (<>
+					))) : (<>
 						<p className="Likes-empty-main">찜한상품이 없습니다</p>
 						<p className="Likes-empty-sub">상품을 찜하기에 추가해보세요!</p>
 					</>)

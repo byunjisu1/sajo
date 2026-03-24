@@ -222,57 +222,6 @@ public class MemberTests {
 	}
 	
 	/**
-	 * testInsertLikes : Likes 테이블 더미데이터 추가
-	 */
-	@Test
-	void testInsertLikes() {
-		Member m = memberRepo.findById(1).get();
-		Item i = itemRepo.findById(1).get();
-		Likes l = new Likes();
-		l.setLikeMemberNo(m);
-		l.setLikeItemIdx(i);
-		l.setLike_date(LocalDateTime.now());
-		l.setLikePrice(30000);
-		likesRepo.save(l);
-		
-		m = memberRepo.findById(1).get();
-		i = itemRepo.findById(2).get();
-		l = new Likes();
-		l.setLikeMemberNo(m);
-		l.setLikeItemIdx(i);
-		l.setLike_date(LocalDateTime.now());
-		l.setLikePrice(23000);
-		likesRepo.save(l);
-		
-		m = memberRepo.findById(2).get();
-		i = itemRepo.findById(3).get();
-		l = new Likes();
-		l.setLikeMemberNo(m);
-		l.setLikeItemIdx(i);
-		l.setLike_date(LocalDateTime.now());
-		l.setLikePrice(230000);
-		likesRepo.save(l);
-		
-		m = memberRepo.findById(2).get();
-		i = itemRepo.findById(5).get();
-		l = new Likes();
-		l.setLikeMemberNo(m);
-		l.setLikeItemIdx(i);
-		l.setLike_date(LocalDateTime.now());
-		l.setLikePrice(250000);
-		likesRepo.save(l);
-		
-		m = memberRepo.findById(3).get();
-		i = itemRepo.findById(1).get();
-		l = new Likes();
-		l.setLikeMemberNo(m);
-		l.setLikeItemIdx(i);
-		l.setLike_date(LocalDateTime.now());
-		l.setLikePrice(30000);
-		likesRepo.save(l);
-	}
-	
-	/**
 	 * testInsertCart : Cart 테이블 더미데이터 추가
 	 */
 	@Test
