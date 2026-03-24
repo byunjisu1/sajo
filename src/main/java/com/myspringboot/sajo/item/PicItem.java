@@ -21,7 +21,7 @@ public class PicItem {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqPic")
 	@SequenceGenerator(name="seqPic", sequenceName="seq_pic_idx", allocationSize=1)
-	private Integer pic_idx;
+	private Integer picIdx;
 	
 	@ManyToOne
 	@JoinColumn(name="member_no")
