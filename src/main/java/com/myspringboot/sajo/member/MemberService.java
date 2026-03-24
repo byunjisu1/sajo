@@ -19,5 +19,18 @@ public class MemberService {
 		
 		return new MemberDto(om.get());
 	}
+	/*
+	 * getMemberUpdateProfile : 회원정보수정 페이지에서 필요한 회원정보 불러오기
+	 * input : memberNo
+	 * output : member테이블의 모든 컬럼 
+	 */
+	public MemberUpdateDto getMemberUpdateProfile(Integer memberNo) {
+		Optional<Member> om = memberRepo.findById(memberNo);
+		if(om.isEmpty()) {
+			return null;
+		}
+		
+		return new MemberUpdateDto(om.get());
+	}
 
 }
