@@ -1,16 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './MyPage.css';
 
 const MyPage = () => {
 	const navigate = useNavigate();
 	const [hasOrder, setHasOrder] = useState(false);
+	const [ headerProfile, setHeaderProfile ] = useState({});
+	const memberNo = sessionStorage.getItem("member_no");
+	
+	const getHeaderProfile = (memberNo) => {
+		axios.get(`/sajo/member/${memberNo}`)
+		.then(res => {
+			console.log(res.data);
+			setHeaderProfile(res.data);
+		})
+		.catch(err => {
+			console.error(err);
+		});
+	}
+	
+	useEffect(
+		() => {
+			getHeaderProfile(memberNo);
+		}, []
+	);
+	
 	return (
 		<div className="mypage-container">
 			<header className="mypage-profile">
 				<div className="mypage-profile-info">
-					<span className="mypage-nickname">지수</span>
-					<span className="mypage-user-name">변지수 님</span>
+					<span className="mypage-nickname">{headerProfile.profileImg}</span>
+					<span className="mypage-user-name">{headerProfile.nickname} 님</span>
 					<span className="mypage-chevron">〉</span>
 				</div>
 			</header>

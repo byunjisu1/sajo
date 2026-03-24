@@ -21,7 +21,9 @@ import com.myspringboot.sajo.likes.LikesRepository;
 import com.myspringboot.sajo.member.Address;
 import com.myspringboot.sajo.member.AddressRepository;
 import com.myspringboot.sajo.member.Member;
+import com.myspringboot.sajo.member.MemberDto;
 import com.myspringboot.sajo.member.MemberRepository;
+import com.myspringboot.sajo.member.MemberService;
 import com.myspringboot.sajo.order.OrderDetail;
 import com.myspringboot.sajo.order.OrderDetailRepository;
 import com.myspringboot.sajo.order.Orders;
@@ -53,6 +55,9 @@ public class MemberTests {
 	private ItemRepository itemRepo;
 	@Autowired
 	private BoardRepository boardRepo;
+	
+	@Autowired
+	private MemberService mSvc;
 	
 	/**
 	 * testInsertMember : Member 테이블 더미데이터 추가
@@ -431,5 +436,16 @@ public class MemberTests {
 		b.setLikeIdx(l);
 		b.setBellTime(LocalDateTime.now());
 		bellRepo.save(b);
+	}
+	
+	/**
+	 * testMemberHeaderProfile : Header Profile 가져오기
+	 * input : member_no
+	 * output : 해당 member_no의 nickname, profile_img
+	 */
+	@Test
+	void testMemberHeaderProfile() {
+		MemberDto dto = mSvc.getMemberHeaderProfile(1);
+		System.out.println(dto.getNickname() + " : " + dto.getProfile_img());
 	}
 }
