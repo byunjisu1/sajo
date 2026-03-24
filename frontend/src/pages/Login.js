@@ -4,6 +4,8 @@ import './Login.css';
 const Login = ({ setIsLogin }) => {
 	const navigate = useNavigate();
 	const handleTestLogin = () => {
+		sessionStorage.setItem("member_no", "1");
+		// const loggedInMemberNo = sessionStorage.getItem("member_no");
 		setIsLogin(true);
 		alert("테스트 계정으로 로그인 되었습니다.");
 		navigate("/");

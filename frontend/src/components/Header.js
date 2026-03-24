@@ -56,7 +56,7 @@ const Header = ({ isLogin, setIsLogin }) => {
 				{isLogin ?
 					(<>
 						<span onClick={() => navigate(`/myPage`)} className="sajo-header-mypage">마이페이지</span>
-						<span className="sajo-header-mypage" onClick={()=> {setIsLogin(false); navigate(`/`)}}>로그아웃</span>
+						<span className="sajo-header-mypage" onClick={()=> {sessionStorage.removeItem("member_no"); setIsLogin(false); navigate(`/`)}}>로그아웃</span>
 					</>
 					)
 					: (<button type="button" className="sajo-login-btn" onClick={() => navigate('/login')}>로그인</button>)

@@ -17,7 +17,10 @@ import MemberUpdate from './pages/MemberUpdate';
 import Payment from './pages/Payment';
 
 function App() {
-	const [ isLogin, setIsLogin ] = useState(false);
+	const [ isLogin, setIsLogin ] = useState(() => {
+		const testUser = sessionStorage.getItem("member_no");
+		return testUser ? true : false;
+	});
   return (
     <>
 		<Header isLogin={ isLogin } setIsLogin={ setIsLogin }/>
