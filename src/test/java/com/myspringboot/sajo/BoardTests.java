@@ -1,17 +1,23 @@
 package com.myspringboot.sajo;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.myspringboot.sajo.board.Board;
 import com.myspringboot.sajo.board.BoardComments;
 import com.myspringboot.sajo.board.BoardCommentsRepository;
 import com.myspringboot.sajo.board.BoardFile;
 import com.myspringboot.sajo.board.BoardFileRepository;
+import com.myspringboot.sajo.board.BoardListDto;
 import com.myspringboot.sajo.board.BoardRepository;
+import com.myspringboot.sajo.board.BoardService;
 import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberRepository;
 
@@ -26,11 +32,14 @@ public class BoardTests {
 	@Autowired 
 	private BoardCommentsRepository boardCommentsRepo;
 	
+	@Autowired
+	private BoardService bSvc;
+	
 	/**
 	 * testInsertBoard : Board 테이블 더미데이터 추가 
 	 */
 	@Test
-	void testInsertBoard() {
+	void testInsertBoardDummy() {
 		Member m = memberRepo.findById(2).get();
 		Board b = new Board();
 		b.setWriter(m);
@@ -79,19 +88,19 @@ public class BoardTests {
 	void testInsertBoardFile() {
 		Board b = boardRepo.findById(1).get();
 		BoardFile bf = new BoardFile();
-		bf.setBoardIdx(b);
+		bf.setBoard(b);
 		bf.setFileUrl("https://www.bing.com/images/search?view=detailV2&ccid=0mhpc8JK&id=0FEF134DAB9D9A0863FA2D735248143C1A027FDA&thid=OIP.0mhpc8JKUMZMWy1IsHZb7AHaHa&mediaurl=https%3a%2f%2fcdn.imweb.me%2fthumbnail%2f20230331%2fe845c29359ca7.jpg&exph=750&expw=750&q=%ec%8b%a0%eb%b0%9c&FORM=IRPRST&ck=379CC4CF19E2875B1A5AABA6ECA63546&selectedIndex=16&itb=0");
 		boardFileRepo.save(bf);
 		
 		b = boardRepo.findById(3).get();
 		bf = new BoardFile();
-		bf.setBoardIdx(b);
+		bf.setBoard(b);
 		bf.setFileUrl("https://www.bing.com/images/search?view=detailV2&ccid=jevhfNdu&id=1D629A3C49343D1AD0DAC289D1D7D2B5BE5DE602&thid=OIP.jevhfNduh_dq0gE_lSIUsgHaHa&mediaurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.8debe17cd76e87f76ad2013f952214b2%3frik%3dAuZdvrXS19GJwg%26riu%3dhttp%253a%252f%252fhallyusuperstore.com%252fcdn%252fshop%252ffiles%252f361362261_1_1759929755_w856.webp%253fv%253d1759933177%26ehk%3dL%252bF3V4417QmkC5RQdKaZjGRkabPK76uJ4p2uI9edGbM%253d%26risl%3d%26pid%3dImgRaw%26r%3d0&exph=856&expw=856&q=%ec%9b%90%ed%95%84+%ed%8f%ac%ed%86%a0%ec%b9%b4%eb%93%9c&FORM=IRPRST&ck=96B00873BAC68ECBD6CFD186D445208E&selectedIndex=4&itb=0");
 		boardFileRepo.save(bf);
 		
 		b = boardRepo.findById(3).get();
 		bf = new BoardFile();
-		bf.setBoardIdx(b);
+		bf.setBoard(b);
 		bf.setFileUrl("https://www.bing.com/images/search?view=detailV2&ccid=Vn0aIyZX&id=4FC790F1B6F7218377436A0C9BB70D840ED613A1&thid=OIP.Vn0aIyZXCW-CjZrENRpt3QHaHa&mediaurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.567d1a232657096f828d9ac4351a6ddd%3frik%3doRPWDoQNt5sMag%26riu%3dhttp%253a%252f%252fwww.funiki.nl%252fcdn%252fshop%252ffiles%252f351956379_1_1756329425_w640.webp%253fv%253d1757600405%26ehk%3dI%252bORPmkh1O3qFZF7DwWux7XW3VpPUm7tze0Ne0P02%252fw%253d%26risl%3d%26pid%3dImgRaw%26r%3d0&exph=640&expw=640&q=%ec%9b%90%ed%95%84+%ed%8f%ac%ed%86%a0%ec%b9%b4%eb%93%9c&FORM=IRPRST&ck=B2067F6EB33B93715F2F5BBACE797691&selectedIndex=9&itb=0");
 		boardFileRepo.save(bf);
 	}
@@ -121,5 +130,56 @@ public class BoardTests {
 		bc.setComments("해당 포토카드는 장 당 1,000원 입니다.");
 		bc.setCommentDate(LocalDateTime.now());
 		boardCommentsRepo.save(bc);
+	}
+	
+	// 문의게시판 목록 불러오기(페이징처리)
+	@Test
+	void testBoardListAll() {
+		// Given
+		int page = 1;
+		
+		// When
+		List<BoardListDto> all = bSvc.getBoardListAll(page);
+		
+		// Then
+		for(BoardListDto b : all) {
+			System.out.println(b.getBoardIdx() + "번 게시글 : " + b.getTitle() + " : " + b.getNickname());
+		}
+	}
+	
+	// 문의게시판 상세보기
+	@Test
+	void testBoardByIdx() {
+		// Given
+		int boardIdx = 1;
+		
+		// When
+		BoardListDto board = bSvc.getBoardByIdx(boardIdx);
+		
+		// Then
+		System.out.println(board.getBoardIdx() + " : " + board.getTitle() + " / " + board.getContent());
+	}
+	
+	// 문의게시판 등록하기
+	@Test
+	void testInsertBoard() {
+		// Given
+		String title = "테스트게시글";
+		String content = "테스트 게시글 입니다.";
+		int writer = 1;
+		
+		MockMultipartFile file1 = new MockMultipartFile(
+	        "files", 
+	        "test_image1.png", 
+	        "image/png", 
+	        "test content 1".getBytes()
+	    );
+		List<MultipartFile> files = Arrays.asList(file1);
+	
+		// When
+		bSvc.write(title, content, writer, files);
+		
+		// Then
+		System.out.println("성공");
 	}
 }

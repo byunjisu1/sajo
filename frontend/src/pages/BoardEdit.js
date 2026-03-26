@@ -1,15 +1,21 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './BoardWrite.css';
+import './BoardEdit.css';
 
-const BoardWrite = () => {
+const BoardEdit = () => {
 	const navigate = useNavigate();
 	const fileInputRef = useRef(null);
+	const { boardIdx } = useParams();
 	const [ selectedFiles, setSelectedFiles ] = useState([]);
 	const [ isSaving, setIsSaving ] = useState(false);
-	const [ board, setBoard ] = useState({title:'', writer:sessionStorage.getItem("member_no"), content:''});
-	const { title, writer, content } = board;
+	const [ board, setBoard ] = useState({boardIdx:{boardIdx}, title:'', content:''});
+	const { title, content } = board;
+	
+	const getBoard = async() => {
+		const resp = await axios.get(`/sajo/board/${boardIdx}`);
+		setBoard(resp.data);
+	};
 	
 	const handleClickUploadButton = () => {
 	    if (!fileInputRef.current) return;
@@ -41,7 +47,6 @@ const BoardWrite = () => {
 		const formData = new FormData();
 		formData.append("title", title);
 		formData.append("content", content);
-		formData.append("writer", writer);
 		
 		if(selectedFiles.length > 0) {
 			selectedFiles.forEach(file => {
@@ -49,9 +54,9 @@ const BoardWrite = () => {
 	        });
 		}
 		
-		axios.post(`/sajo/board/write`, formData)
+		axios.put(`/sajo/board/edit`, formData)
 		.then(() => {
-			alert("등록되었습니다.");
+			alert("수정되었습니다.");
 			navigate(`/board`);
 		})
 		.catch(err => {
@@ -61,36 +66,40 @@ const BoardWrite = () => {
 		.finally(() => {
 			setIsSaving(false);
 		});
-	}
+	};
+	
+	useEffect(() => {
+		getBoard();
+	}, []);
 	
 	return (
-	    <form className="board-write" aria-label="문의 작성" onSubmit={handleSubmit}>
-			<div className="board-write-header">
-	          <h1 className="board-write-header-title">문의 등록</h1>
+	    <form className="board-edit" aria-label="문의 작성" onSubmit={handleSubmit}>
+			<div className="board-edit-header">
+	          <h1 className="board-edit-header-title">문의 수정</h1>
 			</div>
-	      <div className="board-write-group">
-	        <label className="board-write-label" htmlFor="board-title">
+	      <div className="board-edit-group">
+	        <label className="board-edit-label" htmlFor="board-title">
 	          문의 제목 <span className="board-required">*</span>
 	        </label>
-	        <div className="board-write-input-wrap">
-	          <input id="board-title" name="title" value={title} onChange={handleChange} className="board-write-input" type="text" placeholder="제목을 입력해 주세요. (20자 이내)" required />
+	        <div className="board-edit-input-wrap">
+	          <input id="board-title" name="title" value={title} onChange={handleChange} className="board-edit-input" type="text" placeholder="제목을 입력해 주세요. (20자 이내)" required />
 	        </div>
 	      </div>
 
-	      <div className="board-write-group">
-	        <label className="board-write-label" htmlFor="board-content">
+	      <div className="board-edit-group">
+	        <label className="board-edit-label" htmlFor="board-content">
 	          문의 내용 <span className="board-required">*</span>
 	        </label>
-	        <div className="board-write-textarea-wrap">
-	          <textarea id="board-content" name="content" value={content} onChange={handleChange} className="board-write-textarea" required />
+	        <div className="board-edit-textarea-wrap">
+	          <textarea id="board-content" name="content" value={content} onChange={handleChange} className="board-edit-textarea" required />
 	        </div>
 	      </div>
 
-	      <div className="board-write-group">
-	        <span className="board-write-label">파일 첨부</span>
-	        <div className="board-write-file-row">
+	      <div className="board-edit-group">
+	        <span className="board-edit-label">파일 첨부</span>
+	        <div className="board-edit-file-row">
 				<input type="file" ref={fileInputRef} onChange={handleFileChange} multiple hidden/>
-	          <button type="button" className="board-write-file-btn" onClick={handleClickUploadButton}>
+	          <button type="button" className="board-edit-file-btn" onClick={handleClickUploadButton}>
 	            + 파일 첨부
 	          </button>
 	        </div>
@@ -106,14 +115,14 @@ const BoardWrite = () => {
 			        ))}
 			    </ul>
 			)}
-	        <div className="board-write-file-note">
+	        <div className="board-edit-file-note">
 	          <span>첨부파일은 최대 5개까지 등록 가능합니다.</span>
 	        </div>
 	      </div>
 
-	      <button type="submit" className="board-write-submit">문의등록</button>
+	      <button type="submit" className="board-edit-submit">문의수정</button>
 	    </form>
 	  );
 };
 
-export default BoardWrite;
+export default BoardEdit;
