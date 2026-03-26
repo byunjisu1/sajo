@@ -9,6 +9,7 @@ const MemberUpdate = () => {
 	const [ memberProfile, setMemberProfile ] = useState({nickname:'',korName:'',engName:''});
 	const memberNo = sessionStorage.getItem("member_no");
 	const [ isSaving, setIsSaving ] = useState(false);
+	const navigate = useNavigate();
 	
 	const getHeaderProfile=(memberNo)=>{
 		axios.get(`/sajo/member/${memberNo}`)	
@@ -32,7 +33,7 @@ const MemberUpdate = () => {
 		})
 	};
 	
-	const navigate = useNavigate();
+	
 	const handleChange = (e) => {
 		const { name,value } = e.target;
 		setMemberProfile({...memberProfile,[name]:value});

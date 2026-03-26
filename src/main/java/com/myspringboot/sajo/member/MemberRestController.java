@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +26,8 @@ public class MemberRestController {
 	private LikesService lSvc;
 	@Autowired
 	private CartService cartSvc;
-	@Autowired
-	private MemberRepository mRepo;
+	@Autowired 
+	private AddressService addrSvc;
 	
 	@GetMapping("/member/{memberNo}")
 	public MemberDto memberHeaderProfile(@PathVariable("memberNo") Integer memberNo) {
@@ -67,18 +68,18 @@ public class MemberRestController {
 	// 회원정보 수정 
 	@PutMapping("/modify/{memberNo}")
 	public void memberModify(@RequestBody MemberUpdateDto dto,@PathVariable("memberNo") Integer memberNo) {
-		
-		Optional<Member> om = mRepo.findById(memberNo);
-		
-		if(om.isEmpty()) {
-			return;
-		}
-		Member m = om.get();
-		
-		m.setNickname(dto.getNickname());
-		m.setNameKor(dto.getNameKor());
-		m.setNameEng(dto.getNameEng());
-		
-		mRepo.save(m);
+		mSvc.modifyMemberProfile(memberNo, dto);
 	}
+	// 배송지 추가 
+	@PostMapping("/addressInsert/{memberNo}")
+	public Address addNewAddress(@PathVariable("memberNo") Integer memberNo, @RequestBody AddressDto dto) {
+		dto.setAddressMemberNo(memberNo);
+		
+		return addrSvc.insertAddress(dto);
+	}
+	@GetMapping("/getAddressList/{memberNo}")
+	public List<Address> getAddressByMemberNo(@PathVariable("memberNo") Integer memberNo) {
+		return addrSvc.getAddressList(memberNo);
+	}
+	
 }

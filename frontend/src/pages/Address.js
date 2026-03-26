@@ -1,22 +1,87 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Address.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import AddressModal from '../components/AddressModal';
+import AddressDetailModal from '../components/AddressDetailModal';
 
 const Address = () => {
-	const [headerProfile, setHeaderProfile] = useState({});
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+	const [selectedAddr, setSelectedAddr] = useState({ zonecode: '', address: '' }); // 상세주소 입력 전 임시 주소 
+	const [addressList, setAddressList] = useState([]); // 최종 배송지 주소가 담길 state 
+
+	const [ memberProfile, setMemberProfile ] = useState({nameKor:'',phone:''});
+	const [ headerProfile, setHeaderProfile ] = useState({});
+	
 	const memberNo = sessionStorage.getItem("member_no");
-	const getHeaderProfile=()=>{
-		axios.get(`/sajo/member/${memberNo}`)
+
+	const handleAddressData = (data) => {
+		console.log("여기서 첫번째 함수 실행");
+		console.log(data.zonecode);
+		console.log(data.address);
+		setSelectedAddr({ zonecode: data.zonecode, address: data.address });
+		setIsModalOpen(false);
+		setIsDetailModalOpen(true);
+	};
+
+	const handleSaveAddress = (detail) => {
+		console.log("여기서 두번째 함수 실행");
+		
+		const newAddress = {
+			addressMemberNo: memberNo,
+			postCode: selectedAddr.zonecode,
+			address: `${selectedAddr.address}${detail}`
+		};
+		axios.post(`/sajo/addressInsert/${memberNo}`, newAddress)
 		.then((res)=>{
 			console.log(res.data);
-			setHeaderProfile(res.data);
+			setAddressList([...addressList, res.data]);
+			setIsDetailModalOpen(false);
 		})
 		.catch((err)=>{
-			console.error(err);
-		})	
+			console.error("에러!")
+			alert("주소 저장중 에러가 발생했습니다!");
+		});
 	};
-	useEffect(()=>{getHeaderProfile(memberNo)},[]);
+
+	const getHeaderProfile = () => {
+		axios.get(`/sajo/member/${memberNo}`)
+			.then((res) => {
+				console.log(res.data);
+				setHeaderProfile(res.data);
+			})
+			.catch((err) => {
+				console.error(err);
+			})
+	};
+	
+	const getMemberUpdateProfile=(memberNo)=>{
+			axios.get(`/sajo/memberUpdate/${memberNo}`)
+			.then((res)=>{
+				console.log(res.data);
+				setMemberProfile(res.data);
+			})
+			.catch((err)=>{
+				console.error(err);
+			})
+		};
+	useEffect(()=>{getMemberUpdateProfile(memberNo)},[]);
+	useEffect(() => { getHeaderProfile(memberNo) }, []);
+	useEffect(()=>{
+		const getAddressList=()=>{
+			axios.get(`/sajo/getAddressList/${memberNo}`)
+			.then((res)=>{
+				setAddressList(res.data);
+			})
+			.catch((err)=>{
+				console.error("데이터 가져오기 실패",err);
+			});
+		};
+		if(memberNo){ getAddressList(); }  
+	},[memberNo]);
+	
 	const navigate = useNavigate();
 	return (
 		<div className="address-container">
@@ -48,35 +113,53 @@ const Address = () => {
 
 					<div className="address-item">
 						<div className="address-info">
-							<div className="address-header">
-								<span className="address-name">우리집</span>
-								<span className="badge">기본 배송지</span>
-							</div>
-
-							<div className="user-contact">
-								<span className="user-name">배승빈</span>
-								<span className="divider">/</span>
-								<span className="phone">01047056832</span>
-							</div>
-
-							<p className="address-text">
-								(08775) 서울 관악구 문성로 221-5<br />
-								P1900000035232
-							</p>
+							{addressList.length === 0 ? (
+								
+								
+								<div className="empty-address"><p>저장된 주소가 없습니다.</p></div>
+						
+								) : (
+								addressList.map((item) => (
+									<div key={item.addressIdx} className="address-list-container">								
+										<div className="user-contact">
+											<span className="user-name">{memberProfile.nameKor}</span>
+											<span className="divider">/</span>
+											<span className="phone">{memberProfile.phone}</span>
+										</div>
+			
+										<p className="address-text">
+											({item.postCode})<br />
+											{item.address}
+										</p>
+										<div className="address-actions">
+											<button className="btn-outline">삭제</button>
+											<button className="btn-dark">수정</button>
+										</div>
+									</div>))
+							)}	
+						 
 						</div>
 
-						<div className="address-actions">
-							<button className="btn-outline">삭제</button>
-							<button className="btn-dark">수정</button>
-						</div>
+						
 					</div>
 
 					<hr className="section-divider" />
 
 					<div className="add-address-wrapper">
-						<button className="add-address-btn" onClick={() => alert('배송지 추가 클릭!')}>
+						<button className="add-address-btn" onClick={() => setIsModalOpen(true)}>
 							<span className="plus-icon">+</span> 배송지 추가
 						</button>
+
+						<AddressModal
+							isOpen={isModalOpen}
+							onClose={() => setIsModalOpen(false)}
+							onComplete={handleAddressData}
+						/>
+						<AddressDetailModal
+							isOpen={isDetailModalOpen}
+							onClose={() => setIsDetailModalOpen(false)}
+							onSave={handleSaveAddress}
+						/>
 					</div>
 				</div>
 			</div>
