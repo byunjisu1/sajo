@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import React,{ useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Loading from './components/Loading';
 import Home from './pages/Home';
 import Likes from './pages/Likes';
 import Cart from './pages/Cart';
@@ -25,6 +26,7 @@ function App() {
     <>
 		<Header isLogin={ isLogin } setIsLogin={ setIsLogin }/>
 		<Routes>
+			<Route path="/loading" element={<Loading/>}/>
 			<Route path="/" element={<Home isLogin={isLogin}/>}/>
 			<Route path="/likes" element={<Likes/>}/>
 			<Route path="/cart" element={<Cart/>}/>

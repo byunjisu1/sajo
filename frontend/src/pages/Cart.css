@@ -66,6 +66,11 @@
     cursor: pointer;
     flex-shrink: 0;
 }
+.cart-page input[type="checkbox"]:NOT(:checked) {
+	background-color: white;
+	border: 1px solid #ccc;
+}
+
 
 .cart-page input[type="checkbox"]:checked::before {
     content: '✓';

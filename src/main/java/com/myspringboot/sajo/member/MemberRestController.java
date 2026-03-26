@@ -2,18 +2,20 @@ package com.myspringboot.sajo.member;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.myspringboot.sajo.likes.LikesService;
-import com.myspringboot.sajo.likes.WishListDto;
 import com.myspringboot.sajo.cart.CartDto;
 import com.myspringboot.sajo.cart.CartService;
+import com.myspringboot.sajo.likes.LikesService;
+import com.myspringboot.sajo.likes.WishListDto;
 
 @RestController
 public class MemberRestController {
@@ -41,17 +43,19 @@ public class MemberRestController {
 		return list;
 	}
 	
-	//CartList 조회하는 메서드
+	//장바구니 내역 리스트 조회하기
 	@GetMapping("/cart/{memberNo}")
 	public List<CartDto> cartList(@PathVariable("memberNo") Integer memberNo) {
 		List<CartDto> dto = cartSvc.getCartList(memberNo);
-		if(dto.isEmpty()) {
-			System.out.println("장바구니 없음");
-		}else {
-			System.out.println("뭔가 있음");
-		}
 		return dto;
 	}
+	
+	// 장바구니 항목 삭제
+	@DeleteMapping("/cart/{memberNo}/{itemIdx}")
+	public void deleteCartItem(@PathVariable("memberNo") Integer memberNo, @PathVariable("itemIdx") Integer itemIdx) {
+		cartSvc.deleteCartItem(memberNo, itemIdx);
+	}
+	
 	// 회원정보 가져오기 
 	@GetMapping("/memberUpdate/{memberNo}")
 	public MemberUpdateDto memberUpdateProfile(@PathVariable("memberNo") Integer memberNo) {
@@ -59,6 +63,7 @@ public class MemberRestController {
 		
 		return dto;
 	}
+	
 	// 회원정보 수정 
 	@PutMapping("/modify/{memberNo}")
 	public void memberModify(@RequestBody MemberUpdateDto dto,@PathVariable("memberNo") Integer memberNo) {
