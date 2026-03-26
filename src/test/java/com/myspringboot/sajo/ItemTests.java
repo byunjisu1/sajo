@@ -1,11 +1,15 @@
 package com.myspringboot.sajo;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.myspringboot.sajo.item.Item;
+import com.myspringboot.sajo.item.ItemDto;
 import com.myspringboot.sajo.item.ItemRepository;
+import com.myspringboot.sajo.item.ItemService;
 import com.myspringboot.sajo.item.PicItem;
 import com.myspringboot.sajo.item.PicItemRepository;
 import com.myspringboot.sajo.member.Member;
@@ -19,6 +23,8 @@ public class ItemTests {
 	private ItemRepository itemRepo;
 	@Autowired
 	private PicItemRepository picRepo;
+	@Autowired
+	private ItemService ISvc;
 	
 	/**
 	 * testInsertItem : Item 테이블 더미데이터 추가
@@ -115,5 +121,12 @@ public class ItemTests {
 		p.setMemberNo(m);
 		p.setPicItemUrl("sdklfjdjjpg.12355");
 		picRepo.save(p);
+	}
+	@Test
+	void testItemDetail() {
+		Integer ItemIdx = 1;
+		ItemDto dto = ISvc.getItemDetail(ItemIdx);
+		
+		System.out.println(dto.getItemName()+"/"+dto.getItemDetail());
 	}
 }

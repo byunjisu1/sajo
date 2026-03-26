@@ -6,21 +6,9 @@ import './Cart.css';
 const Cart = () => {
 	const navigate = useNavigate();
     const [showList, setShowList] = useState([]);
-	const [ headerProfile, setHeaderProfile ] = useState({});
 	const [checkedItems, setCheckedItems] = useState([]);
 	const memberNo = sessionStorage.getItem("member_no");
 	
-	//로그인 헤더 기능
-	const getHeaderProfile = (memberNo) => {
-		axios.get(`/sajo/member/${memberNo}`)
-		.then(res => {
-			console.log(res.data);
-			setHeaderProfile(res.data);
-		})
-		.catch(err => {
-			console.error(err);
-		});
-	};
 	//장바구니 내역 리스트 조회 기능
 	const getShowList = () => {
 		axios.get(`/sajo/cart/${memberNo}`)
@@ -112,10 +100,13 @@ const Cart = () => {
 	            .catch(err => console.error(err));
 	    }
 	};
-	
+	//상품클릭시 상품상세페이지 이동
+	const clickItem = (itemIdx)=> {
+		navigate(`/itemDetail/${itemIdx}`);
+	};
+		
 	useEffect(() => {
 		if (memberNo) {
-	        getHeaderProfile(memberNo);
 	        getShowList();
 	    } else {
 	        navigate('/login');
@@ -172,10 +163,10 @@ const Cart = () => {
 		                                <div className="cart-item-thumb">
 		                                    <img src={itemImg} alt="상품" />
 		                                </div>
-		                                <div className="cart-item-details">
-		                                    <p className="cart-item-title">{itemName}</p>
-		                                    <p className="cart-item-price">₩{itemPrice?.toLocaleString()}</p>
-		                                </div>
+										<div className="cart-item-details" onClick={() => clickItem(itemIdx)} style={{ cursor: 'pointer' }}>
+										    <p className="cart-item-title">{itemName}</p>
+										    <p className="cart-item-price">₩{itemPrice?.toLocaleString()}</p>
+										</div>
 		                                <button 
 											className="cart-btn-item-close" 
 										    onClick={() => handleDeleteSingle(itemIdx)}

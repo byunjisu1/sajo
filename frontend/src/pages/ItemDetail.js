@@ -1,102 +1,116 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './ItemDetail.css';
 
 const ItemDetail = () => {
-	return (
-	    <main className="item-detail-page" aria-label="상품 상세">
-	      <section className="item-detail-layout">
-	        <div className="item-gallery">
-	          <div className="item-main-image-wrap" aria-label="상품 이미지">
-	            <div className="item-main-image">
-					<img src="https://shop.r10s.jp/book/cabinet/9001/6942630809001.jpg" alt="피규어" />
-	            </div>
+  const navigate = useNavigate();
+  const { itemIdx } = useParams();
+  const [item, setItem] = useState(null); 
 
-	            <div className="item-image-nav">
-	              <button type="button" className="item-image-arrow" aria-label="이전 이미지">
-	                ‹
-	              </button>
-	              <button type="button" className="item-image-arrow" aria-label="다음 이미지">
-	                ›
-	              </button>
-	            </div>
-	          </div>
+  const getList = async () => {
+    try {
+      // 주소창에서 성공했던 경로가 /itemDetail/1 이라면 아래대로,
+      // 만약 /sajo/itemDetail/1 이라면 앞에 /sajo를 붙여주세요.
+      const resp = await axios.get(`/sajo/itemDetail/${itemIdx}`);
+      setItem(resp.data); 
+    } catch (error) {
+      console.error("데이터 로딩 실패:", error);
+    }
+  };
 
-	          <button type="button" className="item-analyze-btn">
-	            가품 분석하기
-	          </button>
-	        </div>
+  useEffect(() => {
+    getList();
+  }, [itemIdx]);
 
-	        <div className="item-summary">
-	          <h1 className="item-title">
-	            1/7 “젠리스 존 제로” 키요스미가 마사요 호시미 버전을 교정합니다.(미리 도색된 완성된 피규어) 장난감
-	          </h1>
-			  <button type="button" className="item-likes-btn">
-  	            <svg className="item-likes-svg" viewBox="0 0 24 24" aria-hidden="true">
-  	              <path d="M19 21l-7-4.6L5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
-  	            </svg>
-  	          </button>
+  // 이 부분 때문에 데이터가 오기 전에는 화면이 바뀌지 않은 것처럼 보일 수 있습니다.
+  if (!item) {
+    return <div className="item-detail-page">상품 정보를 불러오는 중입니다...</div>;
+  }
 
-	          <p className="item-subtitle">1/7 『ゼンレスゾーンゼロ』 星見雅 世を正す清澄 Ver. (塗装済み完成品フィギュア) 玩具</p>
+  return (
+    <main className="item-detail-page" aria-label="상품 상세">
+      <section className="item-detail-layout">
+        {/* 왼쪽: 이미지 갤러리 (itemImg 반영) */}
+        <div className="item-gallery">
+          <div className="item-main-image-wrap" aria-label="상품 이미지">
+            <div className="item-main-image">
+              <img src={item.itemImg} alt={item.itemName} />
+            </div>
 
-	          <div className="item-price-row">
-	            <span className="item-price">￦372,356</span>
-	          </div>
+            <div className="item-image-nav">
+              <button type="button" className="item-image-arrow" aria-label="이전 이미지">‹</button>
+              <button type="button" className="item-image-arrow" aria-label="다음 이미지">›</button>
+            </div>
+          </div>
 
-			  <div className="item-section">
-			    <h2 className="item-section-title">상품 상세 정보</h2>
-			    <p className="item-desc">
-				발매일:2027년 02월경<br/>
-				판매원: APEX TOYS<br/>
-				대응 기종 등: 장난감<br/>
-				JAN:6942630809001
-			    </p>
-			  </div>
-			  
-	          <div className="item-section">
-	            <h2 className="item-section-title">일반 일본상품</h2>
-	            <p className="item-desc">개인별 보안 인증을 위해 배송정보를 확인합니다.</p>
-	          </div>
+          <button type="button" className="item-analyze-btn">
+            가품 분석하기
+          </button>
+        </div>
 
-	          <ul className="item-shipping-list">
-	            <li>일본내 배송 및 현지 이동: 4 ~ 6일</li>
-	            <li>국제배송 및 수령: 6 ~ 8일</li>
-	          </ul>
+        {/* 오른쪽: 상품 정보 요약 (itemName, itemPrice, itemDetail 반영) */}
+        <div className="item-summary">
+          <button type="button" className="item-likes-btn">
+            <svg className="item-likes-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 21l-7-4.6L5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+            </svg>
+          </button>
 
-	          <div className="item-qty-box" aria-label="수량 선택">
-	            <button type="button" className="item-qty-btn" aria-label="수량 감소">
-	              −
-	            </button>
-	            <span className="item-qty-value">1</span>
-	            <button type="button" className="item-qty-btn" aria-label="수량 증가">
-	              +
-	            </button>
-	          </div>
+          <h1 className="item-title">{item.itemName}</h1>
+          <p className="item-subtitle">상품 번호: #{item.itemIdx}</p>
 
-	          <div className="item-total-box">
-	            <div className="item-total-row item-total-row--strong">
-	              <span>총 상품 금액</span>
-	              <strong>₩19,137</strong>
-	            </div>
-	            <div className="item-total-row">
-	              <span>상품 가격</span>
-	              <span>₩19,137</span>
-	            </div>
-	            <div className="item-total-row">
-	              <span>현지 우편비</span>
-	              <span>₩0</span>
-	            </div>
-	          </div>
+          <div className="item-price-row">
+            <span className="item-price">￦{item.itemPrice.toLocaleString()}</span>
+          </div>
 
-	          <button type="button" className="item-cart-btn">
-	            장바구니 담기
-	          </button>
-	          <button type="button" className="item-buy-btn">
-	            바로 구매하기
-	          </button>
-	        </div>
-	      </section>
-	    </main>
-	  );
+          <div className="item-section">
+            <h2 className="item-section-title">상품 상세 정보</h2>
+            {/* itemDetail 필드 출력 */}
+            <p className="item-desc">{item.itemDetail}</p>
+          </div>
+          
+          <div className="item-section">
+            <h2 className="item-section-title">일반 일본상품</h2>
+            <p className="item-desc">개인별 보안 인증을 위해 배송정보를 확인합니다.</p>
+          </div>
+
+          <ul className="item-shipping-list">
+            <li>일본내 배송 및 현지 이동: 4 ~ 6일</li>
+            <li>국제배송 및 수령: 6 ~ 8일</li>
+          </ul>
+
+          <div className="item-qty-box" aria-label="수량 선택">
+            <button type="button" className="item-qty-btn">−</button>
+            <span className="item-qty-value">1</span>
+            <button type="button" className="item-qty-btn">+</button>
+          </div>
+
+          <div className="item-total-box">
+            <div className="item-total-row item-total-row--strong">
+              <span>총 상품 금액</span>
+              <strong>₩{item.itemPrice.toLocaleString()}</strong>
+            </div>
+            <div className="item-total-row">
+              <span>상품 가격</span>
+              <span>₩{item.itemPrice.toLocaleString()}</span>
+            </div>
+            <div className="item-total-row">
+              <span>현지 우편비</span>
+              <span>₩0</span>
+            </div>
+          </div>
+
+          <button type="button" className="item-cart-btn">
+            장바구니 담기
+          </button>
+          <button type="button" className="item-buy-btn">
+            바로 구매하기
+          </button>
+        </div>
+      </section>
+    </main>
+  );
 };
 
 export default ItemDetail;

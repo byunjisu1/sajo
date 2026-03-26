@@ -37,7 +37,7 @@ function App() {
 			<Route path="/boardEdit/:boardIdx" element={<BoardEdit/>}/>
 			<Route path="/boardWrite" element={<BoardWrite/>}/>
 			<Route path="/rakuten" element={<Rakuten/>}/>
-			<Route path="/itemDetail" element={<ItemDetail/>}/>
+			<Route path="/itemDetail/:itemIdx" element={<ItemDetail/>}/>
 			<Route path="/myPage" element={<MyPage/>}/>
 			<Route path="/address" element={<Address/>}/>
 			<Route path="/memberUpdate" element={<MemberUpdate/>}/>
