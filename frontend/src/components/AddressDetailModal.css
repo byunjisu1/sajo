@@ -1,0 +1,87 @@
+/* 1. 모달 전체 배경 (어둡게) */
+.modal-detail-address {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001; /* 주소 검색 모달보다 높거나 같게 */
+}
+
+/* 2. 흰색 컨텐츠 박스 */
+.modal-detail-content {
+  background: white;
+  width: 420px;
+  border-radius: 20px;
+  padding: 25px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 3. 헤더 (X 버튼) */
+.modal-detail-header {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.x-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* 4. 바디 (제목 및 입력창) */
+.modal-detail-body h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #111;
+}
+
+.modal-detail-body div {
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  gap: 8px;
+}
+
+.detail-input {
+  width: 100%;
+  padding: 18px;
+  border: 2px solid #222; /* 사진처럼 굵고 진한 테두리 */
+  border-radius: 12px;
+  font-size: 16px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.modal-detail-body span {
+  font-size: 13px;
+  color: #888;
+  margin-left: 5px;
+}
+
+/* 5. 푸터 (다음 버튼) */
+.modal-detail-footer {
+  margin-top: 30px;
+}
+
+.next-btn {
+  width: 100%;
+  padding: 16px;
+  background-color: #f05a6e; /* 사진의 핑크-레드 톤 */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.next-btn:hover {
+  background-color: #d84b5d; /* 살짝 진하게 */
+}
