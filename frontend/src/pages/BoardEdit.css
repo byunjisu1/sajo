@@ -1,4 +1,4 @@
-.board-write {
+.board-edit {
 	width: 1000px;
 	margin: 50px auto;
   margin-top: 14px;
@@ -6,23 +6,23 @@
   background: #fff;
 }
 
-.board-write-header {
+.board-edit-header {
   flex: 0 0 auto;
   padding: 0 0 8px;
 }
 
-.board-write-header-title {
+.board-edit-header-title {
   font-size: 26px;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #111;
 }
 
-.board-write-group {
+.board-edit-group {
   margin-bottom: 30px;
 }
 
-.board-write-label {
+.board-edit-label {
   display: inline-block;
   margin-bottom: 8px;
   font-size: 13px;
@@ -34,12 +34,12 @@
   color: #ff4b4b;
 }
 
-.board-write-input-wrap,
-.board-write-textarea-wrap {
+.board-edit-input-wrap,
+.board-edit-textarea-wrap {
   position: relative;
 }
 
-.board-write-input {
+.board-edit-input {
   width: 100%;
   height: 38px;
   box-sizing: border-box;
@@ -51,11 +51,11 @@
   background: #fff;
 }
 
-.board-write-input::placeholder {
+.board-edit-input::placeholder {
   color: #9098a5;
 }
 
-.board-write-textarea {
+.board-edit-textarea {
   width: 100%;
   height: 114px;
   box-sizing: border-box;
@@ -66,14 +66,14 @@
   background: #fff;
 }
 
-.board-write-file-row {
+.board-edit-file-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
 }
 
-.board-write-file-btn {
+.board-edit-file-btn {
   height: 34px;
   border: 1px solid #d9dee6;
   background: #fff;
@@ -135,7 +135,7 @@
     color: #cf1322;
 }
 
-.board-write-file-note {
+.board-edit-file-note {
   margin-top: 8px;
   display: flex;
   align-items: center;
@@ -145,15 +145,15 @@
   color: #8a93a3;
 }
 
-.board-write-file-size {
+.board-edit-file-size {
   flex-shrink: 0;
 }
 
-.board-write-file-size strong {
+.board-edit-file-size strong {
   color: #5aa6ff;
 }
 
-.board-write-submit {
+.board-edit-submit {
   width: 100%;
   height: 50px;
   border: none;

@@ -1,5 +1,7 @@
 package com.myspringboot.sajo.board;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +17,6 @@ import lombok.Setter;
 @Setter
 @Entity
 public class BoardFile {
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqBoardFile")
 	@SequenceGenerator(name="seqBoardFile", sequenceName="seq_board_file_idx", allocationSize=1)
@@ -23,11 +24,9 @@ public class BoardFile {
 	
 	@ManyToOne
 	@JoinColumn(name="board_idx")
-	Board boardIdx;
+	@JsonIgnore
+	private Board board;
 	
 	@Column(columnDefinition="VARCHAR2(3000 BYTE)")
 	private String fileUrl;
-	
-	
-	
 }

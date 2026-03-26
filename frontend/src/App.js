@@ -9,6 +9,7 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Board from './pages/Board';
 import BoardDetail from './pages/BoardDetail';
+import BoardEdit from './pages/BoardEdit';
 import BoardWrite from './pages/BoardWrite';
 import Rakuten from './pages/Rakuten';
 import ItemDetail from './pages/ItemDetail';
@@ -32,7 +33,8 @@ function App() {
 			<Route path="/cart" element={<Cart/>}/>
 			<Route path="/login" element={<Login setIsLogin={setIsLogin}/>}/>
 			<Route path="/board" element={<Board/>}/>
-			<Route path="/boardDetail" element={<BoardDetail/>}/>
+			<Route path="/boardDetail/:boardIdx" element={<BoardDetail/>}/>
+			<Route path="/boardEdit/:boardIdx" element={<BoardEdit/>}/>
 			<Route path="/boardWrite" element={<BoardWrite/>}/>
 			<Route path="/rakuten" element={<Rakuten/>}/>
 			<Route path="/itemDetail" element={<ItemDetail/>}/>
