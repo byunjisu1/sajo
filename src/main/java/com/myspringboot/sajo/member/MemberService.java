@@ -32,5 +32,25 @@ public class MemberService {
 		
 		return new MemberUpdateDto(om.get());
 	}
+	/*
+	 * modifyMemberProfile : 회원정보수정 페이지에서 수정하기 
+	 * input : memberNo
+	 * output : member테이블의 모든 컬럼 
+	 */
+	public void modifyMemberProfile(Integer memberNo, MemberUpdateDto dto) {
+
+		Optional<Member> om = memberRepo.findById(memberNo);
+		
+		if(om.isEmpty()) {
+			return;
+		}
+		Member m = om.get();
+		
+		m.setNickname(dto.getNickname());
+		m.setNameKor(dto.getNameKor());
+		m.setNameEng(dto.getNameEng());
+		
+		memberRepo.save(m);
+	}
 
 }
