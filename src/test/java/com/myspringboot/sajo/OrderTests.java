@@ -1,6 +1,7 @@
 package com.myspringboot.sajo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberRepository;
 import com.myspringboot.sajo.order.OrderDetail;
 import com.myspringboot.sajo.order.OrderDetailRepository;
+import com.myspringboot.sajo.order.OrderHistoryDto;
 import com.myspringboot.sajo.order.Orders;
 import com.myspringboot.sajo.order.OrdersRepository;
+import com.myspringboot.sajo.order.OrdersService;
 
 @SpringBootTest
 public class OrderTests {
@@ -25,7 +28,8 @@ public class OrderTests {
 	private OrderDetailRepository oDetailRepo;
 	@Autowired
 	private ItemRepository itemRepo;
-	
+	@Autowired
+	private OrdersService ordersSvc;
 	// Orders 테이블 더미데이터 추가
 	@Test
 	void testInsertOrders() {
@@ -122,5 +126,32 @@ public class OrderTests {
 		od.setQty(3);
 		od.setOrderPrice(75000);
 		oDetailRepo.save(od);
+	}
+	@Test
+	// 주문내역가져오기 Repository 테스트 
+	public void testFindOrderHistory() {
+		//Given
+		int memberNo = 1;
+		//When
+		List<Object[]> list = ordersRepo.findOrderHistory(memberNo);
+		//Then
+		for(Object[] ob : list) {
+			System.out.println("주문날짜 : " + ob[0] + "주문번호 : " + ob[1] );
+			
+		}
+	}
+	@Test
+	// memberNo에 해당하는 주문내역 가져오기 
+	public void testGetOrderHistoryList() {
+		//Given
+		int memberNo = 1;
+		//When
+		List<OrderHistoryDto> orderList = ordersSvc.getOrderList(memberNo);
+		//Then
+		
+		for(OrderHistoryDto dto : orderList) {
+			System.out.println(  "아이템품명 : "+ dto.getItemName() + " 주문날짜 : " + dto.getOrderDate() );
+		}
+		
 	}
 }

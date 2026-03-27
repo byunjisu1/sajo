@@ -1,69 +1,100 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './MemberUpdate.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const MemberUpdate = () => {
-	const [ member, setMember ] = useState({})
-	const [ headerProfile, setHeaderProfile ] = useState({});
-	const [ memberProfile, setMemberProfile ] = useState({nickname:'',korName:'',engName:''});
+	const fileInputRef = useRef(null);
+	const [ profileImage, setProfileImage ] = useState(null);
+	const [ previewImage, setPreviewImage ] = useState(null);
+	const [member, setMember] = useState({})
+	const [headerProfile, setHeaderProfile] = useState({});
+	const [memberProfile, setMemberProfile] = useState({ nickname: '', korName: '', engName: '' });
 	const memberNo = sessionStorage.getItem("member_no");
-	const [ isSaving, setIsSaving ] = useState(false);
+	const [isSaving, setIsSaving] = useState(false);
 	const navigate = useNavigate();
-	
-	const getHeaderProfile=(memberNo)=>{
-		axios.get(`/sajo/member/${memberNo}`)	
-		.then((res)=>{
-			console.log(res.data);
-			setHeaderProfile(res.data);
-		})
-		.catch((err)=>{
-			console.error(err);
-		})
+
+	const getHeaderProfile = (memberNo) => {
+		axios.get(`/sajo/member/${memberNo}`)
+			.then((res) => {
+				console.log(res.data);
+				setHeaderProfile(res.data);
+			})
+			.catch((err) => {
+				console.error(err);
+			})
 	};
-	
-	const getMemberUpdateProfile=(memberNo)=>{
+
+	const getMemberUpdateProfile = (memberNo) => {
 		axios.get(`/sajo/memberUpdate/${memberNo}`)
-		.then((res)=>{
-			console.log(res.data);
-			setMemberProfile(res.data);
-		})
-		.catch((err)=>{
-			console.error(err);
-		})
+			.then((res) => {
+				console.log(res.data);
+				setMemberProfile(res.data);
+			})
+			.catch((err) => {
+				console.error(err);
+			})
 	};
-	
-	
+	const handleFileUpload=(e)=>{
+			const selectedFile = e.target.files[0];
+			if(selectedFile){
+				setProfileImage(selectedFile);
+				console.log("보관함에 저장완료 : " , selectedFile.name);
+				const reader = new FileReader(); // 업로드한 사진 미리보기 객체 (파일읽기도구)
+				reader.onloadend= () => {
+					setPreviewImage(reader.result); 
+				};
+				reader.readAsDataURL(selectedFile);
+			}
+	};
+
 	const handleChange = (e) => {
-		const { name,value } = e.target;
-		setMemberProfile({...memberProfile,[name]:value});
+		const { name, value } = e.target;
+		setMemberProfile({ ...memberProfile, [name]: value });
 	};
-	
-	useEffect(()=>{getHeaderProfile(memberNo)},[]);
-	useEffect(()=>{getMemberUpdateProfile(memberNo)},[]);
-	
-	const handleSubmit=(e)=>{
+
+	useEffect(() => {
+		getHeaderProfile(memberNo)
+		getMemberUpdateProfile(memberNo)
+	}, []);
+
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		if(isSaving) return;
-		setIsSaving(true);
-		axios.put(`/sajo/modify/${memberNo}`, memberProfile)
-		.then(()=>{
-			alert("정상적으로 수정되었습니다!");
-			navigate(`/mypage`)
+		if (isSaving) return;
+		setIsSaving(true);;
+		const formData = new FormData();
+		formData.append("birth", memberProfile.birth);
+		formData.append("email", memberProfile.email);
+		formData.append("nameEng", memberProfile.nameEng);
+		formData.append("nameKor", memberProfile.nameKor);
+		formData.append("nickname", memberProfile.nickname);
+		formData.append("phone", memberProfile.phone);
+		if(profileImage){
+			formData.append("profileImg", profileImage);
+		}		
+		
+		axios.post(`/sajo/modify/${memberNo}`,formData,{
+			headers: {
+				'Content-Type' : 'Multipart/form-data'
+			}
 		})
-		.catch((err)=>{
-			console.error(err);
-		})
-		.finally(()=>{
-			setIsSaving(false);
-		})
+			.then(() => {
+				alert("정상적으로 수정되었습니다!");
+				navigate(`/mypage`)
+			})
+			.catch((err) => {
+				console.error(err);
+			})
+			.finally(() => {
+				setIsSaving(false);
+			})
 	};
 
 	return (
 		<div className="member-update-container">
 			<header className="member-update-profile">
 				<div className="member-update-profile-info">
-					<span className="member-update-nickname">{headerProfile.profileImg}</span>
+					<span className="member-update-profile-image">{headerProfile.profileImg}</span>
 					<span className="member-update-user-name">{headerProfile.nickname} 님</span>
 					<span className="member-update-chevron">〉</span>
 				</div>
@@ -88,10 +119,10 @@ const MemberUpdate = () => {
 					<div className="profile-container">
 						<h2 className="page-title">회원 정보 설정 및 변경</h2>
 
-						<form className="profile-form" onSubmit={handleSubmit}> 
+						<form className="profile-form" onSubmit={handleSubmit}>
 							<div className="form-group">
 								<label>닉네임</label>
-								<input className="nickname-input" type="text" name="nickname"value={memberProfile.nickname} onChange={handleChange} />
+								<input className="nickname-input" type="text" name="nickname" value={memberProfile.nickname} onChange={handleChange} required/>
 							</div>
 
 							<div className="form-group">
@@ -106,12 +137,12 @@ const MemberUpdate = () => {
 
 							<div className="form-group">
 								<label>한국어 성명</label>
-								<input className="kor-input" type="text" name="nameKor" value= {memberProfile.nameKor} onChange={handleChange} />
+								<input className="kor-input" type="text" name="nameKor" value={memberProfile.nameKor} onChange={handleChange} required/>
 							</div>
 
 							<div className="form-group">
 								<label>영문 성명</label>
-								<input className="eng-input" type="text" name="nameEng" placeholder="영문 이름" value={memberProfile.nameEng} onChange={handleChange} />
+								<input className="eng-input" type="text" name="nameEng" placeholder="영문 이름" value={memberProfile.nameEng} onChange={handleChange} required/>
 							</div>
 
 							<div className="form-group">
@@ -128,12 +159,16 @@ const MemberUpdate = () => {
 								<label>프로필 사진</label>
 								<div className="profile-upload-row">
 									<div className="current-avatar">
-										<div className="avatar-placeholder"></div>
+										<div className="avatar-placeholder">
+											{previewImage ? (<img src={previewImage} style={{width:"100%", height:"100%", objectFit:"cover",borderRadius: "8px"}}/>) 
+												: (null)}
+										</div>
 										<button type="button" className="delete-btn">삭제</button>
 									</div>
 									<div className="upload-box">
 										<div className="upload-icon">☁️</div>
-										<p><span className="highlight">클릭하여 업로드</span> 또는 끌어다 놓기</p>
+										<p onClick={()=>fileInputRef.current.click()}><span className="highlight">클릭하여 업로드</span></p>
+										<input type="file" ref={fileInputRef} onChange={handleFileUpload} style={{display:"none"}}/>
 										<p className="sub-text">PNG, JPG 또는 GIF(최대 10MB)</p>
 									</div>
 								</div>

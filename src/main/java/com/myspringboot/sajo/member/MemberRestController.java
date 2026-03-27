@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -72,8 +73,8 @@ public class MemberRestController {
 	}
 	
 	// 회원정보 수정 
-	@PutMapping("/modify/{memberNo}")
-	public void memberModify(@RequestBody MemberUpdateDto dto,@PathVariable("memberNo") Integer memberNo) {
+	@PostMapping("/modify/{memberNo}")
+	public void memberModify(@ModelAttribute MemberUpdateDto dto,@PathVariable("memberNo") Integer memberNo) {
 		mSvc.modifyMemberProfile(memberNo, dto);
 	}
 	// 배송지 추가 
