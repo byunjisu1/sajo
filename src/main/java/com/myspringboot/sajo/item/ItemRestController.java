@@ -12,8 +12,6 @@ public class ItemRestController {
 
 	@GetMapping("/itemDetail/{itemIdx}") 
 	public ItemDto itemDetailList(@PathVariable("itemIdx") Integer itemIdx) {
-		ItemDto dto = ISvc.getItemDetail(itemIdx);
-		System.out.println(dto.getItemName());
 		return ISvc.getItemDetail(itemIdx);
 	}
 	

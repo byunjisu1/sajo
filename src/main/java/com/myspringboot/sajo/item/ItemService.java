@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class ItemService {
 	@Autowired
@@ -22,6 +23,7 @@ public class ItemService {
 		
 		return listItemDto;
 	}
+	
 	//상품 상세보기
 	public ItemDto getItemDetail(Integer ItemIdx) {
 		Optional<Item> item = itemRepo.findById(ItemIdx);
@@ -31,4 +33,5 @@ public class ItemService {
 		
 		return new ItemDto(item.get());
 	}
+	
 }

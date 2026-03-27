@@ -7,6 +7,7 @@ const ItemDetail = () => {
   const navigate = useNavigate();
   const { itemIdx } = useParams();
   const [item, setItem] = useState(null); 
+  const memberNo = sessionStorage.getItem("member_no");
 
   const getList = async () => {
     try {
@@ -17,6 +18,24 @@ const ItemDetail = () => {
     } catch (error) {
       console.error("데이터 로딩 실패:", error);
     }
+  };
+  
+  const addCart = async () => {
+      try {
+          await axios.post(`/sajo/addCart/${memberNo}/${itemIdx}`);
+          
+          if (window.confirm("장바구니에 담겼습니다. 장바구니로 이동할까요?")) {
+              navigate('/cart');
+          }
+      } catch (error) {
+          console.error("장바구니 에러:", error);
+          alert("장바구니 담기에 실패했습니다. 다시 시도해주세요.");
+      }
+  };
+  
+  //일단은 결제페이지로 이동(itemIdx 들고와야되긴함 (가격 이름 이미지))
+  const movePayment = () => {
+	navigate(`/payment`);
   };
 
   useEffect(() => {
@@ -101,10 +120,10 @@ const ItemDetail = () => {
             </div>
           </div>
 
-          <button type="button" className="item-cart-btn">
+          <button type="button" className="item-cart-btn" onClick={addCart}>
             장바구니 담기
           </button>
-          <button type="button" className="item-buy-btn">
+          <button type="button" className="item-buy-btn" onClick={movePayment}>
             바로 구매하기
           </button>
         </div>

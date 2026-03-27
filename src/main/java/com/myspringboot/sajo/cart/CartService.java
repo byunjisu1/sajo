@@ -1,17 +1,25 @@
 package com.myspringboot.sajo.cart;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myspringboot.sajo.item.Item;
+import com.myspringboot.sajo.item.ItemRepository;
+import com.myspringboot.sajo.member.Member;
+import com.myspringboot.sajo.member.MemberRepository;
 
 @Service
 public class CartService {
 	@Autowired
 	private CartRepository cartRepo;
+	@Autowired
+	private MemberRepository memberRepo;
+	@Autowired
+	private ItemRepository itemRepo;
 	
 	// 회원에 따른 장바구니 리스트 조회
 	public List<CartDto> getCartList(Integer memberNo) {
@@ -33,5 +41,22 @@ public class CartService {
 			}
 		}
 		return false;
+	}
+	
+	//장바구니 넣기
+	public void addCart(Integer memberIdx, Integer itemIdx) {
+		Optional<Member> om = memberRepo.findById(memberIdx);
+		Optional<Item> oi = itemRepo.findById(itemIdx);
+		if(om.isEmpty()) {
+			System.out.println("존재하지 않는 회원입니다.");
+		}
+		if(oi.isEmpty()) {
+			System.out.println("존재하지 않는 머시기입니다.");
+		}
+		
+		Cart carts = new Cart();
+		carts.setCartItemIdx(oi.get());
+		carts.setCartMemberNo(om.get());
+		cartRepo.save(carts);
 	}
 }
