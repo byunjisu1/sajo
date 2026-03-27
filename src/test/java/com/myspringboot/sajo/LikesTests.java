@@ -32,7 +32,7 @@ public class LikesTests {
 	
 	// Likes 테이블 더미데이터 추가
 	@Test
-	void testInsertLikes() {
+	void testInsertLikesDummy() {
 		Member m = memberRepo.findById(1).get();
 		Item i = itemRepo.findById(1).get();
 		Likes l = new Likes();
@@ -125,5 +125,39 @@ public class LikesTests {
 		
 		// Then
 		System.out.println("삭제 성공");
+	}
+	
+	// 찜 중복 여부 체크
+	@Test
+	void testExistLikes() {
+		// Given
+		int memberNo = 1;
+		int itemIdx = 3;
+		
+		// When
+		int count = likesRepo.checkExists(memberNo, itemIdx);
+		
+		// Then
+		System.out.println(count);
+		if(count==1) {
+			System.out.println("해당 상품은 이미 찜 등록되어 있습니다.");
+		} else {
+			System.out.println("해당 상품을 새롭게 찜 하겠습니다.");
+		}
+	}
+	
+	// 찜 추가하기
+	@Test
+	@Transactional
+	void testInsertLikes() {
+		// Given
+		int memberNo = 1;
+		int itemIdx = 3;
+		
+		// When
+		lSvc.insertLikes(memberNo, itemIdx);
+		
+		// Then
+		System.out.println("찜 추가 성공");
 	}
 }

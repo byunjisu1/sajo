@@ -22,8 +22,6 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepo;
 	@Autowired
-	private BoardFileRepository boardFileRepo;
-	@Autowired
 	private MemberRepository memberRepo;
 	
 	@Value("${file.upload-dir}")

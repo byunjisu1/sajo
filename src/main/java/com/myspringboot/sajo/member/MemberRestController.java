@@ -76,6 +76,7 @@ public class MemberRestController {
 	public void memberModify(@RequestBody MemberUpdateDto dto,@PathVariable("memberNo") Integer memberNo) {
 		mSvc.modifyMemberProfile(memberNo, dto);
 	}
+	
 	// 배송지 추가 
 	@PostMapping("/addressInsert/{memberNo}")
 	public Address addNewAddress(@PathVariable("memberNo") Integer memberNo, @RequestBody AddressDto dto) {
@@ -83,12 +84,22 @@ public class MemberRestController {
 		
 		return addrSvc.insertAddress(dto);
 	}
+	
+	// 회원번호로 배송지 내역 불러오기
 	@GetMapping("/getAddressList/{memberNo}")
 	public List<Address> getAddressByMemberNo(@PathVariable("memberNo") Integer memberNo) {
 		return addrSvc.getAddressList(memberNo);
 	}
+	
+	// 배송지 삭제
 	@DeleteMapping("/deleteAddress/{addressIdx}")
 	public void deleteAddressByAddressIdx(@PathVariable("addressIdx") Integer addressIdx) {
 		addrSvc.deleteAddressFromAddressIdx(addressIdx);
+	}
+	
+	// 찜 추가
+	@PostMapping("/addLikes/{memberNo}/{itemIdx}")
+	public boolean insertLikes(@PathVariable("memberNo") Integer memberNo, @PathVariable("itemIdx") Integer itemIdx) {
+		return lSvc.insertLikes(memberNo, itemIdx);
 	}
 }

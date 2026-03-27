@@ -48,8 +48,12 @@ const Likes = () => {
 	
 	useEffect(
 		() => {
-			getHeaderProfile();
-			getWishList(sortType);
+			if (memberNo) {
+				getHeaderProfile();
+				getWishList(sortType);
+		    } else {
+		        navigate('/login');
+		    }
 		}, [sortType]
 	);
 	

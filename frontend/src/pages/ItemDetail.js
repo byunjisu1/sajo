@@ -33,6 +33,19 @@ const ItemDetail = () => {
       }
   };
   
+  const addLikes = async() => {
+	await axios.post(`/sajo/addLikes/${memberNo}/${itemIdx}`)
+	.then(res => {
+		if (res.data) { // res.data가 true일 때
+			if (window.confirm("찜 성공! 찜 페이지로 이동할까요?")) {
+              navigate('/likes');
+            }
+		} else {        // res.data가 false일 때
+          alert("이미 찜한 상품입니다.");
+		}
+	});
+  };
+  
   //일단은 결제페이지로 이동(itemIdx 들고와야되긴함 (가격 이름 이미지))
   const movePayment = () => {
 	navigate(`/payment`);
@@ -50,7 +63,6 @@ const ItemDetail = () => {
   return (
     <main className="item-detail-page" aria-label="상품 상세">
       <section className="item-detail-layout">
-        {/* 왼쪽: 이미지 갤러리 (itemImg 반영) */}
         <div className="item-gallery">
           <div className="item-main-image-wrap" aria-label="상품 이미지">
             <div className="item-main-image">
@@ -68,9 +80,8 @@ const ItemDetail = () => {
           </button>
         </div>
 
-        {/* 오른쪽: 상품 정보 요약 (itemName, itemPrice, itemDetail 반영) */}
         <div className="item-summary">
-          <button type="button" className="item-likes-btn">
+          <button type="button" className="item-likes-btn" onClick={addLikes}>
             <svg className="item-likes-svg" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M19 21l-7-4.6L5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
             </svg>
@@ -85,7 +96,6 @@ const ItemDetail = () => {
 
           <div className="item-section">
             <h2 className="item-section-title">상품 상세 정보</h2>
-            {/* itemDetail 필드 출력 */}
             <p className="item-desc">{item.itemDetail}</p>
           </div>
           
