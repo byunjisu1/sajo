@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Likes.css';
 
 const Likes = () => {
+	const navigate = useNavigate();
 	const [ headerProfile, setHeaderProfile ] = useState({});
 	const [ wishList, setWishList ] = useState([]);
 	const [sortType, setSortType] = useState("latest");
@@ -17,7 +19,7 @@ const Likes = () => {
 		.catch(err => {
 			console.error(err);
 		});
-	}
+	};
 	
 	const getWishList = (sort) => {
 		console.log("요청하는 정렬 방식:", sort);
@@ -28,15 +30,21 @@ const Likes = () => {
 		.catch(err => {
 			console.error(err);
 		});
-	}
+	};
 	
 	const handleSortChange = (e) => {
 		setSortType(e.target.value);
-	}
+	};
 	
-	const handleWishChange = () => {
-		alert("삭제");
-	}
+	const handleWishDelete = (likeIdx) => {
+		if(window.confirm("해당 상품의 찜을 삭제하시겠습니까?")) {
+			axios.delete(`/sajo/likes/${likeIdx}`)
+			.then(resp => {
+				alert("삭제되었습니다.");
+				getWishList(sortType);
+			});
+		}
+	};
 	
 	useEffect(
 		() => {
@@ -76,11 +84,11 @@ const Likes = () => {
 			    <div className={wishList.length > 0 ? "Likes-grid" : "Likes-list"}>
 				{
 					wishList.length > 0 ?
-					(wishList.map(({itemIdx, itemImg, itemName, itemPrice}) => (
-						<div key={itemIdx} className="Likes-item-card">
+					(wishList.map(({likeIdx, itemImg, itemName, itemPrice}) => (
+						<div key={likeIdx} className="Likes-item-card">
 					      <div className="Likes-item-image-wrapper">
 					        <img src={itemImg} alt="상품 이미지" className="Likes-item-image"/>
-							<button className="Likes-wish-icon" onClick={handleWishChange}>
+							<button className="Likes-wish-icon" onClick={() => handleWishDelete(likeIdx)}>
 						  		<svg viewBox="0 0 24 24" height="18" width="18" xmlns="http://www.w3.org/2000/svg" fill="#f04461" stroke="#f04461" strokeWidth="1">
 									<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
 								</svg>

@@ -44,6 +44,12 @@ public class MemberRestController {
 		return list;
 	}
 	
+	// 찜 삭제하기
+	@DeleteMapping("/likes/{likeIdx}")
+	public void likesDelete(@PathVariable("likeIdx") Integer likeIdx) {
+		lSvc.deleteLikes(likeIdx);
+	}
+	
 	//장바구니 내역 리스트 조회하기
 	@GetMapping("/cart/{memberNo}")
 	public List<CartDto> cartList(@PathVariable("memberNo") Integer memberNo) {

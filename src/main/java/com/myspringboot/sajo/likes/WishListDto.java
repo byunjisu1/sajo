@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WishListDto {
+	private Integer likeIdx;
 	private Integer memberNo;
 	private Integer itemIdx;
 	private LocalDateTime likeDate;
@@ -20,11 +21,12 @@ public class WishListDto {
 	private String itemImg;
 	
 	public WishListDto(Likes likes) {
+		this.likeIdx = likes.getLikeIdx();
 		this.memberNo = likes.getMemberNo().getMemberNo();
-		this.itemIdx = likes.getLikeItemIdx().getItemIdx();
+		this.itemIdx = likes.getItemIdx().getItemIdx();
 		this.likeDate = likes.getLikeDate();
-		this.itemName = likes.getLikeItemIdx().getItemName();
-		this.itemPrice = likes.getLikeItemIdx().getItemPrice();
-		this.itemImg = likes.getLikeItemIdx().getItemImg();
+		this.itemName = likes.getItemIdx().getItemName();
+		this.itemPrice = likes.getItemIdx().getItemPrice();
+		this.itemImg = likes.getItemIdx().getItemImg();
 	}
 }

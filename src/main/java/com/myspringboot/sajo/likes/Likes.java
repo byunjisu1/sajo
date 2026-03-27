@@ -30,7 +30,7 @@ public class Likes {
 	
 	@ManyToOne
 	@JoinColumn(name="item_idx")
-	private Item likeItemIdx;
+	private Item itemIdx;
 	
 	private LocalDateTime likeDate;
 	

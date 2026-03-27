@@ -17,6 +17,8 @@ import com.myspringboot.sajo.likes.WishListDto;
 import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberRepository;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootTest
 public class LikesTests {
 	@Autowired
@@ -37,7 +39,7 @@ public class LikesTests {
 		Item i = itemRepo.findById(1).get();
 		Likes l = new Likes();
 		l.setMemberNo(m);
-		l.setLikeItemIdx(i);
+		l.setItemIdx(i);
 		l.setLikeDate(LocalDateTime.now());
 		l.setLikePrice(30000);
 		likesRepo.save(l);
@@ -46,7 +48,7 @@ public class LikesTests {
 		i = itemRepo.findById(2).get();
 		l = new Likes();
 		l.setMemberNo(m);
-		l.setLikeItemIdx(i);
+		l.setItemIdx(i);
 		l.setLikeDate(LocalDateTime.now());
 		l.setLikePrice(23000);
 		likesRepo.save(l);
@@ -55,7 +57,7 @@ public class LikesTests {
 		i = itemRepo.findById(3).get();
 		l = new Likes();
 		l.setMemberNo(m);
-		l.setLikeItemIdx(i);
+		l.setItemIdx(i);
 		l.setLikeDate(LocalDateTime.now());
 		l.setLikePrice(230000);
 		likesRepo.save(l);
@@ -64,7 +66,7 @@ public class LikesTests {
 		i = itemRepo.findById(5).get();
 		l = new Likes();
 		l.setMemberNo(m);
-		l.setLikeItemIdx(i);
+		l.setItemIdx(i);
 		l.setLikeDate(LocalDateTime.now());
 		l.setLikePrice(250000);
 		likesRepo.save(l);
@@ -73,7 +75,7 @@ public class LikesTests {
 		i = itemRepo.findById(1).get();
 		l = new Likes();
 		l.setMemberNo(m);
-		l.setLikeItemIdx(i);
+		l.setItemIdx(i);
 		l.setLikeDate(LocalDateTime.now());
 		l.setLikePrice(30000);
 		likesRepo.save(l);
@@ -92,7 +94,7 @@ public class LikesTests {
 		// Then
 		for(Likes like : all) {
 			Integer mNo = like.getMemberNo().getMemberNo();
-			String itemName = like.getLikeItemIdx().getItemName();
+			String itemName = like.getItemIdx().getItemName();
 			System.out.println(mNo + "가 찜한 상품 : " + itemName);
 		}
 	}
@@ -111,5 +113,19 @@ public class LikesTests {
 		for(WishListDto dto : listWishListDto) {
 			System.out.println(dto.getMemberNo() + "가 찜한 상품 : " + dto.getItemName() + ", 가격 : " + dto.getItemPrice());
 		}
+	}
+	
+	// 찜 삭제하기
+	@Test
+	@Transactional
+	void testDeleteLikes() {
+		// Given
+		int likeIdx = 6;
+		
+		// When
+		lSvc.deleteLikes(likeIdx);
+		
+		// Then
+		System.out.println("삭제 성공");
 	}
 }
