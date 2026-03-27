@@ -12,9 +12,9 @@ const Address = () => {
 	const [selectedAddr, setSelectedAddr] = useState({ zonecode: '', address: '' }); // 상세주소 입력 전 임시 주소 
 	const [addressList, setAddressList] = useState([]); // 최종 배송지 주소가 담길 state 
 
-	const [ memberProfile, setMemberProfile ] = useState({nameKor:'',phone:''});
-	const [ headerProfile, setHeaderProfile ] = useState({});
-	
+	const [memberProfile, setMemberProfile] = useState({ nameKor: '', phone: '' });
+	const [headerProfile, setHeaderProfile] = useState({});
+
 	const memberNo = sessionStorage.getItem("member_no");
 
 	const handleAddressData = (data) => {
@@ -28,22 +28,22 @@ const Address = () => {
 
 	const handleSaveAddress = (detail) => {
 		console.log("여기서 두번째 함수 실행");
-		
+
 		const newAddress = {
 			addressMemberNo: memberNo,
 			postCode: selectedAddr.zonecode,
 			address: `${selectedAddr.address}${detail}`
 		};
 		axios.post(`/sajo/addressInsert/${memberNo}`, newAddress)
-		.then((res)=>{
-			console.log(res.data);
-			setAddressList([...addressList, res.data]);
-			setIsDetailModalOpen(false);
-		})
-		.catch((err)=>{
-			console.error("에러!")
-			alert("주소 저장중 에러가 발생했습니다!");
-		});
+			.then((res) => {
+				console.log(res.data);
+				setAddressList([...addressList, res.data]);
+				setIsDetailModalOpen(false);
+			})
+			.catch((err) => {
+				console.error("에러!")
+				alert("주소 저장중 에러가 발생했습니다!");
+			});
 	};
 
 	const getHeaderProfile = () => {
@@ -56,33 +56,48 @@ const Address = () => {
 				console.error(err);
 			})
 	};
-	
-	const getMemberUpdateProfile=(memberNo)=>{
-			axios.get(`/sajo/memberUpdate/${memberNo}`)
-			.then((res)=>{
+
+	const getMemberUpdateProfile = (memberNo) => {
+		axios.get(`/sajo/memberUpdate/${memberNo}`)
+			.then((res) => {
 				console.log(res.data);
 				setMemberProfile(res.data);
 			})
-			.catch((err)=>{
+			.catch((err) => {
 				console.error(err);
 			})
-		};
-	useEffect(()=>{getMemberUpdateProfile(memberNo)},[]);
+	};
+	useEffect(() => { getMemberUpdateProfile(memberNo) }, []);
 	useEffect(() => { getHeaderProfile(memberNo) }, []);
-	useEffect(()=>{
-		const getAddressList=()=>{
+	useEffect(() => {
+		const getAddressList = () => {
 			axios.get(`/sajo/getAddressList/${memberNo}`)
-			.then((res)=>{
-				setAddressList(res.data);
-			})
-			.catch((err)=>{
-				console.error("데이터 가져오기 실패",err);
-			});
+				.then((res) => {
+					setAddressList(res.data);
+				})
+				.catch((err) => {
+					console.error("데이터 가져오기 실패", err);
+				});
 		};
-		if(memberNo){ getAddressList(); }  
-	},[memberNo]);
-	
+		if (memberNo) { getAddressList(); }
+	}, [memberNo]);
+
 	const navigate = useNavigate();
+
+	const deleteAddress = (addressIdx) => {
+		axios.delete(`/sajo/deleteAddress/${addressIdx}`)
+			.then(() => {
+				console.log(addressIdx);
+				alert("배송지를 삭제했습니다!");
+				const updatedList = addressList.filter(item => item.addressIdx !== addressIdx);
+				setAddressList(updatedList);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};
+
+
 	return (
 		<div className="address-container">
 			<header className="address-profile">
@@ -114,33 +129,33 @@ const Address = () => {
 					<div className="address-item">
 						<div className="address-info">
 							{addressList.length === 0 ? (
-								
-								
+
+
 								<div className="empty-address"><p>저장된 주소가 없습니다.</p></div>
-						
-								) : (
+
+							) : (
 								addressList.map((item) => (
-									<div key={item.addressIdx} className="address-list-container">								
+									<div key={item.addressIdx} className="address-list-container">
 										<div className="user-contact">
 											<span className="user-name">{memberProfile.nameKor}</span>
 											<span className="divider">/</span>
 											<span className="phone">{memberProfile.phone}</span>
 										</div>
-			
+
 										<p className="address-text">
 											({item.postCode})<br />
 											{item.address}
 										</p>
 										<div className="address-actions">
-											<button className="btn-outline">삭제</button>
+											<button className="btn-outline" onClick={() => deleteAddress(item.addressIdx)}>삭제</button>
 											<button className="btn-dark">수정</button>
 										</div>
 									</div>))
-							)}	
-						 
+							)}
+
 						</div>
 
-						
+
 					</div>
 
 					<hr className="section-divider" />

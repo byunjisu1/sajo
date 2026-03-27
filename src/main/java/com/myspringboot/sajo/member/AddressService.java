@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AddressService {
+	
 	@Autowired
 	private AddressRepository addrRepo;
 	
@@ -35,9 +37,18 @@ public class AddressService {
 	 * input : memberNo
 	 * output : memberNo에 해당하는 모든 주소록 
 	 */
+	@Transactional
 	public List<Address> getAddressList(Integer memberNo){
 		return addrRepo.findByAddressMemberNo_memberNo(memberNo);
 		
 	}
-	
+	/*
+	 * deleteAddressFromAddressIdx : addressIdx 값으로 배송지 삭제 
+	 * input: addressIdx
+	 * output: 
+	 */
+	@Transactional
+	public void deleteAddressFromAddressIdx(Integer addressIdx) {
+		addrRepo.deleteById(addressIdx);
+	}
 }
