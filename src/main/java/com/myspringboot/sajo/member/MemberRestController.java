@@ -87,5 +87,8 @@ public class MemberRestController {
 	public List<Address> getAddressByMemberNo(@PathVariable("memberNo") Integer memberNo) {
 		return addrSvc.getAddressList(memberNo);
 	}
-	
+	@DeleteMapping("/deleteAddress/{addressIdx}")
+	public void deleteAddressByAddressIdx(@PathVariable("addressIdx") Integer addressIdx) {
+		addrSvc.deleteAddressFromAddressIdx(addressIdx);
+	}
 }

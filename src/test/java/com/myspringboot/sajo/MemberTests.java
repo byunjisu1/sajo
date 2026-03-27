@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myspringboot.sajo.bell.Bell;
 import com.myspringboot.sajo.bell.BellMsg;
@@ -18,8 +19,6 @@ import com.myspringboot.sajo.item.Item;
 import com.myspringboot.sajo.item.ItemRepository;
 import com.myspringboot.sajo.likes.Likes;
 import com.myspringboot.sajo.likes.LikesRepository;
-import com.myspringboot.sajo.member.Address;
-import com.myspringboot.sajo.member.AddressRepository;
 import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberDto;
 import com.myspringboot.sajo.member.MemberRepository;
@@ -36,8 +35,6 @@ import com.myspringboot.sajo.search.SearchRepository;
 public class MemberTests {
 	@Autowired
 	private MemberRepository memberRepo;
-	@Autowired
-	private AddressRepository addressRepo;
 	@Autowired
 	private OrdersRepository ordersRepo;
 	@Autowired
@@ -93,32 +90,6 @@ public class MemberTests {
 		memberRepo.save(m);
 	}
 	
-	/**
-	 * testInsertAddress : Address 테이블 더미데이터 추가
-	 */
-	@Test
-	void testInsertAddress() {
-		Member m = memberRepo.findById(1).get();
-		Address a = new Address();
-		a.setAddressMemberNo(m);
-		a.setAddress("문성로 144번길 아이티아파트 103동 803호");
-		a.setPostCode("14563");
-		addressRepo.save(a);
-		
-		m = memberRepo.findById(2).get();
-		a = new Address();
-		a.setAddressMemberNo(m);
-		a.setAddress("신촌로 51-8 코리아아이티");
-		a.setPostCode("84721");
-		addressRepo.save(a);
-		
-		m = memberRepo.findById(3).get();
-		a = new Address();
-		a.setAddressMemberNo(m);
-		a.setAddress("창천로 88번길 ");
-		a.setPostCode("12345");
-		addressRepo.save(a);
-	}
 	
 	/**
 	 * testInsertOrders : ORDERS 테이블 더미데이터 추가
@@ -389,22 +360,22 @@ public class MemberTests {
 	}
 	
 	/**
-	 * testMemberHeaderProfile : Header Profile 가져오기
-	 * input : member_no
-	 * output : 해당 member_no의 nickname, profile_img
+	 * testMemberHeaderProfile : memberNo에 해당하는 Header Profile 가져오기
 	 */
 	@Test
 	void testMemberHeaderProfile() {
-		MemberDto dto = mSvc.getMemberHeaderProfile(1);
+		//Given
+		int memberNo = 2;
+		//When
+		MemberDto dto = mSvc.getMemberHeaderProfile(memberNo);
+		//Then
 		System.out.println(dto.getNickname() + " : " + dto.getProfile_img());
 	}
 	/*
 	 * testMemberUpdateProfile : 회원정보 가져오기 
-	 * input : member_no
-	 * output : 해당 member_no의 birth, email, phone, nameKor, nameEng, nickname 가져오기 
 	 */
 	@Test
-	void testMemberUpdateProfile() {
+	void testGetMemberUpdateProfile() {
 		//Given
 		int MemberNo = 1;
 		//When
@@ -412,5 +383,20 @@ public class MemberTests {
 		//Then
 		System.out.println(dto.getBirth() + " : " + "생년월일" + dto.getEmail() + " : " + "이메일");
 		 
+	}
+	/*
+	 * testUpdateMemberProfile : memberNo에 해당하는 회원정보수정하기
+	 */
+	@Test
+	@Transactional
+	void testUpdateMemberProfile() {
+		//Given
+		int memberNo = 2;
+		MemberUpdateDto dto = new MemberUpdateDto();
+		dto.setNickname("민재짱");
+		//When
+		mSvc.modifyMemberProfile(memberNo, dto);
+		//Then
+		System.out.println(" 수정된 닉네임 : "+ dto.getNickname());
 	}
 }
