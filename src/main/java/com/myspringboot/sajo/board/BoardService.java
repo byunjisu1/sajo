@@ -22,6 +22,8 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepo;
 	@Autowired
+	private BoardFileRepository boardFileRepo;
+	@Autowired
 	private MemberRepository memberRepo;
 	
 	@Value("${file.upload-dir}")
@@ -97,5 +99,43 @@ public class BoardService {
 	public int getLastPageNumber() {
 		List<Board> listBoard = boardRepo.findAll();
 		return listBoard.size()/8 + (listBoard.size()%8==0 ? 0 : 1);
+	}
+	
+	// 문의게시판 수정
+	@Transactional
+	public void updateBoard(int boardIdx, String title, String content, List<Integer> deleteFiles, List<MultipartFile> files) {
+		System.out.println("삭제 대상 ID들: " + deleteFiles);
+		
+		Optional<Board> ob = boardRepo.findById(boardIdx);
+		if(ob.isEmpty()) return;
+		Board b = ob.get();
+		b.setTitle(title);
+		b.setContent(content);
+		
+		if(deleteFiles != null && !deleteFiles.isEmpty()) {
+			b.getFileList().removeIf(file -> deleteFiles.contains(file.getBoardFileIdx()));
+		}
+		
+		if(files != null && !files.isEmpty()) {
+			for(MultipartFile file : files) {
+				if(!file.isEmpty()) {
+					try {
+						String originalName = file.getOriginalFilename();
+						String saveName = System.currentTimeMillis() + "_" + originalName;
+						
+						file.transferTo(new File(uploadDir, saveName));	// 서버 폴더에 물리적 저장
+						
+						BoardFile bf = new BoardFile();
+						bf.setFileUrl("/upload2/" + saveName);	// 나중에 불러올 경로
+						
+						b.addFile(bf);	// 연관관계 편의 메서드 호출. (b.getFileList().add(bf) + bf.setBoard(b)
+					} catch(IOException e) {
+						throw new RuntimeException("파일 저장 중 오류 발생 : " + file.getOriginalFilename(), e);
+					}
+				}
+			}
+		}
+		
+		boardRepo.save(b);
 	}
 }

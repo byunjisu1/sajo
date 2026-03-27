@@ -7,7 +7,10 @@ const BoardEdit = () => {
 	const navigate = useNavigate();
 	const fileInputRef = useRef(null);
 	const { boardIdx } = useParams();
-	const [ selectedFiles, setSelectedFiles ] = useState([]);
+	const [ selectedFiles, setSelectedFiles ] = useState([]);	// 새로 선택한 파일
+	const [ existingFiles, setExistingFiles ] = useState([]);	// 기존에 있던 파일
+	const [ deleteFiles, setDeleteFiles ] = useState([]);		// 삭제할 파일
+	
 	const [ isSaving, setIsSaving ] = useState(false);
 	const [ board, setBoard ] = useState({boardIdx:{boardIdx}, title:'', content:''});
 	const { title, content } = board;
@@ -15,6 +18,9 @@ const BoardEdit = () => {
 	const getBoard = async() => {
 		const resp = await axios.get(`/sajo/board/${boardIdx}`);
 		setBoard(resp.data);
+		if(resp.data.fileList) {
+			setExistingFiles(resp.data.fileList);
+		}
 	};
 	
 	const handleClickUploadButton = () => {
@@ -23,17 +29,25 @@ const BoardEdit = () => {
 	};
 	
 	const handleFileChange = (e) => {
-		// 선택된 파일들을 배열로 변환해서 상태에 추가 (기존 파일 + 새 파일)
 		const files = Array.from(e.target.files);
 		    
-	    if (selectedFiles.length + files.length > 5) {
+	    if (existingFiles.length + selectedFiles.length + files.length > 5) {
 	        alert("파일은 최대 5개까지 업로드 가능합니다.");
 	        return;
 	    }
 		
 		setSelectedFiles([...selectedFiles, ...files]);
 	};
-	  
+	
+	// 기존 파일 삭제 버튼 클릭 시
+    const handleRemoveExistingFile = (fIdx) => {
+		// 화면에서 해당 ID를 가진 파일만 제외 (함수형 업데이트 사용)
+	    setExistingFiles(prevFiles => prevFiles.filter(f => f.boardFileIdx !== fIdx));
+        // 삭제할 번호 목록에 추가 (나중에 서버에 전달)
+        setDeleteFiles([...deleteFiles, fIdx]);
+		console.log("삭제할 ID 추가됨:", fIdx);
+    };
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setBoard({...board, [name]: value});
@@ -45,8 +59,14 @@ const BoardEdit = () => {
 		setIsSaving(true);
 		
 		const formData = new FormData();
+		formData.append("boardIdx", boardIdx);
 		formData.append("title", title);
 		formData.append("content", content);
+		
+		// 삭제할 파일 번호들을 쉼표로 구분해서 전달
+        if (deleteFiles.length > 0) {
+            formData.append("deleteFiles", deleteFiles.join(','));
+        }
 		
 		if(selectedFiles.length > 0) {
 			selectedFiles.forEach(file => {
@@ -103,10 +123,27 @@ const BoardEdit = () => {
 	            + 파일 첨부
 	          </button>
 	        </div>
-			{selectedFiles.length > 0 && (
+			{/* 파일 리스트 영역: 기존 파일 + 새 파일 모두 표시 */}
+			{(existingFiles.length > 0 || selectedFiles.length > 0) && (
 			    <ul className="file-list">
+			        {/* 1. 서버에서 가져온 기존 파일 목록 */}
+			        {existingFiles.map((file) => (
+			            <li key={`ex-${file.boardFileIdx}`} className="file-item existing-file">
+			                <span className="file-name">
+								{file.fileUrl && file.fileUrl.includes('/') ? 
+					                file.fileUrl.substring(file.fileUrl.lastIndexOf('/') + 1) // '/'의 다음 위치부터 끝까지 자르기
+					                : file.fileUrl // 만약 '/'가 없으면 그냥 출력
+					            }
+							</span>
+			                <button type="button" className="file-remove-btn" onClick={() => handleRemoveExistingFile(file.boardFileIdx)}>
+								✕
+							</button>
+			            </li>
+			        ))}
+
+			        {/* 2. 새로 추가한 파일 목록 */}
 			        {selectedFiles.map((f, i) => (
-			            <li key={i} className="file-item">
+			            <li key={`new-${i}`} className="file-item new-file">
 			                <span className="file-name">{f.name}</span>
 			                <button type="button" className="file-remove-btn" onClick={() => setSelectedFiles(selectedFiles.filter((_, index) => index !== i))}>
 			                    ✕

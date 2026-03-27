@@ -18,14 +18,6 @@ public class BoardRestController {
 	@Autowired
 	private BoardService bSvc;
 	
-	// 게시판 페이지별 목록보기
-//	@GetMapping("/board/list/{pageNum}")
-//	public List<BoardListDto> boardListByPage(@PathVariable("pageNum") Integer pageNum) {
-//		if(pageNum==null) pageNum=1;
-//		List<BoardListDto> boardList = bSvc.getBoardListAll(pageNum);
-//		
-//		return boardList;
-//	}
 	@GetMapping("/board/list/{pageNum}")
 	public Map<String, Object> boardListByPage(@PathVariable("pageNum") Integer pageNum) {
 		if(pageNum==null) pageNum=1;
@@ -37,7 +29,6 @@ public class BoardRestController {
 		mapRet.put("lastPageNumber", lastPageNumber);
 		return mapRet;
 	}
-
 	
 	// 게시판 상세보기
 	@GetMapping("/board/{boardIdx}")
@@ -58,8 +49,11 @@ public class BoardRestController {
 	// 문의게시판 수정
 	@PutMapping("/board/edit")
 	public void boardEdit(
+			@RequestParam("boardIdx") Integer boardIdx,
 			@RequestParam("title") String title, 
-			@RequestParam("content") String content, 
+			@RequestParam("content") String content,
+			@RequestParam(value="deleteFiles", required=false) List<Integer> deleteFiles,
 			@RequestParam(value="files", required=false) List<MultipartFile> files) {
+		bSvc.updateBoard(boardIdx, title, content, deleteFiles, files);
 	}
 }
