@@ -22,9 +22,7 @@ public class PaymentTests {
 	@Autowired
 	private PaymentRepository payRepo;
 	
-	/**
-	 * testInsertPayment : Payment 테이블 더미데이터 추가
-	 */
+	// Payment 테이블 더미데이터 추가
 	@Test
 	void testInsertPayment() {
 		Member m = memberRepo.findById(1).get();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myspringboot.sajo.member.Address;
@@ -12,6 +13,7 @@ import com.myspringboot.sajo.member.AddressService;
 import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberRepository;
 
+@SpringBootTest
 public class AddressTests {
 	@Autowired
 	private AddressRepository addressRepo;
@@ -19,9 +21,8 @@ public class AddressTests {
 	private AddressService addrSvc;
 	@Autowired
 	private MemberRepository memberRepo;
-	/**
-	 * testInsertAddress : Address 테이블 더미데이터 추가
-	 */
+
+	// Address 테이블 더미데이터 추가
 	@Test
 	void testInsertAddress() {
 		Member m = memberRepo.findById(1).get();
@@ -45,9 +46,8 @@ public class AddressTests {
 		a.setPostCode("12345");
 		addressRepo.save(a);
 	}
-	/*
-	 * addressIdx에 해당하는 배송지 삭제 
-	 */
+
+	// addressIdx에 해당하는 배송지 삭제
 	@Test
 	@Transactional
 	void testDeleteAddress() {
@@ -57,9 +57,8 @@ public class AddressTests {
 		addressRepo.deleteById(addressIdx);
 		//Then
 	}
-	/*
-	 *  memberNo로 배송지 불러오기 
-	 */
+	
+	// memberNo로 배송지 불러오기
 	@Test
 	void testGetAddress(){
 		//Given

@@ -30,9 +30,7 @@ public class LikesTests {
 	@Autowired
 	private LikesService lSvc;
 	
-	/**
-	 * testInsertLikes : Likes 테이블 더미데이터 추가
-	 */
+	// Likes 테이블 더미데이터 추가
 	@Test
 	void testInsertLikes() {
 		Member m = memberRepo.findById(1).get();
