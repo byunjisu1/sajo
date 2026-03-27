@@ -1,7 +1,6 @@
 package com.myspringboot.sajo.member;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.myspringboot.sajo.cart.CartDto;
 import com.myspringboot.sajo.cart.CartService;
+import com.myspringboot.sajo.item.Item;
 import com.myspringboot.sajo.likes.LikesService;
 import com.myspringboot.sajo.likes.WishListDto;
 
@@ -44,7 +44,7 @@ public class MemberRestController {
 		return list;
 	}
 	
-	//장바구니 내역 리스트 조회하기
+	// 장바구니 내역 리스트 조회하기
 	@GetMapping("/cart/{memberNo}")
 	public List<CartDto> cartList(@PathVariable("memberNo") Integer memberNo) {
 		List<CartDto> dto = cartSvc.getCartList(memberNo);
@@ -55,6 +55,13 @@ public class MemberRestController {
 	@DeleteMapping("/cart/{memberNo}/{itemIdx}")
 	public void deleteCartItem(@PathVariable("memberNo") Integer memberNo, @PathVariable("itemIdx") Integer itemIdx) {
 		cartSvc.deleteCartItem(memberNo, itemIdx);
+	}
+	
+	// 장바구니 넣기
+	@PostMapping("/addCart/{memberNo}/{itemIdx}")
+	public void addCart(@PathVariable("memberNo") Integer memberNo, @PathVariable("itemIdx") Integer itemIdx) {
+		System.out.println("회원번호: "+ memberNo + "상품번호: " +  itemIdx);
+		cartSvc.addCart(memberNo, itemIdx);
 	}
 	
 	// 회원정보 가져오기 
