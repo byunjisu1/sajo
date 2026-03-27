@@ -2,6 +2,7 @@ package com.myspringboot.sajo.likes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -29,5 +30,13 @@ public class LikesService {
 		}
 		
 		return wishListDto;
+	}
+	
+	// 찜 삭제하기
+	public void deleteLikes(int likeIdx) {
+		Optional<Likes> ol = likesRepo.findById(likeIdx);
+		if(ol.isEmpty()) return;
+		Likes l = ol.get();
+		likesRepo.delete(l);
 	}
 }
