@@ -21,6 +21,8 @@ import com.myspringboot.sajo.board.BoardService;
 import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberRepository;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootTest
 public class BoardTests {
 	@Autowired
@@ -35,9 +37,7 @@ public class BoardTests {
 	@Autowired
 	private BoardService bSvc;
 	
-	/**
-	 * testInsertBoard : Board 테이블 더미데이터 추가 
-	 */
+	// Board 테이블 더미데이터 추가
 	@Test
 	void testInsertBoardDummy() {
 		Member m = memberRepo.findById(2).get();
@@ -81,9 +81,7 @@ public class BoardTests {
 		boardRepo.save(b);
 	}
 	
-	/**
-	 * testInsertBoardFile : BoardFile 테이블에 더미데이터 추가 
-	 */
+	// BoardFile 테이블에 더미데이터 추가
 	@Test
 	void testInsertBoardFile() {
 		Board b = boardRepo.findById(1).get();
@@ -105,9 +103,7 @@ public class BoardTests {
 		boardFileRepo.save(bf);
 	}
 	
-	/**
-	 * testInsertBoardComments : BoardComments 테이블에 더미데이터 추가 
-	 */
+	// BoardComments 테이블에 더미데이터 추가
 	@Test
 	void testInsertBoardComments() {
 		Board b = boardRepo.findById(1).get();
@@ -162,6 +158,7 @@ public class BoardTests {
 	
 	// 문의게시판 등록하기
 	@Test
+	@Transactional
 	void testInsertBoard() {
 		// Given
 		String title = "테스트게시글";
@@ -181,5 +178,20 @@ public class BoardTests {
 		
 		// Then
 		System.out.println("성공");
+	}
+	
+	// 문의게시판 수정하기
+	@Test
+	@Transactional
+	void testUpdateBoard() {
+		// Given
+		int boardIdx = 1;
+		String title = "이 상품 구매하려고 해요";
+		
+		// When
+		bSvc.updateBoard(boardIdx, title, null, null, null);
+		
+		// Then
+		System.out.println("수정 성공");
 	}
 }
