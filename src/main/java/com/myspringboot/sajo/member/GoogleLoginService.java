@@ -16,6 +16,7 @@ public class GoogleLoginService {
         String email = (String) userInfo.get("email");
         String name = (String) userInfo.get("name");
         String picture = (String) userInfo.get("picture");
+        String snsType = (String) userInfo.get("sns_type");
 
         // 이메일로 기존 회원 확인 후 처리
         return memberRepo.findByEmail(email)
@@ -31,7 +32,7 @@ public class GoogleLoginService {
                 newMember.setNickname(name);
                 newMember.setNameKor(name);
                 newMember.setProfileImg(picture);
-                newMember.setSnsType("google");
+                newMember.setSnsType(snsType);
                 newMember.setAccessToken(accessToken);
                 
                 return memberRepo.save(newMember);

@@ -32,6 +32,7 @@ public class GoogleLoginController {
 
             // 2. Access Token으로 구글 유저 정보 받기
             Map<String, Object> userInfo = fetchUserInfo(accessToken);
+            userInfo.put("sns_type", "google");	
 
             // 3. 서비스 호출 (DB 조회/저장 로직은 서비스에서 한 번에 처리)
             Member member = GSvc.processGoogleLogin(userInfo, accessToken);
@@ -73,5 +74,13 @@ public class GoogleLoginController {
 
         ResponseEntity<Map> response = restTemplate.exchange(userInfoUrl, HttpMethod.GET, entity, Map.class);
         return response.getBody();
+    }
+    @GetMapping("/google/url")
+    public ResponseEntity<String> getGoogleAuthUrl() {
+        // 백엔드 .env에 있는 값을 조합해서 URL 생성
+        String url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + CLIENT_ID 
+                   + "&redirect_uri=" + REDIRECT_URI 
+                   + "&response_type=code&scope=email profile";
+        return ResponseEntity.ok(url);
     }
 }

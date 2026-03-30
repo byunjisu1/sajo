@@ -1,11 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Login.css';
 import { KAKAO_AUTH_URL } from '../components/KakaoConfig';
 const Login = ({ setIsLogin }) => {
 	
 	const handleKakaoLogin=()=>{
 		window.location.href = KAKAO_AUTH_URL;	
+	};
+	
+	const handleGoogleLogin = async () => {
+	    const response = await axios.get("/sajo/api/v1/auth/google/url");
+	    window.location.href = response.data; // 받은 주소로 이동
 	};
 	
 	const navigate = useNavigate();
@@ -28,7 +34,7 @@ const Login = ({ setIsLogin }) => {
 						<span className="icon">💬</span> 카카오로 계속하기
 					</button>
 
-					<button className="login-btn google" onClick={() => navigate(`/google`)}>
+					<button className="login-btn google" onClick={handleGoogleLogin}>
 						<span className="icon">G</span> 구글로 계속하기
 					</button>
 					<button className="login-btn test" onClick={handleTestLogin}>
