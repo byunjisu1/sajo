@@ -1,7 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import { KAKAO_AUTH_URL } from '../components/KakaoConfig';
 const Login = ({ setIsLogin }) => {
+	
+	const handleKakaoLogin=()=>{
+		window.location.href = KAKAO_AUTH_URL;	
+	};
+	
 	const navigate = useNavigate();
 	const handleTestLogin = () => {
 		sessionStorage.setItem("member_no", "1");
@@ -18,7 +24,7 @@ const Login = ({ setIsLogin }) => {
 					<p>로그인 방법을 선택하세요</p>
 				</nav>
 				<div className="btn-container">
-					<button className="login-btn kakao" onClick={() => navigate(`/kakao`)}>
+					<button className="login-btn kakao" onClick={handleKakaoLogin}>
 						<span className="icon">💬</span> 카카오로 계속하기
 					</button>
 

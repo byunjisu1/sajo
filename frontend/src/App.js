@@ -17,6 +17,7 @@ import MyPage from './pages/MyPage';
 import Address from './pages/Address';
 import MemberUpdate from './pages/MemberUpdate';
 import Payment from './pages/Payment';
+import KakaoCallBack from './components/KakaoCallBack';
 
 function App() {
 	const [ isLogin, setIsLogin ] = useState(() => {
@@ -43,6 +44,7 @@ function App() {
 			<Route path="/memberUpdate" element={<MemberUpdate/>}/>
 			<Route path="/payment" element={<Payment/>}/>
 			<Route path="/test" element={<Home/>}/>
+			<Route path="/oauth/kakao/callback" element={<KakaoCallBack/>}/>
 		</Routes>
 		<Footer/>
 	</>
