@@ -34,7 +34,7 @@ public class Payment {
 	private Orders orderNo;
 	
 	@Column(columnDefinition="VARCHAR2(100 BYTE)")
-	private String tid;
+	private String impUid;
 	
 	private int amount;
 	

@@ -22,6 +22,7 @@ const Cart = () => {
 			console.error(err);
 		});
 	};
+	
 	// 개별 체크박스 기능
 	const handleSingleCheck = (id) => {
 	    if (checkedItems.includes(id)) {
@@ -32,6 +33,7 @@ const Cart = () => {
 	        setCheckedItems([...checkedItems, id]);
 	    }
 	};
+	
 	//전체 선택 체크박스 기능
 	const handleAllCheck = (checked) => {
 	    if (checked) {
@@ -89,6 +91,7 @@ const Cart = () => {
 	            });
 	    }
 	};
+	
 	//개별 삭제 기능
 	const handleDeleteSingle = (itemIdx) => {
 	    if (window.confirm("이 상품을 삭제하시겠습니까?")) {
@@ -100,6 +103,7 @@ const Cart = () => {
 	            .catch(err => console.error(err));
 	    }
 	};
+	
 	//상품클릭시 상품상세페이지 이동
 	const clickItem = (itemIdx)=> {
 		navigate(`/itemDetail/${itemIdx}`);
@@ -113,6 +117,7 @@ const Cart = () => {
 	    }
 		}, [memberNo]
 	);
+	
     return (
         <div className="cart-page">
             {!showList.length > 0 ? (
@@ -205,11 +210,7 @@ const Cart = () => {
 					            <span className="cart-total-price-value">₩{totalAmount.toLocaleString()}</span>
 					        </div>
 					    </div>
-					    <button 
-					        className="cart-btn-submit-pay" 
-					        onClick={() => navigate(`/payment`, { state: { totalAmount, selectedProducts } })}
-					        disabled={selectedProducts.length === 0} // 아무것도 선택 안 하면 버튼 비활성화
-					    >
+					    <button className="cart-btn-submit-pay" onClick={() => navigate(`/payment`, { state: { totalAmount, selectedProducts } })} disabled={selectedProducts.length === 0} >
 					        <span className="cart-btn-icon">💳</span>
 					        <span className="cart-btn-text">결제하기</span>
 					    </button>

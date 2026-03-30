@@ -1,6 +1,5 @@
 .payment-page {
     padding: 50px 20px;
-    background-color: #fcfcfc;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,7 +28,7 @@
     width: 100%;
     max-width: 1100px;
     gap: 30px;
-    align-items: flex-start; /* Sticky 작동을 위해 필수: 자식 높이를 100%로 만들지 않음 */
+    align-items: flex-start;
 }
 
 .payment-left-section { flex: 1.7; }
@@ -38,7 +37,6 @@
     position: relative; 
 }
 
-/* 섹션 카드 공통 */
 .payment-section-card {
     background: #fff;
     border: 1px solid #f0f0f0;
@@ -47,7 +45,6 @@
     margin-bottom: 25px;
 }
 
-/* 아코디언 헤더 */
 .payment-accordion-header {
     display: flex;
     justify-content: space-between;
@@ -59,7 +56,6 @@
 .payment-arrow { font-size: 18px; color: #ccc; transition: transform 0.2s; }
 .payment-arrow.open { transform: rotate(180deg); } /* 열렸을 때 화살표 회전 */
 
-/* 상품 아이템 리스트 */
 .payment-order-items-list { margin-top: 20px; }
 .payment-product-item {
     display: flex;
@@ -73,7 +69,6 @@
 .payment-item-detail p { font-size: 14px; margin-bottom: 4px; color: #333; line-height: 1.4; }
 .payment-item-sub { color: #888; font-weight: 600; font-size: 13px; }
 
-/* 배송지 빈 박스 */
 .payment-address-empty-box {
     border: 1px solid #eee;
     border-radius: 15px;
@@ -94,7 +89,6 @@
 }
 .payment-btn-black:hover { background: #000; }
 
-/* 결제 수단 안내 박스 (image_2f3686) */
 .payment-alert-box {
     background-color: #fffafa;
     border: 1px solid #ffebeb;
@@ -103,9 +97,9 @@
     margin: 20px 0;
 }
 .payment-alert-title { color: #e74c3c; font-weight: 800; margin-bottom: 5px; }
+
 .payment-escrow-text { font-size: 12px; color: #777; margin-top: 10px; }
 
-/* 결제 수단 옵션 버튼 */
 .payment-method-options { display: flex; gap: 15px; }
 .payment-method-box {
     flex: 1;
@@ -122,6 +116,7 @@
     transition: all 0.2s;
 }
 .payment-method-box.active { border: 2px solid #3498db; background-color: #f0f9ff; }
+
 .payment-select-dot {
     position: absolute;
     top: 10px;
@@ -133,10 +128,9 @@
     border: 2px solid #fff;
 }
 
-/* ★ 오른쪽 Sticky 주문 개요 (쿠폰 관련 제거) ★ */
 .payment-sticky-card {
     position: sticky;
-    top: 30px; /* 스크롤 시 멈추는 상단 여백 */
+    top: 30px;
     background: #fff;
     border: 1px solid #f0f0f0;
     border-radius: 25px;
@@ -173,7 +167,6 @@
     margin-left: 4px;
 }
 
-/* 전체 금액 영역 수정 */
 .payment-total-section {
     display: flex;
     justify-content: space-between;
@@ -183,7 +176,6 @@
 .payment-total-label { font-size: 18px; font-weight: 700; }
 .payment-total-value { font-size: 28px; font-weight: 900; color: #000; }
 
-/* 결제 버튼 (최하단 고정) */
 .payment-submit-button {
     width: 100%;
     background-color: #E6546A;
@@ -203,3 +195,64 @@
     transition: transform 0.1s;
 }
 .payment-submit-button:active { transform: scale(0.98); }
+
+.payment-sticky-card {
+    z-index: 10; /* 너무 높지 않게 설정 */
+}
+
+/* 배송지 목록 컨테이너 */
+.payment-address-list-container {
+    max-height: 300px; /* 배송지가 3개 이상이면 스크롤 발생 시작 */
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.payment-address-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.payment-address-item:last-child {
+	margin-bottom: 0;
+}
+
+.payment-address-item.selected {
+    background-color: #f9f9ff;
+    border: 1px solid #5f5ceb; 
+    border-radius: 6px;
+}
+
+.payment-addr-radio-wrapper {
+    margin-right: 15px;
+    margin-top: 13px;
+}
+
+.payment-addr-radio-wrapper input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #5f5ceb;
+}
+
+.payment-addr-info {
+    flex: 1;
+}
+
+.payment-addr-text {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 3px;
+    line-height: 1.4;
+}
+
+.payment-address-list-container::-webkit-scrollbar {
+    width: 6px;
+}
+.payment-address-list-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
