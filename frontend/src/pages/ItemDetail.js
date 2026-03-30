@@ -20,13 +20,18 @@ const ItemDetail = () => {
     }
   };
   
-  const addCart = async () => {
+  const addCart = async() => {
       try {
-          await axios.post(`/sajo/addCart/${memberNo}/${itemIdx}`);
-          
-          if (window.confirm("장바구니에 담겼습니다. 장바구니로 이동할까요?")) {
-              navigate('/cart');
-          }
+          await axios.post(`/sajo/addCart/${memberNo}/${itemIdx}`)
+		  .then(res => {
+			if(res.data) {
+		          if (window.confirm("장바구니에 담겼습니다. 장바구니로 이동할까요?")) {
+		              navigate('/cart');
+		          }
+			} else {
+				alert("이미 장바구니에 담긴 상품입니다.");
+			}
+		  });
       } catch (error) {
           console.error("장바구니 에러:", error);
           alert("장바구니 담기에 실패했습니다. 다시 시도해주세요.");
@@ -55,7 +60,6 @@ const ItemDetail = () => {
     getList();
   }, [itemIdx]);
 
-  // 이 부분 때문에 데이터가 오기 전에는 화면이 바뀌지 않은 것처럼 보일 수 있습니다.
   if (!item) {
 	return <Loading />;
   }

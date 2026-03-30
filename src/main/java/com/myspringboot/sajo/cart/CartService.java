@@ -44,19 +44,20 @@ public class CartService {
 	}
 	
 	//장바구니 넣기
-	public void addCart(Integer memberIdx, Integer itemIdx) {
-		Optional<Member> om = memberRepo.findById(memberIdx);
-		Optional<Item> oi = itemRepo.findById(itemIdx);
-		if(om.isEmpty()) {
-			System.out.println("존재하지 않는 회원입니다.");
+	public boolean addCart(Integer memberIdx, Integer itemIdx) {
+		int count = cartRepo.checkExists(memberIdx, itemIdx);
+		if(count>0) {
+			return false;
+		} else {
+			Optional<Member> om = memberRepo.findById(memberIdx);
+			Optional<Item> oi = itemRepo.findById(itemIdx);
+			
+			Cart carts = new Cart();
+			carts.setCartItemIdx(oi.get());
+			carts.setCartMemberNo(om.get());
+			
+			cartRepo.save(carts);
+			return true;
 		}
-		if(oi.isEmpty()) {
-			System.out.println("존재하지 않는 머시기입니다.");
-		}
-		
-		Cart carts = new Cart();
-		carts.setCartItemIdx(oi.get());
-		carts.setCartMemberNo(om.get());
-		cartRepo.save(carts);
 	}
 }
