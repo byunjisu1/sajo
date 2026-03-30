@@ -1,15 +1,14 @@
 package com.myspringboot.sajo.member;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +17,8 @@ import com.myspringboot.sajo.cart.CartDto;
 import com.myspringboot.sajo.cart.CartService;
 import com.myspringboot.sajo.likes.LikesService;
 import com.myspringboot.sajo.likes.WishListDto;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class MemberRestController {
@@ -108,5 +109,12 @@ public class MemberRestController {
 	@PostMapping("/addLikes/{memberNo}/{itemIdx}")
 	public boolean insertLikes(@PathVariable("memberNo") Integer memberNo, @PathVariable("itemIdx") Integer itemIdx) {
 		return lSvc.insertLikes(memberNo, itemIdx);
+	}
+	
+	//로그아웃
+	@PostMapping("/logout")
+	public ResponseEntity<?> logout(HttpSession session) {
+	    session.invalidate(); // 서버 세션을 완전히 무효화 (모든 데이터 삭제)
+	    return ResponseEntity.ok("로그아웃 성공");
 	}
 }

@@ -18,6 +18,7 @@ import Address from './pages/Address';
 import MemberUpdate from './pages/MemberUpdate';
 import Payment from './pages/Payment';
 import KakaoCallBack from './components/KakaoCallBack';
+import GoogleCallBack from './components/GoogleCallBack';
 
 function App() {
 	const [ isLogin, setIsLogin ] = useState(() => {
@@ -45,6 +46,7 @@ function App() {
 			<Route path="/payment" element={<Payment/>}/>
 			<Route path="/test" element={<Home/>}/>
 			<Route path="/oauth/kakao/callback" element={<KakaoCallBack/>}/>
+			<Route path="/oauth/google/callback" element={<GoogleCallBack setIsLogin={setIsLogin}/>}/>
 		</Routes>
 		<Footer/>
 	</>
