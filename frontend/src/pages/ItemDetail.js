@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Loading from '../components/Loading';
 import './ItemDetail.css';
 
 const ItemDetail = () => {
@@ -11,8 +12,7 @@ const ItemDetail = () => {
 
   const getList = async () => {
     try {
-      // 주소창에서 성공했던 경로가 /itemDetail/1 이라면 아래대로,
-      // 만약 /sajo/itemDetail/1 이라면 앞에 /sajo를 붙여주세요.
+	  setItem(null);
       const resp = await axios.get(`/sajo/itemDetail/${itemIdx}`);
       setItem(resp.data); 
     } catch (error) {
@@ -57,7 +57,7 @@ const ItemDetail = () => {
 
   // 이 부분 때문에 데이터가 오기 전에는 화면이 바뀌지 않은 것처럼 보일 수 있습니다.
   if (!item) {
-    return <div className="item-detail-page">상품 정보를 불러오는 중입니다...</div>;
+	return <Loading />;
   }
 
   return (

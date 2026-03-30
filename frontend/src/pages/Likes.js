@@ -46,6 +46,10 @@ const Likes = () => {
 		}
 	};
 	
+	const handleClickItem = (itemIdx)=> {
+		navigate(`/itemDetail/${itemIdx}`);
+	};
+	
 	useEffect(
 		() => {
 			if (memberNo) {
@@ -88,8 +92,8 @@ const Likes = () => {
 			    <div className={wishList.length > 0 ? "Likes-grid" : "Likes-list"}>
 				{
 					wishList.length > 0 ?
-					(wishList.map(({likeIdx, itemImg, itemName, itemPrice}) => (
-						<div key={likeIdx} className="Likes-item-card">
+					(wishList.map(({likeIdx, itemIdx, itemImg, itemName, itemPrice}) => (
+						<div key={likeIdx} className="Likes-item-card" onClick={() => handleClickItem(itemIdx)}>
 					      <div className="Likes-item-image-wrapper">
 					        <img src={itemImg} alt="상품 이미지" className="Likes-item-image"/>
 							<button className="Likes-wish-icon" onClick={() => handleWishDelete(likeIdx)}>
