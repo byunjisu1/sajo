@@ -67,9 +67,9 @@ const Address = () => {
 				console.error(err);
 			})
 	};
-	useEffect(() => { getMemberUpdateProfile(memberNo) }, []);
-	useEffect(() => { getHeaderProfile(memberNo) }, []);
 	useEffect(() => {
+		getMemberUpdateProfile(memberNo);
+		getHeaderProfile(memberNo);
 		const getAddressList = () => {
 			axios.get(`/sajo/getAddressList/${memberNo}`)
 				.then((res) => {
@@ -102,7 +102,7 @@ const Address = () => {
 		<div className="address-container">
 			<header className="address-profile">
 				<div className="address-profile-info">
-					<span className="address-nickname">{headerProfile.profileImg}</span>
+					<span className="address-profile-image">{headerProfile.profileImg}</span>
 					<span className="address-user-name">{headerProfile.nickname} 님</span>
 					<span className="address-chevron">〉</span>
 				</div>
@@ -148,14 +148,14 @@ const Address = () => {
 										</p>
 										<div className="address-actions">
 											<button className="btn-outline" onClick={() => deleteAddress(item.addressIdx)}>삭제</button>
-											<button className="btn-dark">수정</button>
+										</div>
+										<div className="address-guide-div">
+											<span className="address-guide-span">주소 수정이 필요하시면 삭제 후 새로 등록해 주세요!</span>
 										</div>
 									</div>))
 							)}
 
 						</div>
-
-
 					</div>
 
 					<hr className="section-divider" />

@@ -34,7 +34,7 @@
 
 
 
-.address-nickname {
+.address-profile-image {
 
 	width: 40px;
 
@@ -417,6 +417,13 @@
 	line-height: 1;
 
 }
-.address-list-container{
+.address-list-container {
 	margin-bottom: 33px;
+}
+.address-guide-div {
+	margin-top: 10px;
+}
+.address-guide-span {
+	font-size: 12px;
+	
 }

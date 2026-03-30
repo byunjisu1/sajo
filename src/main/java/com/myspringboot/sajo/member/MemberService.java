@@ -1,10 +1,12 @@
 package com.myspringboot.sajo.member;
 
-import java.util.List;
+import java.io.File;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class MemberService {
@@ -49,6 +51,19 @@ public class MemberService {
 		m.setNickname(dto.getNickname());
 		m.setNameKor(dto.getNameKor());
 		m.setNameEng(dto.getNameEng());
+		
+		MultipartFile file = dto.getProfileImg(); // 파일 이미지 업로드 객체 
+		if(file!=null && !file.isEmpty()) {
+			String path = "/Users/baeseungbin/sajo_uploads";
+			String savedName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+			
+			try {
+				file.transferTo(new File(path, savedName));
+				m.setProfileImg(savedName);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		memberRepo.save(m);
 	}
