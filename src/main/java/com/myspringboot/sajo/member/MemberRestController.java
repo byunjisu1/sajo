@@ -63,6 +63,13 @@ public class MemberRestController {
 		cartSvc.deleteCartItem(memberNo, itemIdx);
 	}
 	
+	// 장바구니 넣기
+	@PostMapping("/addCart/{memberNo}/{itemIdx}")
+	public void addCart(@PathVariable("memberNo") Integer memberNo, @PathVariable("itemIdx") Integer itemIdx) {
+		System.out.println("회원번호: "+ memberNo + "상품번호: " +  itemIdx);
+		cartSvc.addCart(memberNo, itemIdx);
+	}
+	
 	// 회원정보 가져오기 
 	@GetMapping("/memberUpdate/{memberNo}")
 	public MemberUpdateDto memberUpdateProfile(@PathVariable("memberNo") Integer memberNo) {
