@@ -2,6 +2,8 @@ package com.myspringboot.sajo.member;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +21,8 @@ public class MemberUpdateDto {
 	private String nameKor;
 	private String nickname;
 	private String phone;
-	
-	private MultipartFile profileImg;
+	private String profileImg;
+	private MultipartFile uploadFile;
 	
 	public MemberUpdateDto(Member member) {
 		this.birth = member.getBirth();

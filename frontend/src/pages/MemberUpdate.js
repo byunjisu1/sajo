@@ -5,11 +5,11 @@ import axios from 'axios';
 
 const MemberUpdate = () => {
 	const fileInputRef = useRef(null);
-	const [ profileImage, setProfileImage ] = useState(null);
-	const [ previewImage, setPreviewImage ] = useState(null);
+	const [profileImage, setProfileImage] = useState(null);
+	const [previewImage, setPreviewImage] = useState(null);
 	const [member, setMember] = useState({})
 	const [headerProfile, setHeaderProfile] = useState({});
-	const [memberProfile, setMemberProfile] = useState({ nickname: '', korName: '', engName: '' });
+	const [memberProfile, setMemberProfile] = useState({ nickname: '', korName: '', engName: '' ,profileImg:''});
 	const memberNo = sessionStorage.getItem("member_no");
 	const [isSaving, setIsSaving] = useState(false);
 	const navigate = useNavigate();
@@ -35,17 +35,17 @@ const MemberUpdate = () => {
 				console.error(err);
 			})
 	};
-	const handleFileUpload=(e)=>{
-			const selectedFile = e.target.files[0];
-			if(selectedFile){
-				setProfileImage(selectedFile);
-				console.log("보관함에 저장완료 : " , selectedFile.name);
-				const reader = new FileReader(); // 업로드한 사진 미리보기 객체 (파일읽기도구)
-				reader.onloadend= () => {
-					setPreviewImage(reader.result); 
-				};
-				reader.readAsDataURL(selectedFile);
-			}
+	const handleFileUpload = (e) => {
+		const selectedFile = e.target.files[0];
+		if (selectedFile) {
+			setProfileImage(selectedFile);
+			console.log("보관함에 저장완료 : ", selectedFile.name);
+			const reader = new FileReader(); // 업로드한 사진 미리보기 객체 (파일읽기도구)
+			reader.onloadend = () => {
+				setPreviewImage(reader.result);
+			};
+			reader.readAsDataURL(selectedFile);
+		}
 	};
 
 	const handleChange = (e) => {
@@ -69,13 +69,13 @@ const MemberUpdate = () => {
 		formData.append("nameKor", memberProfile.nameKor);
 		formData.append("nickname", memberProfile.nickname);
 		formData.append("phone", memberProfile.phone);
-		if(profileImage){
-			formData.append("profileImg", profileImage);
-		}		
-		
-		axios.post(`/sajo/modify/${memberNo}`,formData,{
+		if (profileImage) {
+			formData.append("uploadFile", profileImage);
+		}
+
+		axios.post(`/sajo/modify/${memberNo}`, formData, {
 			headers: {
-				'Content-Type' : 'Multipart/form-data'
+				'Content-Type': 'Multipart/form-data'
 			}
 		})
 			.then(() => {
@@ -90,6 +90,7 @@ const MemberUpdate = () => {
 			})
 	};
 
+		console.log("지금 렌더링 중인 이미지 이름:", memberProfile.profile_img);
 	return (
 		<div className="member-update-container">
 			<header className="member-update-profile">
@@ -122,7 +123,7 @@ const MemberUpdate = () => {
 						<form className="profile-form" onSubmit={handleSubmit}>
 							<div className="form-group">
 								<label>닉네임</label>
-								<input className="nickname-input" type="text" name="nickname" value={memberProfile.nickname} onChange={handleChange} required/>
+								<input className="nickname-input" type="text" name="nickname" value={memberProfile.nickname} onChange={handleChange} required />
 							</div>
 
 							<div className="form-group">
@@ -137,12 +138,12 @@ const MemberUpdate = () => {
 
 							<div className="form-group">
 								<label>한국어 성명</label>
-								<input className="kor-input" type="text" name="nameKor" value={memberProfile.nameKor} onChange={handleChange} required/>
+								<input className="kor-input" type="text" name="nameKor" value={memberProfile.nameKor} onChange={handleChange} required />
 							</div>
 
 							<div className="form-group">
 								<label>영문 성명</label>
-								<input className="eng-input" type="text" name="nameEng" placeholder="영문 이름" value={memberProfile.nameEng} onChange={handleChange} required/>
+								<input className="eng-input" type="text" name="nameEng" placeholder="영문 이름" value={memberProfile.nameEng} onChange={handleChange} required />
 							</div>
 
 							<div className="form-group">
@@ -160,15 +161,24 @@ const MemberUpdate = () => {
 								<div className="profile-upload-row">
 									<div className="current-avatar">
 										<div className="avatar-placeholder">
-											{previewImage ? (<img src={previewImage} style={{width:"100%", height:"100%", objectFit:"cover",borderRadius: "8px"}}/>) 
-												: (null)}
+											{previewImage ? (<img src={previewImage} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }} />)
+												: memberProfile.profileImg && memberProfile.profileImg !== 'null' ?
+													(<img
+														src={`http://localhost:9090/uploads/${memberProfile.profileImg}`}
+														style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
+														alt="프로필"
+														// 혹시 서버에 사진 파일이 없을 때를 대비한 엑박 방지
+														onError={(e) => { e.target.src = "/images/default-profile.png"; }}
+													/>) : (<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+														사진없음 
+													</div>)}
 										</div>
 										<button type="button" className="delete-btn">삭제</button>
 									</div>
 									<div className="upload-box">
 										<div className="upload-icon">☁️</div>
-										<p onClick={()=>fileInputRef.current.click()}><span className="highlight">클릭하여 업로드</span></p>
-										<input type="file" ref={fileInputRef} onChange={handleFileUpload} style={{display:"none"}}/>
+										<p onClick={() => fileInputRef.current.click()}><span className="highlight">클릭하여 업로드</span></p>
+										<input type="file" ref={fileInputRef} onChange={handleFileUpload} style={{ display: "none" }} />
 										<p className="sub-text">PNG, JPG 또는 GIF(최대 10MB)</p>
 									</div>
 								</div>
