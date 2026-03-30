@@ -9,7 +9,7 @@ const MemberUpdate = () => {
 	const [previewImage, setPreviewImage] = useState(null);
 	const [member, setMember] = useState({})
 	const [headerProfile, setHeaderProfile] = useState({});
-	const [memberProfile, setMemberProfile] = useState({ nickname: '', korName: '', engName: '' ,profileImg:''});
+	const [memberProfile, setMemberProfile] = useState({ nickname: '', korName: '', engName: '', profileImg: '' });
 	const memberNo = sessionStorage.getItem("member_no");
 	const [isSaving, setIsSaving] = useState(false);
 	const navigate = useNavigate();
@@ -17,7 +17,7 @@ const MemberUpdate = () => {
 	const getHeaderProfile = (memberNo) => {
 		axios.get(`/sajo/member/${memberNo}`)
 			.then((res) => {
-				console.log(res.data);
+				console.log("겟헤더프로필에서 : ", res.data);
 				setHeaderProfile(res.data);
 			})
 			.catch((err) => {
@@ -28,7 +28,7 @@ const MemberUpdate = () => {
 	const getMemberUpdateProfile = (memberNo) => {
 		axios.get(`/sajo/memberUpdate/${memberNo}`)
 			.then((res) => {
-				console.log(res.data);
+				console.log("멤버업데이트프로필 : ", res.data);
 				setMemberProfile(res.data);
 			})
 			.catch((err) => {
@@ -90,12 +90,18 @@ const MemberUpdate = () => {
 			})
 	};
 
-		console.log("지금 렌더링 중인 이미지 이름:", memberProfile.profile_img);
 	return (
 		<div className="member-update-container">
 			<header className="member-update-profile">
 				<div className="member-update-profile-info">
-					<span className="member-update-profile-image">{headerProfile.profileImg}</span>
+					<span className="member-update-profile-image">
+						{headerProfile.profileImg ? (<img
+						src={`http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+						style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
+					/>) : (null)
+							
+						}
+					</span>
 					<span className="member-update-user-name">{headerProfile.nickname} 님</span>
 					<span className="member-update-chevron">〉</span>
 				</div>
@@ -162,15 +168,14 @@ const MemberUpdate = () => {
 									<div className="current-avatar">
 										<div className="avatar-placeholder">
 											{previewImage ? (<img src={previewImage} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }} />)
-												: memberProfile.profileImg && memberProfile.profileImg !== 'null' ?
+												: (memberProfile.profileImg && memberProfile.profileImg !== 'null') ?
 													(<img
-														src={`http://localhost:9090/uploads/${memberProfile.profileImg}`}
+														src={`http://localhost:9090/sajo/uploads/${memberProfile.profileImg}`}
 														style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 														alt="프로필"
-														// 혹시 서버에 사진 파일이 없을 때를 대비한 엑박 방지
-														onError={(e) => { e.target.src = "/images/default-profile.png"; }}
+													// 혹시 서버에 사진 파일이 없을 때를 대비한 엑박 방지
 													/>) : (<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-														사진없음 
+														사진없음
 													</div>)}
 										</div>
 										<button type="button" className="delete-btn">삭제</button>

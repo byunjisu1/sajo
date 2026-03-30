@@ -11,10 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MemberDto {
 	private String nickname;
-	private String profile_img;
+	private String profileImg;
 	
 	public MemberDto(Member member) {
 		this.nickname = member.getNickname();
-		this.profile_img = member.getProfileImg();
+		this.profileImg = member.getProfileImg();
 	}
 }

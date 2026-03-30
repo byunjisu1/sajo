@@ -41,7 +41,14 @@ const MyPage = () => {
 		<div className="mypage-container">
 			<header className="mypage-profile">
 				<div className="mypage-profile-info">
-					<span className="mypage-profile-image">{headerProfile.profileImg}</span>
+					<span className="mypage-profile-image">
+						{headerProfile.profileImg ? (<img
+							src={`http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+							style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
+						/>) : (null)
+
+						}
+					</span>
 					<span className="mypage-user-name">{headerProfile.nickname} 님</span>
 					<span className="mypage-chevron">〉</span>
 				</div>
@@ -76,25 +83,25 @@ const MyPage = () => {
 							</div>
 						</div>
 					) : (
-							orderList.map((item) => (
-								<div className="order-item" key={item.orderNo}>
-									<div className="order-info">
-										<span className="order-date">{item.orderDate.substring(0,11)}</span>
-										<span className="order-id">{item.orderNo}</span>
-									</div>
+						orderList.map((item) => (
+							<div className="order-item" key={item.orderNo}>
+								<div className="order-info">
+									<span className="order-date">{item.orderDate.substring(0, 11)}</span>
+									<span className="order-id">{item.orderNo}</span>
+								</div>
 
-									<div className="order-card">
-										<p className="order-status">{item.orderStatus === 'order_complete' ? '📦 배송완료' : '⏳ 결제대기'}📦</p>
-										<div className="item-img-div">
-											<img src={item.itemImg} className="item-img" />
-										</div>
-										<div className="product-details">
-											<p className="product-name">{item.itemName}</p>
-											<p className="product-price">₩{item.itemPrice} · {item.qty}개</p>
-										</div>
+								<div className="order-card">
+									<p className="order-status">{item.orderStatus === 'order_complete' ? '📦 배송완료' : '⏳ 결제대기'}📦</p>
+									<div className="item-img-div">
+										<img src={item.itemImg} className="item-img" />
+									</div>
+									<div className="product-details">
+										<p className="product-name">{item.itemName}</p>
+										<p className="product-price">₩{item.itemPrice} · {item.qty}개</p>
 									</div>
 								</div>
-							))
+							</div>
+						))
 					)
 					}
 				</main>

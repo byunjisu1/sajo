@@ -57,7 +57,7 @@ public class MemberTests {
 		//When
 		MemberDto dto = mSvc.getMemberHeaderProfile(memberNo);
 		//Then
-		System.out.println(dto.getNickname() + " : " + dto.getProfile_img());
+		System.out.println(dto.getNickname() + " : " + dto.getProfileImg());
 	}
 	
 	// 회원정보 가져오기 

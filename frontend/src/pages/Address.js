@@ -102,7 +102,14 @@ const Address = () => {
 		<div className="address-container">
 			<header className="address-profile">
 				<div className="address-profile-info">
-					<span className="address-profile-image">{headerProfile.profileImg}</span>
+					<span className="address-profile-image">
+						{headerProfile.profileImg ? (<img
+							src={`http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+							style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
+						/>) : (null)
+
+						}
+					</span>
 					<span className="address-user-name">{headerProfile.nickname} 님</span>
 					<span className="address-chevron">〉</span>
 				</div>

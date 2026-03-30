@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:///D:/Temp/upload2/");
         // 맥 전용 경로 
         registry.addResourceHandler("/uploads/**")
-        .addResourceLocations("file:///Users/baeseungbin/sajo_uploads/");
+        .addResourceLocations("file:/Users/baeseungbin/sajo_uploads/");
     }
     
 }

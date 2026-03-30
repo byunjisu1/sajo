@@ -42,6 +42,7 @@ public class MemberUpdateDto {
 	    } else {
 	        this.birth = member.getBirth();
 	    }
+		this.profileImg = member.getProfileImg();
 		
 	}
 }
