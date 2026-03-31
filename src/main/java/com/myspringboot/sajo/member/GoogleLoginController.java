@@ -14,14 +14,16 @@ public class GoogleLoginController {
 
     @Autowired
     private GoogleLoginService GSvc;
-
+    
+    //API 키 수정
     @Value("${google.api.clientId}")
     private String CLIENT_ID;
     @Value("${google.api.clientSc}")
     private String CLIENT_SECRET;
     @Value("${google.api.uri}")
     private String REDIRECT_URI;
-
+    
+    //구글 소셜 로그인
     @PostMapping("/google")
     public ResponseEntity<?> googleLogin(@RequestBody Map<String, String> data, HttpSession session) {
         String code = data.get("code");
@@ -47,7 +49,8 @@ public class GoogleLoginController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 처리 중 오류 발생");
         }
     }
-
+    
+    //구글의 임시 토큰 값을 정상 토큰으로 변경
     private String fetchAccessToken(String code) {
         RestTemplate restTemplate = new RestTemplate();
         String tokenUrl = "https://oauth2.googleapis.com/token";
@@ -63,7 +66,8 @@ public class GoogleLoginController {
         ResponseEntity<Map> response = restTemplate.postForEntity(tokenUrl, params, Map.class);
         return (String) response.getBody().get("access_token");
     }
-
+    
+    //위의 정식토큰 값으로 유저의 정보 가져오기
     private Map<String, Object> fetchUserInfo(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
         String userInfoUrl = "https://www.googleapis.com/oauth2/v3/userinfo";
@@ -76,6 +80,7 @@ public class GoogleLoginController {
         return response.getBody();
     }
     
+    //구글 소셜 로그인 주소 생성
     @GetMapping("/google/url")
     public ResponseEntity<String> getGoogleAuthUrl() {
         // 백엔드 .env에 있는 값을 조합해서 URL 생성

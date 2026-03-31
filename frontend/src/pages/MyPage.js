@@ -45,7 +45,7 @@ const MyPage = () => {
 						{headerProfile.profileImg ? (<img
 							src={`http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
 							style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
-						/>) : (null)
+						referrerpolicy="no-referrer" />) : (null)
 
 						}
 					</span>
