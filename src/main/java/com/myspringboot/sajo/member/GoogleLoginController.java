@@ -75,6 +75,7 @@ public class GoogleLoginController {
         ResponseEntity<Map> response = restTemplate.exchange(userInfoUrl, HttpMethod.GET, entity, Map.class);
         return response.getBody();
     }
+    
     @GetMapping("/google/url")
     public ResponseEntity<String> getGoogleAuthUrl() {
         // 백엔드 .env에 있는 값을 조합해서 URL 생성
