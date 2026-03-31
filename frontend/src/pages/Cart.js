@@ -125,7 +125,7 @@ const Cart = () => {
                     <h2 className="cart-empty-title">카트에 담긴 상품이 없습니다.</h2>
                     <p className="cart-empty-desc">원하시는 상품을 찾아보세요.</p>
                     <div className="cart-empty-button-group">
-                        <button className="cart-btn-go-shopping" onClick={() => navigate(`/`)}>
+                        <button className="cart-btn-go-shopping" onClick={() => navigate(`/rakuten`)}>
                             <span className="cart-btn-icon">🛍️</span>
                             상품 보러 가기
                         </button>
