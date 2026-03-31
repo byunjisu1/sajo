@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.myspringboot.sajo.item.Item;
+import com.myspringboot.sajo.item.ItemAnalysisDto;
+import com.myspringboot.sajo.item.ItemAnalysisService;
 import com.myspringboot.sajo.item.ItemDto;
 import com.myspringboot.sajo.item.ItemRepository;
 import com.myspringboot.sajo.item.ItemService;
@@ -23,6 +25,8 @@ public class ItemTests {
 	private PicItemRepository picRepo;
 	@Autowired
 	private ItemService ISvc;
+	@Autowired
+	private ItemAnalysisService IASvc;
 	
 	// Item 테이블 더미데이터 추가
 	@Test
@@ -128,5 +132,31 @@ public class ItemTests {
 		
 		// Then
 		System.out.println(dto.getItemName()+"/"+dto.getItemDetail());
+	}
+	
+	// 가품 분석하기
+	@Test
+	void testItemAnalyze() {
+		// Given
+		String imgUrl = "https://tshop.r10s.jp/joshin-cddvd/cabinet/040/vdcd-6852.jpg";
+		String description = "품번：VDCD-6852 발매일：2021년 08월 27일 발매";
+		ItemAnalysisDto data = null;
+		
+		// When
+		try {
+			data = IASvc.analyzeProduct(imgUrl, description);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// Then
+		if (data != null) {
+	        System.out.println("=== AI 분석 결과 ===");
+	        System.out.println("가품 의심 정도: " + data.getIsCounterfeit());
+	        System.out.println("분석 내용: " + data.getReason());
+	        
+	    } else {
+	        System.out.println("데이터 분석에 실패하여 결과가 null입니다.");
+	    }
 	}
 }

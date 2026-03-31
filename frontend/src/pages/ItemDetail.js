@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Loading from '../components/Loading';
+import ItemAnalysisModal from '../components/ItemAnalysisModal';
 import './ItemDetail.css';
 
 const ItemDetail = () => {
   const navigate = useNavigate();
   const { itemIdx } = useParams();
   const [item, setItem] = useState(null); 
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [ analysis, setAnalysis ] = useState(null);
+  const [ isAnalyzing, setIsAnalyzing ] = useState(false);
   const memberNo = sessionStorage.getItem("member_no");
 
   const getList = async () => {
@@ -51,9 +55,30 @@ const ItemDetail = () => {
 	});
   };
   
-  //일단은 결제페이지로 이동(itemIdx 들고와야되긴함 (가격 이름 이미지))
+  const handleAnalyze = async() => {
+	setIsAnalyzing(true);
+	try {
+		const res = await axios.post(`/sajo/item/analyze`, { imageUrl: item.itemImg, description: item.itemDetail })
+		console.log(res.data);
+		setAnalysis(res.data);
+		setIsModalOpen(true);
+	} catch(err) {
+		console.error("분석 에러 :", err);
+		alert("AI 분석 서비스에 접속할 수 없습니다.");
+		setIsAnalyzing(false);
+	}
+  };
+  
   const movePayment = () => {
-	navigate(`/payment`);
+	const singleProduct = [{
+		itemIdx: item.itemIdx,
+		itemName: item.itemName,
+		itemPrice: item.itemPrice,
+		itemImg: item.itemImg,
+		qty: 1
+	}];
+	
+	navigate(`/payment`, { state: { totalAmount: item.itemPrice, selectedProducts: singleProduct } });
   };
 
   useEffect(() => {
@@ -79,9 +104,20 @@ const ItemDetail = () => {
             </div>
           </div>
 
-          <button type="button" className="item-analyze-btn">
-            가품 분석하기
+          <button 
+		  	type="button" 
+			className="item-analyze-btn" 
+			onClick={handleAnalyze} 
+			disabled={isAnalyzing}
+			style={{ 
+				backgroundColor: isAnalyzing ? 'gold' : '',
+				color: isAnalyzing ? '#000' : '',
+				border: isAnalyzing ? 'none' : ''
+			}}
+		   >
+            {isAnalyzing ? "AI 분석 중" : "AI 가품 분석하기"}
           </button>
+		  <ItemAnalysisModal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false); setIsAnalyzing(false);}} data={analysis}/>
         </div>
 
         <div className="item-summary">

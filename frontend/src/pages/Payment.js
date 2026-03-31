@@ -12,7 +12,7 @@ const Payment = () => {
     // 주문 상품 목록 열림/닫힘 상태 (기본값: false)
     const [isProductListOpen, setIsProductListOpen] = useState(false);
 	
-	const { totalAmount, selectedProducts } = location.state || {};
+	const { totalAmount=0, selectedProducts=[] } = location.state || {};
 	console.log(location.state);
 	const [addressList, setAddressList] = useState([]); // 배송지 목록
     const [selectedAddr, setSelectedAddr] = useState(null); // 선택된 배송지 ID
