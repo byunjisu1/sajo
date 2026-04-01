@@ -13,6 +13,8 @@ const MemberUpdate = () => {
 	const memberNo = sessionStorage.getItem("member_no");
 	const [isSaving, setIsSaving] = useState(false);
 	const navigate = useNavigate();
+	const profileImg = memberProfile.profileImg?.trim();
+	
 
 	const getHeaderProfile = (memberNo) => {
 		axios.get(`/sajo/member/${memberNo}`)
@@ -167,10 +169,10 @@ const MemberUpdate = () => {
 								<div className="profile-upload-row">
 									<div className="current-avatar">
 										<div className="avatar-placeholder">
-											{previewImage ? (<img src={previewImage} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }} referrerpolicy="no-referrer" />)
-												: (memberProfile.profileImg && memberProfile.profileImg !== 'null') ?
+											{previewImage ? (<img src={previewImage} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }} />)
+												: (profileImg && profileImg !== 'null') ?
 													(<img
-														src={`http://localhost:9090/sajo/uploads/${memberProfile.profileImg}`}
+														src={profileImg.startsWith('http') ? profileImg : `http://localhost:9090/sajo/uploads/${profileImg}`}
 														style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 														alt="프로필"
 													// 혹시 서버에 사진 파일이 없을 때를 대비한 엑박 방지
