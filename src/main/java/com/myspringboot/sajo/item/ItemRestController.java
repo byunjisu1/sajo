@@ -1,5 +1,6 @@
 package com.myspringboot.sajo.item;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class ItemRestController {
 	private ItemAnalysisService IASvc;
 	@Autowired
 	private ItemUrlSearchService IUSvc;
+	@Autowired
+	private RakutenItemService RakuSvc;
 
 	// 상품 상세 정보 가져오기
 	@GetMapping("/itemDetail/{itemIdx}") 
@@ -45,4 +48,9 @@ public class ItemRestController {
 		return IUSvc.rakutenCrawlAndTranslate(searchUrl);
 	}
 
+	// 키워드 크롤링
+	@PostMapping("/item/keyword/search/{searchValue}")
+	public List<RakutenItemDto> itemKeywordSearch(@PathVariable("searchValue") String searchValue) {
+		return RakuSvc.getRakutenProducts(searchValue);
+	}
 }
