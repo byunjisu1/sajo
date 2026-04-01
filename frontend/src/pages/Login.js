@@ -12,7 +12,7 @@ const Login = () => {
 	};
 	
 	const handleGoogleLogin = async () => {
-	    const response = await axios.get("/sajo/api/v1/auth/google/url");
+	    const response = await axios.get("/sajo/google/url");
 	    window.location.href = response.data; // 받은 주소로 이동
 	};
 	
