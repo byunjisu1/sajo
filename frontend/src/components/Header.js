@@ -27,6 +27,27 @@ const Header = ({ isLogin, setIsLogin }) => {
 	    }
 	};
 	
+	const handleSearch = async() => {
+		const searchInput = document.querySelector('.sajo-search');
+	    const searchValue = searchInput ? searchInput.value : "";
+
+	    if (!searchValue.trim()) {
+	        alert("키워드 또는 URL을 입력해주세요.");
+	        return;
+	    }
+		
+		try {
+	        const res = await axios.post('/sajo/item/url/search', { searchUrl: searchValue });
+	        console.log("서버 응답 데이터:", res.data);
+			const itemIdx = res.data;
+	        navigate(`/itemDetail${itemIdx}`);
+	    } catch (error) {
+	        console.error("검색 전송 중 오류 발생:", error);
+	        alert("서버와 통신 중 오류가 발생했습니다.");
+	    }
+
+	};
+	
 	return (
 		<header className="sajo-header">
 			<div className="sajo-header-top">
@@ -45,7 +66,7 @@ const Header = ({ isLogin, setIsLogin }) => {
 								<path d="M0 0 L5 6 L10 0 Z" fill="currentColor" />
 							</svg>
 						</span>
-						<button type="button" className="sajo-search-btn" aria-label="검색">
+						<button type="button" className="sajo-search-btn" aria-label="검색" onClick={handleSearch}>
 							<svg className="sajo-search-svg" viewBox="0 0 24 24" aria-hidden="true">
 								<circle cx="10.5" cy="10.5" r="6.25" />
 								<path d="M15.2 15.2L20 20" />

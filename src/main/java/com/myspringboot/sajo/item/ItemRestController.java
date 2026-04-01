@@ -15,6 +15,8 @@ public class ItemRestController {
 	private ItemService ISvc;
 	@Autowired
 	private ItemAnalysisService IASvc;
+	@Autowired
+	private ItemUrlSearchService IUSvc;
 
 	// 상품 상세 정보 가져오기
 	@GetMapping("/itemDetail/{itemIdx}") 
@@ -35,4 +37,12 @@ public class ItemRestController {
 			return null;
 		}
 	}
+	
+	// URL 크롤링
+	@PostMapping("/item/url/search")
+	public Integer itemUrlSearch(@RequestBody Map<String, String> data) {
+		String searchUrl = data.get("searchUrl");
+		return IUSvc.rakutenCrawlAndTranslate(searchUrl);
+	}
+
 }
