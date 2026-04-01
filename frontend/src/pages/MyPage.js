@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './MyPage.css';
@@ -7,7 +8,7 @@ const MyPage = () => {
 	const navigate = useNavigate();
 	const [orderList, setOrderList] = useState([])
 	const [headerProfile, setHeaderProfile] = useState({});
-	const memberNo = sessionStorage.getItem("member_no");
+	const { memberNo } = useContext(AuthContext);
 
 	const getHeaderProfile = (memberNo) => {
 		axios.get(`/sajo/member/${memberNo}`)
@@ -43,7 +44,7 @@ const MyPage = () => {
 				<div className="mypage-profile-info">
 					<span className="mypage-profile-image">
 						{headerProfile.profileImg ? (<img
-							src={`http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+							src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
 							style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 						referrerpolicy="no-referrer" />) : (null)
 
@@ -91,7 +92,7 @@ const MyPage = () => {
 								</div>
 
 								<div className="order-card">
-									<p className="order-status">{item.orderStatus === 'order_complete' ? '📦 배송완료' : '⏳ 결제대기'}📦</p>
+									<p className="order-status">📦 배송완료📦</p>
 									<div className="item-img-div">
 										<img src={item.itemImg} className="item-img" />
 									</div>

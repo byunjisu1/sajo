@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
+import { AuthContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './BoardWrite.css';
@@ -6,9 +7,10 @@ import './BoardWrite.css';
 const BoardWrite = () => {
 	const navigate = useNavigate();
 	const fileInputRef = useRef(null);
+	const { memberNo } = useContext(AuthContext);
 	const [ selectedFiles, setSelectedFiles ] = useState([]);
 	const [ isSaving, setIsSaving ] = useState(false);
-	const [ board, setBoard ] = useState({title:'', writer:sessionStorage.getItem("member_no"), content:''});
+	const [ board, setBoard ] = useState({title:'', writer:memberNo, content:''});
 	const { title, writer, content } = board;
 	
 	const handleClickUploadButton = () => {

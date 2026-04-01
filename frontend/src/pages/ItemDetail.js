@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../App';
 import axios from 'axios';
 import Loading from '../components/Loading';
 import ItemAnalysisModal from '../components/ItemAnalysisModal';
@@ -12,7 +13,7 @@ const ItemDetail = () => {
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ analysis, setAnalysis ] = useState(null);
   const [ isAnalyzing, setIsAnalyzing ] = useState(false);
-  const memberNo = sessionStorage.getItem("member_no");
+  const { memberNo, isLogin } = useContext(AuthContext);
 
   const getList = async () => {
     try {
@@ -25,6 +26,7 @@ const ItemDetail = () => {
   };
   
   const addCart = async() => {
+	if(isLogin) {
       try {
           await axios.post(`/sajo/addCart/${memberNo}/${itemIdx}`)
 		  .then(res => {
@@ -40,45 +42,64 @@ const ItemDetail = () => {
           console.error("장바구니 에러:", error);
           alert("장바구니 담기에 실패했습니다. 다시 시도해주세요.");
       }
+	} else {
+		alert("로그인 먼저 해주세요.");
+		navigate(`/login`);
+	}
   };
   
   const addLikes = async() => {
-	await axios.post(`/sajo/addLikes/${memberNo}/${itemIdx}`)
-	.then(res => {
-		if (res.data) { // res.data가 true일 때
-			if (window.confirm("찜 성공! 찜 페이지로 이동할까요?")) {
-              navigate('/likes');
-            }
-		} else {        // res.data가 false일 때
-          alert("이미 찜한 상품입니다.");
-		}
-	});
+	if(isLogin) {
+		await axios.post(`/sajo/addLikes/${memberNo}/${itemIdx}`)
+		.then(res => {
+			if (res.data) { // res.data가 true일 때
+				if (window.confirm("찜 성공! 찜 페이지로 이동할까요?")) {
+	              navigate('/likes');
+	            }
+			} else {        // res.data가 false일 때
+	          alert("이미 찜한 상품입니다.");
+			}
+		});
+	} else {
+		alert("로그인 먼저 해주세요.");
+		navigate(`/login`);
+	}
   };
   
   const handleAnalyze = async() => {
-	setIsAnalyzing(true);
-	try {
-		const res = await axios.post(`/sajo/item/analyze`, { imageUrl: item.itemImg, description: item.itemDetail })
-		console.log(res.data);
-		setAnalysis(res.data);
-		setIsModalOpen(true);
-	} catch(err) {
-		console.error("분석 에러 :", err);
-		alert("AI 분석 서비스에 접속할 수 없습니다.");
-		setIsAnalyzing(false);
+	if(isLogin) {
+		setIsAnalyzing(true);
+		try {
+			const res = await axios.post(`/sajo/item/analyze`, { imageUrl: item.itemImg, description: item.itemDetail })
+			console.log(res.data);
+			setAnalysis(res.data);
+			setIsModalOpen(true);
+		} catch(err) {
+			console.error("분석 에러 :", err);
+			alert("AI 분석 서비스에 접속할 수 없습니다.");
+			setIsAnalyzing(false);
+		}
+	} else {
+		alert("로그인 후 이용해주세요.");
+		navigate(`/login`);
 	}
   };
   
   const movePayment = () => {
-	const singleProduct = [{
-		itemIdx: item.itemIdx,
-		itemName: item.itemName,
-		itemPrice: item.itemPrice,
-		itemImg: item.itemImg,
-		qty: 1
-	}];
-	
-	navigate(`/payment`, { state: { totalAmount: item.itemPrice, selectedProducts: singleProduct } });
+	if(isLogin) {
+		const singleProduct = [{
+			itemIdx: item.itemIdx,
+			itemName: item.itemName,
+			itemPrice: item.itemPrice,
+			itemImg: item.itemImg,
+			qty: 1
+		}];
+		
+		navigate(`/payment`, { state: { totalAmount: item.itemPrice, selectedProducts: singleProduct } });
+	} else {
+		alert("로그인 후 이용해주세요.");
+		navigate(`/login`);
+	}
   };
 
   useEffect(() => {

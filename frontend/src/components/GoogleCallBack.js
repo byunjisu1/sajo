@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { AuthContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const GoogleCallback = ({ setIsLogin }) => {
+const GoogleCallback = () => {
     const navigate = useNavigate();
+	const { setMemberNo, setIsLogin } = useContext(AuthContext);
 
     useEffect(() => {
         // URL 주소창에서 구글이 보낸 'code' 파라미터 추출
@@ -16,8 +18,8 @@ const GoogleCallback = ({ setIsLogin }) => {
                 .then((response) => {
                     console.log("로그인 성공!", response.data);
                     
-                    // 세션 스토리지 등에 필요한 정보 저장 (선택 사항)
-                    sessionStorage.setItem("member_no", response.data.memberNo);
+                    // 세션 스토리지 등에 필요한 정보 저장
+					setMemberNo(response.data.memberNo);
 					// 프로필 이미지 저장
 				    if (response.data.profileImg) {
 				        sessionStorage.setItem("profile_img", response.data.profileImg);

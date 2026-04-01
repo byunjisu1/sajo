@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../App';
 import axios from 'axios';
 import './Payment.css';
 
 const Payment = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	
-	const memberNo = sessionStorage.getItem("member_no");
+	const { memberNo } = useContext(AuthContext);
 	
     // 주문 상품 목록 열림/닫힘 상태 (기본값: false)
     const [isProductListOpen, setIsProductListOpen] = useState(false);

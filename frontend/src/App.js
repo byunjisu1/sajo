@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import React,{ useState } from 'react';
+import React,{ useState, createContext } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Loading from './components/Loading';
@@ -20,20 +20,32 @@ import Payment from './pages/Payment';
 import KakaoCallBack from './components/KakaoCallBack';
 import GoogleCallBack from './components/GoogleCallBack';
 
+export const AuthContext = createContext(null);
+
 function App() {
-	const [ isLogin, setIsLogin ] = useState(() => {
-		const testUser = sessionStorage.getItem("member_no");
-		return testUser ? true : false;
-	});
+	const [ isLogin, setIsLogin ] = useState(false);
+	const [ memberNo, setMemberNo ] = useState('');
+	const login = () => setIsLogin(true);
+	const logout = () => setIsLogin(false);
+	
+	const authContextValues = {
+		isLogin,
+		setIsLogin,
+		memberNo,
+		setMemberNo,
+		login,
+		logout
+	};
+	
   return (
-    <>
-		<Header isLogin={ isLogin } setIsLogin={ setIsLogin }/>
+    <AuthContext.Provider value={authContextValues}>
+		<Header/>
 		<Routes>
 			<Route path="/loading" element={<Loading/>}/>
-			<Route path="/" element={<Home isLogin={isLogin}/>}/>
+			<Route path="/" element={<Home/>}/>
 			<Route path="/likes" element={<Likes/>}/>
 			<Route path="/cart" element={<Cart/>}/>
-			<Route path="/login" element={<Login setIsLogin={setIsLogin}/>}/>
+			<Route path="/login" element={<Login/>}/>
 			<Route path="/board" element={<Board/>}/>
 			<Route path="/boardDetail/:boardIdx" element={<BoardDetail/>}/>
 			<Route path="/boardEdit/:boardIdx" element={<BoardEdit/>}/>
@@ -46,10 +58,10 @@ function App() {
 			<Route path="/payment" element={<Payment/>}/>
 			<Route path="/test" element={<Home/>}/>
 			<Route path="/oauth/kakao/callback" element={<KakaoCallBack/>}/>
-			<Route path="/oauth/google/callback" element={<GoogleCallBack setIsLogin={setIsLogin}/>}/>
+			<Route path="/oauth/google/callback" element={<GoogleCallBack/>}/>
 		</Routes>
 		<Footer/>
-	</>
+	</AuthContext.Provider>
   );
 }
 

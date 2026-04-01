@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.css';
 
-const Home = ({ isLogin }) => {
+const Home = () => {
 	return (
 	    <div className="sajo-page">
 	      <main className="home-main" aria-label="홈 메인">

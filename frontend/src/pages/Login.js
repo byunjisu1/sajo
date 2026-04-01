@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../App';
 import axios from 'axios';
 import './Login.css';
 import { KAKAO_AUTH_URL } from '../components/KakaoConfig';
-const Login = ({ setIsLogin }) => {
+const Login = () => {
+	const { setIsLogin, setMemberNo } = useContext(AuthContext);
 	
 	const handleKakaoLogin=()=>{
 		window.location.href = KAKAO_AUTH_URL;	
@@ -16,8 +18,7 @@ const Login = ({ setIsLogin }) => {
 	
 	const navigate = useNavigate();
 	const handleTestLogin = () => {
-		sessionStorage.setItem("member_no", "1");
-		// const loggedInMemberNo = sessionStorage.getItem("member_no");
+		setMemberNo('1');
 		setIsLogin(true);
 		alert("테스트 계정으로 로그인 되었습니다.");
 		navigate("/");

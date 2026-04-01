@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../App';
 import './Address.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,7 +7,6 @@ import AddressModal from '../components/AddressModal';
 import AddressDetailModal from '../components/AddressDetailModal';
 
 const Address = () => {
-
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 	const [selectedAddr, setSelectedAddr] = useState({ zonecode: '', address: '' }); // 상세주소 입력 전 임시 주소 
@@ -14,8 +14,8 @@ const Address = () => {
 
 	const [memberProfile, setMemberProfile] = useState({ nameKor: '', phone: '' });
 	const [headerProfile, setHeaderProfile] = useState({});
-
-	const memberNo = sessionStorage.getItem("member_no");
+	
+	const { memberNo } = useContext(AuthContext);
 
 	const handleAddressData = (data) => {
 		console.log("여기서 첫번째 함수 실행");
@@ -104,7 +104,7 @@ const Address = () => {
 				<div className="address-profile-info">
 					<span className="address-profile-image">
 						{headerProfile.profileImg ? (<img
-							src={`http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+							src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
 							style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 						/>) : (null)
 

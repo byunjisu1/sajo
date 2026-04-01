@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Likes.css';
@@ -8,7 +9,7 @@ const Likes = () => {
 	const [headerProfile, setHeaderProfile] = useState({});
 	const [wishList, setWishList] = useState([]);
 	const [sortType, setSortType] = useState("latest");
-	const memberNo = sessionStorage.getItem("member_no");
+	const { memberNo } = useContext(AuthContext);
 
 	const getHeaderProfile = () => {
 		axios.get(`/sajo/member/${memberNo}`)
@@ -67,7 +68,7 @@ const Likes = () => {
 				<div className="Likes-profile-info">
 					<span className="Likes-profileImg">
 						{headerProfile.profileImg ? (<img
-							src={`http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+							src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
 							style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 						/>) : (null)
 

@@ -6,7 +6,6 @@ const LoadingPage = () => {
     <div className="loading-container">
       <div className="loading-content">
         
-        {/* 왼쪽 비주얼 영역 */}
         <div className="box-section">
           <div className="box-visual">
             <div className="box-tape">
@@ -17,7 +16,6 @@ const LoadingPage = () => {
           <div className="box-shadow"></div>
         </div>
 
-        {/* 오른쪽 텍스트 영역 */}
         <div className="text-section">
           <p className="status-text">잠시만 기다려주세요...</p>
           <h1 className="main-title">

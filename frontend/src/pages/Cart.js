@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Cart.css';
@@ -7,7 +8,7 @@ const Cart = () => {
 	const navigate = useNavigate();
     const [showList, setShowList] = useState([]);
 	const [checkedItems, setCheckedItems] = useState([]);
-	const memberNo = sessionStorage.getItem("member_no");
+	const { memberNo } = useContext(AuthContext);
 	
 	//장바구니 내역 리스트 조회 기능
 	const getShowList = () => {
@@ -46,18 +47,18 @@ const Cart = () => {
 	    }
 	};
 	
-	// 1. 체크된 상품들만 필터링
+	// 체크된 상품들만 필터링
 	const selectedProducts = showList.filter(item => checkedItems.includes(item.itemIdx));
 
-	// 2. 상품 소계 계산 (체크된 상품들의 가격 합계)
+	// 상품 소계 계산 (체크된 상품들의 가격 합계)
 	const subTotal = selectedProducts.reduce((sum, item) => sum + (item.itemPrice || 0), 0);
 
-	// 3. 부수 비용 설정 (예시: 상품이 있을 때만 배송비 등이 붙도록 설정 가능)
+	// 부수 비용 설정 (예시: 상품이 있을 때만 배송비 등이 붙도록 설정 가능)
 	const localShipping = selectedProducts.length > 0 ? 6025 : 0;
 	const internationalShipping = selectedProducts.length > 0 ? 6025 : 0;
 	const tax = selectedProducts.length > 0 ? 6025 : 0;
 
-	// 4. 최종 합계
+	// 최종 합계
 	const totalAmount = subTotal + localShipping + internationalShipping + tax;
 	
 	//전체 삭제 기능
@@ -92,7 +93,7 @@ const Cart = () => {
 	    }
 	};
 	
-	//개별 삭제 기능
+	// 개별 삭제 기능
 	const handleDeleteSingle = (itemIdx) => {
 	    if (window.confirm("이 상품을 삭제하시겠습니까?")) {
 	        axios.delete(`/sajo/cart/${memberNo}/${itemIdx}`)
@@ -104,7 +105,7 @@ const Cart = () => {
 	    }
 	};
 	
-	//상품클릭시 상품상세페이지 이동
+	// 상품클릭시 상품상세페이지 이동
 	const clickItem = (itemIdx)=> {
 		navigate(`/itemDetail/${itemIdx}`);
 	};
@@ -133,7 +134,6 @@ const Cart = () => {
                 </div>
             ) : (
                 <div className="cart-main-container">
-                    {/* 왼쪽 상품 리스트 */}
                     <div className="cart-left-section">
                         <div className="cart-header-bar">
                             <div className="cart-custom-checkbox-wrapper">
@@ -147,7 +147,6 @@ const Cart = () => {
 							    전체 선택 ({checkedItems.length}/{showList.length})
 							</label>
                             </div>
-							{/* 선택 삭제 버튼 추가 */}
 						    <button 
 						        className="cart-btn-delete-selected" 
 						        onClick={handleDeleteSelected}
@@ -183,7 +182,6 @@ const Cart = () => {
 						}
                     </div>
 
-                    {/* 오른쪽 주문 개요 */}
 					<div className="cart-right-section">
 					    <div className="cart-order-summary-card">
 					        <h3 className="cart-summary-title">주문 개요</h3>

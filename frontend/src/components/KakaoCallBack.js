@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { AuthContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './KakaoCallBack.css';
 
-
-
 const KakaoCallBack = () => {
 	const navigate = useNavigate();
+	const { setIsLogin } = useContext(AuthContext);
+	const { setMemberNo } = useContext(AuthContext);
+	
 	useEffect(() => {
 		const code = new URL(window.location.href).searchParams.get("code");
 		if (code) {
@@ -25,8 +27,8 @@ const KakaoCallBack = () => {
 					const memberNo = res.data;
 					console.log("memberNo : ", memberNo);
 					if (memberNo) {
-						sessionStorage.setItem("member_no", memberNo);
-						sessionStorage.setItem("isLoggedIn", "true");
+						setMemberNo(memberNo);
+						setIsLogin(true);
 						alert("카카오 로그인 성공!");
 						navigate("/memberUpdate");
 					}

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { AuthContext } from '../App';
 import './MemberUpdate.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -10,11 +11,10 @@ const MemberUpdate = () => {
 	const [member, setMember] = useState({})
 	const [headerProfile, setHeaderProfile] = useState({});
 	const [memberProfile, setMemberProfile] = useState({ nickname: '', korName: '', engName: '', profileImg: '' });
-	const memberNo = sessionStorage.getItem("member_no");
+	const { memberNo } = useContext(AuthContext);
 	const [isSaving, setIsSaving] = useState(false);
 	const navigate = useNavigate();
 	const profileImg = memberProfile.profileImg?.trim();
-	
 
 	const getHeaderProfile = (memberNo) => {
 		axios.get(`/sajo/member/${memberNo}`)
@@ -37,6 +37,7 @@ const MemberUpdate = () => {
 				console.error(err);
 			})
 	};
+	
 	const handleFileUpload = (e) => {
 		const selectedFile = e.target.files[0];
 		if (selectedFile) {
@@ -98,7 +99,7 @@ const MemberUpdate = () => {
 				<div className="member-update-profile-info">
 					<span className="member-update-profile-image">
 						{headerProfile.profileImg ? (<img
-						src={`http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+						src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
 						style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 					/>) : (null)
 							
@@ -197,8 +198,6 @@ const MemberUpdate = () => {
 				</div>
 			</div>
 		</div>
-
-
 	)
 };
 

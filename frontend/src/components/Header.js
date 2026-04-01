@@ -1,27 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../App';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 import axios from 'axios';
 
-const Header = ({ isLogin, setIsLogin }) => {
+const Header = () => {
 	const navigate = useNavigate();
+	const { isLogin, setIsLogin } = useContext(AuthContext);
 	
 	const handleLogout = async () => {
 	    try {
-	        // 1. 서버 세션 날리기
 	        await axios.post('/sajo/logout');
-	        
-	        // 2. 브라우저 저장소 비우기
-	        sessionStorage.clear(); // member_no 포함 모든 정보 삭제
-	        
-	        // 3. 리액트 상태 업데이트 및 이동
 	        setIsLogin(false);
 	        alert("로그아웃 되었습니다.");
 	        navigate('/');
 	    } catch (error) {
 	        console.error("로그아웃 중 오류 발생:", error);
-	        // 서버 통신 실패해도 일단 프론트는 로그아웃 처리
-	        sessionStorage.clear();
 	        setIsLogin(false);
 	        navigate('/');
 	    }

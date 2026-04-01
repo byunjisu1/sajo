@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../App';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './BoardDetail.css';
@@ -11,7 +12,8 @@ const BoardDetail = () => {
 		const resp = await axios.get(`/sajo/board/${boardIdx}`);
 		setBoard(resp.data);
 	};
-	const memberNo = sessionStorage.getItem("member_no");
+	
+	const { memberNo } = useContext(AuthContext);
 	
 	useEffect(() => {
 		getBoard();

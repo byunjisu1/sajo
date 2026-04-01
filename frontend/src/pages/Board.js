@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../App';
 import axios from 'axios';
 import './Board.css';
 
@@ -8,6 +9,7 @@ const Board = () => {
 	const [ boardList, setBoardList ] = useState([]);
 	const [ page, setPage ] = useState(1);
 	const [ lastPageNumber, setLastPageNumber ] = useState(0);
+	const { isLogin } = useContext(AuthContext);
 	
 	const getBoardList = (page) => {
 		axios.get(`/sajo/board/list/${page}`)
@@ -21,6 +23,14 @@ const Board = () => {
 		});
 	};
 	
+	const handleWrite = () => {
+		if(isLogin) {
+			navigate(`/boardWrite`);
+		} else {
+			navigate(`/login`);
+		}
+	};
+	
 	useEffect(() => {
 		getBoardList(page);
 	}, [page]);
@@ -31,7 +41,7 @@ const Board = () => {
 	        <div className="board-title-row">
 	          <h1 className="board-title">문의게시판</h1>
 	          <div className="board-write-title" aria-hidden="true">
-	            <span className="board-write-pill" onClick={() => navigate('/boardWrite')}>📝 문의하기</span>
+	            <span className="board-write-pill" onClick={handleWrite}>📝 문의하기</span>
 	          </div>
 	        </div>
 

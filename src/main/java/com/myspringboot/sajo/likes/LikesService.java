@@ -28,7 +28,7 @@ public class LikesService {
 		Sort sort;
 	    
 	    if ("name".equals(sortType)) {
-	        sort = Sort.by(Sort.Direction.ASC, "likeItemIdx.itemName");
+	        sort = Sort.by(Sort.Direction.ASC, "itemIdx.itemName");
 	    } else {
 	        sort = Sort.by(Sort.Direction.DESC, "likeDate");
 	    }
