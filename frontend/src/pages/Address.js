@@ -32,7 +32,7 @@ const Address = () => {
 		const newAddress = {
 			addressMemberNo: memberNo,
 			postCode: selectedAddr.zonecode,
-			address: `${selectedAddr.address}${detail}`
+			address: `${selectedAddr.address} ${detail}`
 		};
 		axios.post(`/sajo/addressInsert/${memberNo}`, newAddress)
 			.then((res) => {
