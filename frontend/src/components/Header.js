@@ -6,13 +6,14 @@ import axios from 'axios';
 
 const Header = () => {
 	const navigate = useNavigate();
-	const { isLogin, setIsLogin } = useContext(AuthContext);
+	const { isLogin, setIsLogin, setMemberNo } = useContext(AuthContext);
 	
 	const handleLogout = async () => {
 	    try {
 	        await axios.post('/sajo/logout');
 	        setIsLogin(false);
-	        alert("로그아웃 되었습니다.");
+			setMemberNo('');	        
+			alert("로그아웃 되었습니다.");
 	        navigate('/');
 	    } catch (error) {
 	        console.error("로그아웃 중 오류 발생:", error);
