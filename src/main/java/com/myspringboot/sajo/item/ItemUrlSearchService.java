@@ -35,7 +35,8 @@ public class ItemUrlSearchService {
         WebDriver driver = new ChromeDriver(options);
         tSvc.checkUsage();
         try {
-            String url = inputUrl; 
+            //String url = inputUrl; 테스트 후 삭제
+            String url = "";
             driver.get(url);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
             

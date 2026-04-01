@@ -46,9 +46,13 @@ const GoogleCallback = () => {
     }, [navigate, setIsLogin]);
 
     return (
-        <div className="callback-container">
-            <p>로그인 중입니다. 잠시만 기다려주세요...</p>
-        </div>
+		<div className="google-loading-container">
+			<div className="google-loading-box">
+				<div className="google-spinner"></div>
+				<h2>구글 로그인 처리 중... 🎣</h2>
+				<p>잠시만 기다려주세요!</p>
+			</div>
+		</div>
     );
 };
 
