@@ -32,7 +32,7 @@ const GoogleCallback = () => {
                     // 로그인 상태 변경 및 메인 페이지로 이동
                     setIsLogin(true);
                     alert(`${response.data.nickname}님, 환영합니다!`);
-                    navigate('/memberUpdate');
+                    navigate('/memberUpdate', {state: { showAlert: true }});
                 })
                 .catch((error) => {
                     console.error("로그인 처리 중 에러 발생:", error);

@@ -7,7 +7,6 @@
     font-family: 'Pretendard', sans-serif;
 }
 
-/* 로딩 박스 스타일 */
 .kakao-loading-box {
     text-align: center;
     padding: 40px;
@@ -16,7 +15,6 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
-/* 낚시찌 느낌의 로딩 스피너 */
 .kakao-spinner {
     width: 50px;
     height: 50px;
@@ -38,7 +36,6 @@
     font-size: 1rem;
 }
 
-/* 회전 애니메이션 */
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

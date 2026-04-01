@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../App';
 import './MemberUpdate.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const MemberUpdate = () => {
@@ -10,11 +10,20 @@ const MemberUpdate = () => {
 	const [previewImage, setPreviewImage] = useState(null);
 	const [member, setMember] = useState({})
 	const [headerProfile, setHeaderProfile] = useState({});
-	const [memberProfile, setMemberProfile] = useState({ nickname: '', korName: '', engName: '', profileImg: '' });
+	const [memberProfile, setMemberProfile] = useState({
+		nickname: '',
+		nameKor: '',
+		nameEng: '',
+		birth: '',
+		email: '',
+		phone: '',
+		profileImg: ''
+	});
 	const { memberNo } = useContext(AuthContext);
 	const [isSaving, setIsSaving] = useState(false);
 	const navigate = useNavigate();
 	const profileImg = memberProfile.profileImg?.trim();
+	const location = useLocation();
 
 	const getHeaderProfile = (memberNo) => {
 		axios.get(`/sajo/member/${memberNo}`)
@@ -37,7 +46,7 @@ const MemberUpdate = () => {
 				console.error(err);
 			})
 	};
-	
+
 	const handleFileUpload = (e) => {
 		const selectedFile = e.target.files[0];
 		if (selectedFile) {
@@ -57,9 +66,17 @@ const MemberUpdate = () => {
 	};
 
 	useEffect(() => {
+		if (!memberNo) return;
+
 		getHeaderProfile(memberNo)
 		getMemberUpdateProfile(memberNo)
-	}, []);
+		if (location.state?.showAlert) {
+			setTimeout(() => {
+				alert("회원정보를 입력해주세요!");
+
+			}, 300);
+		}
+	}, [memberNo, location.state]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -99,10 +116,10 @@ const MemberUpdate = () => {
 				<div className="member-update-profile-info">
 					<span className="member-update-profile-image">
 						{headerProfile.profileImg ? (<img
-						src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
-						style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
-					/>) : (null)
-							
+							src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+							style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
+						/>) : (null)
+
 						}
 					</span>
 					<span className="member-update-user-name">{headerProfile.nickname} 님</span>
@@ -142,7 +159,7 @@ const MemberUpdate = () => {
 										<span onClick={() => navigate(`/`)}>회원탈퇴</span>
 									</div>
 								</div>
-								<input className="email-input" type="email" value={memberProfile.email} readOnly={true} />
+								<input className="email-input" type="email" name="email" value={memberProfile.email} onChange={handleChange} required />
 							</div>
 
 							<div className="form-group">
@@ -157,12 +174,12 @@ const MemberUpdate = () => {
 
 							<div className="form-group">
 								<label>생년월일</label>
-								<input className="birth-input" type="text" value={memberProfile.birth} readOnly={true} />
+								<input className="birth-input" type="text" name="birth" placeholder="ex)19960226" value={memberProfile.birth} onChange={handleChange} required />
 							</div>
 
 							<div className="form-group">
 								<label>전화번호</label>
-								<input className="phone-input" type="text" value={`KR ⌵ +82${memberProfile.phone}`} readOnly={true} />
+								<input className="phone-input" type="text" name="phone" placeholder="ex)01012345678" value={memberProfile.phone} onChange={handleChange} required />
 							</div>
 
 							<div className="form-group">
@@ -176,10 +193,10 @@ const MemberUpdate = () => {
 														src={profileImg.startsWith('http') ? profileImg : `http://localhost:9090/sajo/uploads/${profileImg}`}
 														style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 														alt="프로필"
-													// 혹시 서버에 사진 파일이 없을 때를 대비한 엑박 방지
-													referrerpolicy="no-referrer" />) : (<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-														사진없음
-													</div>)}
+														// 혹시 서버에 사진 파일이 없을 때를 대비한 엑박 방지
+														referrerpolicy="no-referrer" />) : (<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+															사진없음
+														</div>)}
 										</div>
 										<button type="button" className="delete-btn">삭제</button>
 									</div>

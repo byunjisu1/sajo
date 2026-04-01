@@ -51,6 +51,9 @@ public class MemberService {
 		m.setNickname(dto.getNickname());
 		m.setNameKor(dto.getNameKor());
 		m.setNameEng(dto.getNameEng());
+		m.setBirth(dto.getBirth());
+		m.setEmail(dto.getEmail());
+		m.setPhone(dto.getPhone());
 		
 		MultipartFile file = dto.getUploadFile(); // 파일 이미지 업로드 객체 
 		if(file!=null && !file.isEmpty()) {

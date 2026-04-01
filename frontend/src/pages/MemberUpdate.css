@@ -81,6 +81,7 @@
 	cursor: pointer;
 	font-size: 15px;
 }
+
 .member-update-sidebar li:hover {
 	color: #333;
 	font-weight: bold;
@@ -154,30 +155,28 @@
 .phone-input {
 	width: 100%;
 	padding: 15px;
-	border-radius: 10px;
 	border: 1px solid #e0e0e0;
-	background-color: #ededed;
-	color: #888;
+	border-radius: 10px;
+	font-size: 15px;
+	outline: none;
 }
 
 .email-input {
 	width: 100%;
 	padding: 15px;
-	border-radius: 10px;
 	border: 1px solid #e0e0e0;
-	background-color: #ededed;
-	border: none;
-	color: #888;
+	border-radius: 10px;
+	font-size: 15px;
+	outline: none;
 }
 
 .birth-input {
 	width: 100%;
 	padding: 15px;
-	border-radius: 10px;
 	border: 1px solid #e0e0e0;
-	background-color: #ededed;
-	border: none;
-	color: #888;
+	border-radius: 10px;
+	font-size: 15px;
+	outline: none;
 }
 
 .profile-upload-row {

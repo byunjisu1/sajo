@@ -30,7 +30,7 @@ const KakaoCallBack = () => {
 						setMemberNo(memberNo);
 						setIsLogin(true);
 						alert("카카오 로그인 성공!");
-						navigate("/memberUpdate");
+						navigate("/memberUpdate",{state: { showAlert: true }});
 					}
 				})
 				.catch((err) => {
