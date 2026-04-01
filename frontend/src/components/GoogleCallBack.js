@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { AuthContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './GoogleCallBack.css';
 
 const GoogleCallback = () => {
     const navigate = useNavigate();
