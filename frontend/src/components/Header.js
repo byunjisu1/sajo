@@ -32,15 +32,8 @@ const Header = () => {
 	    }
 		
 		if(searchValue.trim().startsWith("http")) {	// URL 검색
-			try {
-		        const res = await axios.post('/sajo/item/url/search', { searchUrl: searchValue });
-		        console.log("서버 응답 데이터:", res.data);
-				const itemIdx = res.data;
-		        navigate(`/itemDetail/${itemIdx}`);
-		    } catch (error) {
-		        console.error("검색 전송 중 오류 발생:", error);
-		        alert("서버와 통신 중 오류가 발생했습니다.");
-		    }
+			const encodedUrl = encodeURIComponent(searchValue);
+		    navigate(`/${encodedUrl}`);
 		} else {	// keyword 검색
 			navigate(`/rakuten/${searchValue}`);
 		}

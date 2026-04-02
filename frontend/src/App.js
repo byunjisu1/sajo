@@ -42,7 +42,7 @@ function App() {
 		<Header/>
 		<Routes>
 			<Route path="/loading" element={<Loading/>}/>
-			<Route path="/" element={<Home/>}/>
+			<Route path="/:searchValue?" element={<Home/>}/>
 			<Route path="/likes" element={<Likes/>}/>
 			<Route path="/cart" element={<Cart/>}/>
 			<Route path="/login" element={<Login/>}/>

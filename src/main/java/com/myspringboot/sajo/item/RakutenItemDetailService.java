@@ -34,7 +34,7 @@ public class RakutenItemDetailService {
         input.put("scrapeMode", "BROWSER");
         input.put("additionalProperties", false);
         input.put("additionalPropertiesSearchEngine", true);
-        input.put("additionalReviewProperties", true);
+        input.put("additionalReviewProperties", false);
         input.put("scrapeInfluencerProducts", false);
         input.put("scrapeReviewsDelivery", false);
 
@@ -56,7 +56,11 @@ public class RakutenItemDetailService {
                 item.setItemName(dto.getName());
                 
                 if (dto.getOffers() != null && dto.getOffers().getPrice() != null) {
-                    item.setItemPrice((int) Math.round(dto.getOffers().getPrice()));
+                	String priceRaw = String.valueOf(dto.getOffers().getPrice()).replaceAll("[^0-9]", "");
+                    int jpyPrice = priceRaw.isEmpty() ? 0 : Integer.parseInt(priceRaw);
+                    // 원화 환산 계산 (엔화 * 환율) 후 반올림 처리
+                    int krwPrice = (int) Math.round(jpyPrice * 9.0);
+                    item.setItemPrice(krwPrice);
                 }
                 
                 item.setItemImg(dto.getImage());

@@ -21,13 +21,13 @@ const LoadingPage = () => {
           <h1 className="main-title">
             고객님을 위한<br />
             상품 정보를 가져오는 중입니다!<br/>
-			URL 검색의 경우 약 1분의 시간이 소요될 수 있습니다.
+			URL 및 키워드 검색의 경우 약 1분의 시간이 소요될 수 있습니다.
           </h1>
           
           <div className="tip-box">
             <span className="tip-badge">✨ TIP</span>
             <p className="tip-desc">
-              일본 상품의 URL을 직접 입력하여 상품을 확인할 수<br /> 있습니다.
+              일본 상품의 URL을 직접 입력하여 상품을 확인할 수 있습니다.
             </p>
           </div>
         </div>

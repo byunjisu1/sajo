@@ -1,7 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import Loading from '../components/Loading';
 import './Home.css';
 
 const Home = () => {
+	const { searchValue } = useParams();
+	const [loading, setLoading] = useState(false); // 로딩 상태
+	const navigate = useNavigate();
+	
+	useEffect(() => {
+		if(searchValue) {
+			setLoading(true);
+			axios.post('/sajo/item/url/search', { searchUrl: searchValue })
+			.then((res) => {
+				console.log("서버 응답 데이터:", res.data);
+				setLoading(false);
+				const itemIdx = res.data;
+		        navigate(`/itemDetail/${itemIdx}`);
+			})
+			.catch(err => {
+				console.error("검색 전송 중 오류 발생:", err);
+		        alert("서버와 통신 중 오류가 발생했습니다.");
+				setLoading(false);
+			});
+		} else {
+			setLoading(false);
+		}
+	}, [searchValue]);
+	
+	if (loading) {
+		return <Loading />;
+  	}
+	
 	return (
 	    <div className="sajo-page">
 	      <main className="home-main" aria-label="홈 메인">
