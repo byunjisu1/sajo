@@ -37,6 +37,8 @@ const Header = () => {
 		} else {	// keyword 검색
 			navigate(`/rakuten/${searchValue}`);
 		}
+		
+		searchInput.value = "";
 	};
 	
 	return (

@@ -29,4 +29,7 @@ public class Item {
 	
 	@Column(columnDefinition="VARCHAR2(3000 BYTE)")
 	private String itemImg;
+	
+	@Column(columnDefinition="VARCHAR2(3000 BYTE)")
+	private String itemUrl;
 }

@@ -36,10 +36,6 @@ public class RakutenItemService {
                     RakutenItemDto dto = new RakutenItemDto();
 
                     jpNames.add(String.valueOf(item.get("itemName")));
-                	//String originalName = String.valueOf(item.get("itemName"));
-                    //String translatedName = tSvc.translateToKorean(originalName);
-                    //dto.setItemName(translatedName);
-                    
                     dto.setItemImg(String.valueOf(item.get("imageUrl")));
                     String priceRaw = String.valueOf(item.get("itemPrice")).replaceAll("[^0-9]", "");
                     int jpyPrice = priceRaw.isEmpty() ? 0 : Integer.parseInt(priceRaw);
@@ -47,6 +43,7 @@ public class RakutenItemService {
                     int krwPrice = (int) Math.round(jpyPrice * 9.0);
                     
                     dto.setItemPrice(krwPrice);
+                    dto.setItemUrl(String.valueOf(item.get("itemUrl")));
 
                     dtoList.add(dto);
                 }

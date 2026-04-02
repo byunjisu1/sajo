@@ -40,10 +40,11 @@ const Likes = () => {
 	const handleWishDelete = (likeIdx) => {
 		if (window.confirm("해당 상품의 찜을 삭제하시겠습니까?")) {
 			axios.delete(`/sajo/likes/${likeIdx}`)
-				.then(resp => {
-					alert("삭제되었습니다.");
-					getWishList(sortType);
-				});
+			.then(resp => {
+				alert("삭제되었습니다.");
+				navigate(`/likes`);
+				//getWishList(sortType);
+			});
 		}
 	};
 

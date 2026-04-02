@@ -14,4 +14,5 @@ public class RakutenItemDto {
 	private String itemImg;
 	private String itemDetail;
 	private int itemPrice;
+	private String itemUrl;
 }

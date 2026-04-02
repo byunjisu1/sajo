@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './Rakuten.css';
 import Loading from '../components/Loading';
 
 const Rakuten = () => {
+	const navigate = useNavigate();
 	const { searchValue } = useParams();
 	const finalSearchValue = searchValue || "売れ筋ランキング";
 	const [ products, setProducts ] = useState([]); // 서버 데이터를 담을 그릇
 	const [loading, setLoading] = useState(false); // 로딩 상태
+	
+	const handleItemDetail = (itemUrl) => {
+		setLoading(true);
+		axios.post('/sajo/item/url/search', { searchUrl: itemUrl })
+		.then((res) => {
+			console.log("서버 응답 데이터:", res.data);
+			setLoading(false);
+			const itemIdx = res.data;
+	        navigate(`/itemDetail/${itemIdx}`);
+		})
+		.catch(err => {
+			console.error("검색 전송 중 오류 발생:", err);
+	        alert("서버와 통신 중 오류가 발생했습니다.");
+			setLoading(false);
+		});
+	};
 	
 	useEffect(() => {
 		setLoading(true);
@@ -39,7 +56,7 @@ const Rakuten = () => {
 		            
 		            <div className="rk-product-grid">
 		                {products.map((product, index) => (
-		                    <div className="rk-product-card" key={index}>
+		                    <div className="rk-product-card" key={index} onClick={() => handleItemDetail(product.itemUrl)}>
 		                        <div className="rk-product-img-box">
 		                            <img src={product.itemImg} alt={product.itemName} />
 		                        </div>

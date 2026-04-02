@@ -149,7 +149,6 @@ const ItemDetail = () => {
           </button>
 
           <h1 className="item-title">{item.itemName}</h1>
-          <p className="item-subtitle">상품 번호: #{item.itemIdx}</p>
 
           <div className="item-price-row">
             <span className="item-price">￦{item.itemPrice.toLocaleString()}</span>
