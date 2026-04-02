@@ -3,7 +3,6 @@ package com.myspringboot.sajo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 
 import com.myspringboot.sajo.item.Item;
 import com.myspringboot.sajo.item.ItemAnalysisDto;
@@ -11,19 +10,11 @@ import com.myspringboot.sajo.item.ItemAnalysisService;
 import com.myspringboot.sajo.item.ItemDto;
 import com.myspringboot.sajo.item.ItemRepository;
 import com.myspringboot.sajo.item.ItemService;
-import com.myspringboot.sajo.item.PicItem;
-import com.myspringboot.sajo.item.PicItemRepository;
-import com.myspringboot.sajo.member.Member;
-import com.myspringboot.sajo.member.MemberRepository;
 
 @SpringBootTest
 public class ItemTests {
 	@Autowired
-	private MemberRepository memberRepo;
-	@Autowired
 	private ItemRepository itemRepo;
-	@Autowired
-	private PicItemRepository picRepo;
 	@Autowired
 	private ItemService ISvc;
 	@Autowired
@@ -92,34 +83,6 @@ public class ItemTests {
 		i.setItemPrice(75000);
 		i.setItemImg("https://tshop.r10s.jp/kroeus/cabinet/09453199/11456757/imgrc0206216178.jpg");
 		itemRepo.save(i);
-	}
-	
-	// pic_item 테이블 더미 데이터 추가
-	@Test
-	void testPicItem1() {
-		Member m = memberRepo.findById(1).get();
-		PicItem p = new PicItem();
-		p.setMemberNo(m);
-		p.setPicItemUrl("sdklfjdjjpg.12355");
-		picRepo.save(p);
-		
-		m = memberRepo.findById(1).get();
-		p = new PicItem();
-		p.setMemberNo(m);
-		p.setPicItemUrl("sdklfjdjjpg.12355");
-		picRepo.save(p);
-		
-		m = memberRepo.findById(2).get();
-		p = new PicItem();
-		p.setMemberNo(m);
-		p.setPicItemUrl("sdklfjdjjpg.12355");
-		picRepo.save(p);
-		
-		m = memberRepo.findById(3).get();
-		p = new PicItem();
-		p.setMemberNo(m);
-		p.setPicItemUrl("sdklfjdjjpg.12355");
-		picRepo.save(p);
 	}
 	
 	// 상품 상세보기
