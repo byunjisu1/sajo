@@ -185,24 +185,7 @@ const Cart = () => {
 					<div className="cart-right-section">
 					    <div className="cart-order-summary-card">
 					        <h3 className="cart-summary-title">주문 개요</h3>
-					        <div className="cart-price-info-area">
-					            <div className="cart-summary-row">
-					                <span>상품 소계</span>
-					                <span>₩{subTotal.toLocaleString()}</span>
-					            </div>
-					            <div className="cart-summary-row">
-					                <span>현지 유통비</span>
-					                <span>₩{localShipping.toLocaleString()}</span>
-					            </div>
-					            <div className="cart-summary-row">
-					                <span>국제 배송비</span>
-					                <span>₩{internationalShipping.toLocaleString()}</span>
-					            </div>
-					            <div className="cart-summary-row">
-					                <span>통관・관세</span>
-					                <span>₩{tax.toLocaleString()}</span>
-					            </div>
-					        </div>
+					       
 					        <div className="cart-total-amount-row">
 					            <span>전체 금액</span>
 					            <span className="cart-total-price-value">₩{totalAmount.toLocaleString()}</span>
