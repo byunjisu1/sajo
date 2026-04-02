@@ -8,11 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.myspringboot.sajo.item.ItemAnalysisService;
+import com.myspringboot.sajo.item.ItemCustomsInfoDto;
 import com.myspringboot.sajo.member.Member;
 import com.myspringboot.sajo.member.MemberRepository;
 import com.myspringboot.sajo.order.OrderDetailItemDto;
 import com.myspringboot.sajo.order.Orders;
 import com.myspringboot.sajo.order.OrdersRepository;
+import com.myspringboot.sajo.payment.CustomsService;
 import com.myspringboot.sajo.payment.Payment;
 import com.myspringboot.sajo.payment.PaymentRepository;
 import com.myspringboot.sajo.payment.PaymentRequestDto;
@@ -30,6 +33,8 @@ public class PaymentTests {
 	private PaymentRepository payRepo;
 	@Autowired
 	private PaymentService pSvc;
+	@Autowired
+	private ItemAnalysisService itemAnalysisSvc;
 	
 	// Payment 테이블 더미데이터 추가
 	@Test
@@ -101,5 +106,34 @@ public class PaymentTests {
 		
 		// Then
 		System.out.println("정보 저장 및 트랜잭션 검증 완료");
+	}
+	@Test
+	void testGetHsCode() throws Exception {
+		//Given
+		String imageUrl = "https://static.mercdn.net/item/detail/orig/photos/m38930520560_1.jpg?1770898704";
+		String description = "아네스B 워크자켓";
+		//When
+		ItemCustomsInfoDto resultDto = itemAnalysisSvc.getCustomsInfo(imageUrl, description);
+		
+		//Then
+		System.out.println("추출된 HS Code: " + resultDto.getHsCode());
+        System.out.println("추출된 예상 무게: " + resultDto.getEstimatedWeight());
+        System.out.println("관세청에서 가져온 세율: " + resultDto.getTrrt());
+        System.out.println("관세청에서 가져온 품명: " + resultDto.getKornPrnm());
+	}
+	
+	@Autowired
+	CustomsService cSvc;
+	
+	@Test
+	void testGetCustomsInfo() throws Exception {
+		//Given
+		ItemCustomsInfoDto dto = new ItemCustomsInfoDto();
+		String testHsCode = "6109101010";
+		//When
+		cSvc.getRealTaxRate(dto, testHsCode);
+		//Then
+		System.out.println("조회된 품명: " + dto.getKornPrnm());
+	    System.out.println("조회된 세율: " + dto.getTrrt());
 	}
 }
