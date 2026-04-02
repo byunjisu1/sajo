@@ -12,7 +12,7 @@ const Payment = () => {
     // 주문 상품 목록 열림/닫힘 상태 (기본값: false)
     const [ isProductListOpen, setIsProductListOpen ] = useState(false);
 	
-	const { totalAmount=0, selectedProducts=[], weight=0, trrt=0 } = location.state || {};
+	const { totalAmount=0, selectedProducts=[], weight=0, trrt=0, type } = location.state || {};
 	console.log(location.state);
 	const [ addressList, setAddressList ] = useState([]); // 배송지 목록
     const [ selectedAddr, setSelectedAddr ] = useState(null); // 선택된 배송지 ID
@@ -20,7 +20,7 @@ const Payment = () => {
 	// 국제 배송비 (기본 10,000원 + 1kg당 5,000원)
 	const basicShippingFee = 10000; 
 	const FeePerKG = 5000;
-	const internationalShippingFee = weight > 0 ? basicShippingFee + (weight * FeePerKG) : basicShippingFee;
+	const internationalShippingFee = weight > 0 ? basicShippingFee + ((weight * 0.001) * FeePerKG) : basicShippingFee;
 
 	// 통관 및 관세 계산 (상품 가격 + 국제 배송비) * (세율 / 100)
 	const customsFee = totalAmount > 150000 ? Math.floor((totalAmount + internationalShippingFee) * (trrt / 100)) : 0;
@@ -207,11 +207,9 @@ const Payment = () => {
                                 <span>통관 · 관세 </span>
                                 <span>₩{customsFee?.toLocaleString()}</span>
                             </div>
-							{customsFee > 0 && (
-							    <div className="payment-tax-basis">
-							        * 적용 근거 : unipass 관세율 기본 조회 API
-							    </div>
-							)}
+						    <div className="payment-tax-basis">
+						        {type != null ? "* 적용 근거 : chatGPT" : "* 적용 근거 : unipass 관세율 기본 조회 API"}
+						    </div>
                         </div>
 
                         <div className="payment-total-section">

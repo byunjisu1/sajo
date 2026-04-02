@@ -50,16 +50,8 @@ const Cart = () => {
 	// 체크된 상품들만 필터링
 	const selectedProducts = showList.filter(item => checkedItems.includes(item.itemIdx));
 
-	// 상품 소계 계산 (체크된 상품들의 가격 합계)
-	const subTotal = selectedProducts.reduce((sum, item) => sum + (item.itemPrice || 0), 0);
-
-	// 부수 비용 설정 (예시: 상품이 있을 때만 배송비 등이 붙도록 설정 가능)
-	const localShipping = selectedProducts.length > 0 ? 6025 : 0;
-	const internationalShipping = selectedProducts.length > 0 ? 6025 : 0;
-	const tax = selectedProducts.length > 0 ? 6025 : 0;
-
-	// 최종 합계
-	const totalAmount = subTotal + localShipping + internationalShipping + tax;
+	// 상품 소계
+	const totalAmount = selectedProducts.reduce((sum, item) => sum + (item.itemPrice || 0), 0);
 	
 	//전체 삭제 기능
 	const handleDeleteSelected = () => {
@@ -69,8 +61,6 @@ const Cart = () => {
 	    }
 
 	    if (window.confirm(`선택한 ${checkedItems.length}개의 상품을 장바구니에서 삭제하시겠습니까?`)) {
-	        // 1. 서버에 삭제 요청 (백엔드 설계에 따라 다를 수 있음)
-	        // 예: 반복문으로 보내거나, 배열 통째로 보내는 API가 있다면 그것을 사용
 	        const deleteRequests = checkedItems.map(itemIdx => 
 	            axios.delete(`/sajo/cart/${memberNo}/${itemIdx}`)
 	        );
@@ -79,11 +69,11 @@ const Cart = () => {
 	            .then(() => {
 	                alert("선택한 상품이 삭제되었습니다.");
 	                
-	                // 2. 화면(State)에서 삭제된 아이템 제외하고 업데이트
+	                // 화면(State)에서 삭제된 아이템 제외하고 업데이트
 	                const updatedList = showList.filter(item => !checkedItems.includes(item.itemIdx));
 	                setShowList(updatedList);
 	                
-	                // 3. 체크박스 상태 초기화
+	                // 체크박스 상태 초기화
 	                setCheckedItems([]);
 	            })
 	            .catch(err => {
@@ -108,6 +98,31 @@ const Cart = () => {
 	// 상품클릭시 상품상세페이지 이동
 	const clickItem = (itemIdx)=> {
 		navigate(`/itemDetail/${itemIdx}`);
+	};
+	
+	const handlePayment = async() => {
+	    if (selectedProducts.length === 0) {
+	        alert("결제할 상품을 선택해주세요.");
+	        return;
+	    }
+		
+		try {
+			alert("상품에 대한 예상 무게와 세율 계산 중 .. 기다려주세요.");
+	        const response = await axios.post(`/sajo/item/customsInfoList`, selectedProducts);
+	        const { estimatedAverageTaxRate, totalWeightGrams } = response.data;
+	        navigate(`/payment`, { 
+	            state: { 
+	                totalAmount,          
+	                selectedProducts,      
+	                weight: totalWeightGrams,        
+	                trrt: estimatedAverageTaxRate,
+					type: "gpt"       
+	            } 
+	        });
+	    } catch (err) {
+	        console.error("통합 관세 산출 에러:", err);
+	        alert("관세 정보 계산 중 오류가 발생했습니다.");
+	    }
 	};
 		
 	useEffect(() => {
@@ -191,7 +206,7 @@ const Cart = () => {
 					            <span className="cart-total-price-value">₩{totalAmount.toLocaleString()}</span>
 					        </div>
 					    </div>
-					    <button className="cart-btn-submit-pay" onClick={() => navigate(`/payment`, { state: { totalAmount, selectedProducts } })} disabled={selectedProducts.length === 0} >
+					    <button className="cart-btn-submit-pay" onClick={handlePayment} disabled={selectedProducts.length === 0} >
 					        <span className="cart-btn-icon">💳</span>
 					        <span className="cart-btn-text">결제하기</span>
 					    </button>

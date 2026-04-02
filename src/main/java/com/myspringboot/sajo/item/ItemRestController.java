@@ -1,5 +1,6 @@
 package com.myspringboot.sajo.item;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public class ItemRestController {
 		return RakuSvc.getRakutenProducts(searchValue);
 	}
 	
-	// 상품 예상 무게, 세율 구하기
+	// 단일 상품 예상 무게, 세율 구하기
 	@PostMapping("/item/customsInfo")
 	public ItemCustomsInfoDto itemCustomsInfo(@RequestBody Map<String, String> params) {
 		try {
@@ -65,6 +66,20 @@ public class ItemRestController {
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	// 상품 리스트 예상 무게, 세율 구하기
+	@PostMapping("/item/customsInfoList")
+	public Map<String, Object> itemCustomsInfos(@RequestBody List<Map<String, Object>> selectedProducts) {
+		try {
+			return IASvc.getCustomsInfos(selectedProducts);
+		} catch(Exception e) {
+			e.printStackTrace();
+			Map<String, Object> errorMap = new HashMap<>();
+	        errorMap.put("estimatedAverageTaxRate", 0);
+	        errorMap.put("totalWeightGrams", 0);
+	        return errorMap;
 		}
 	}
 }

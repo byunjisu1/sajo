@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myspringboot.sajo.payment.CustomsService;
@@ -68,7 +69,7 @@ public class ItemAnalysisService {
         return objectMapper.readValue(jsonStr, ItemAnalysisDto.class);
 	}
 	
-	// 상품에 대한 관세율 알아내기
+	// 단일 상품에 대한 관세 알아내기
 	public ItemCustomsInfoDto getCustomsInfo(String imageUrl, String description) throws Exception{
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -117,5 +118,53 @@ public class ItemAnalysisService {
 	    }
 	    
 	    return dto;
+	}
+	
+	// 상품 리스트에 대한 관세 알아내기
+	public Map<String, Object> getCustomsInfos(List<Map<String, Object>> selectedProducts) throws Exception {
+		RestTemplate restTemplate = new RestTemplate();
+		
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    headers.setBearerAuth(apiKey);
+		
+		StringBuilder productListStr = new StringBuilder();
+	    for (Map<String, Object> product : selectedProducts) {
+	        productListStr.append("- 상품명: ").append(product.get("itemName"))
+	                      .append(", 가격: ").append(product.get("itemPrice"))
+	                      .append(", 상품 이미지: ").append(product.get("itemImg")).append("\n");
+	    }
+	    
+	    String promptText =
+	    		"너는 대한민국 관세 전문가이자 국제 물류 전문가야. 함께 제공되는 [장바구니 상품 이미지들]과 아래 [상품 상세 리스트]를 종합 분석해서, 이 화물 전체에 대한 합산과세 정보를 추정해줘.\n\n" +
+			    "[분석 지침]\n" +
+			    "1. 이미지 Vision 분석: 각 상품의 크기, 소재, 재질, 부피감을 시각적으로 정밀 분석해.\n" +
+			    "2. 텍스트 상세 분석: 아래 리스트의 상품명과 가격 정보를 시각 정보와 매칭해.\n" +
+			    "3. 정밀 무게 추론: 시각+텍스트 정보를 종합하여 현실적인 '개별 무게'를 추산하고, 모든 상품의 '최종 합산 무게(g)'를 계산해. (비현실적으로 무거운 무게는 절대 지양할 것)\n" +
+			    "4. 합산 세율 추론: 전체 품목의 가중 평균 관세율(%)을 추정해.\n\n" +
+			    "5. 결과는 반드시 아래 JSON 형식으로만 응답하고, 다른 설명은 절대 하지 마.\n\n" +
+			    "[장바구니 상품 상세 리스트]\n" + productListStr.toString() + "\n\n" +
+			    "[응답 형식]\n" +
+			    "{\n" +
+			    "  \"estimatedAverageTaxRate\": 숫자(예: 11.3),\n" +
+			    "  \"totalWeightGrams\": 숫자(모든 상품 실중량 합계)\n" +
+			    "}";
+
+	    List<Map<String, Object>> messages = new ArrayList<>();
+	    messages.add(Map.of("role", "system", "content", "You are a helpful assistant that outputs JSON."));
+	    messages.add(Map.of("role", "user", "content", promptText));
+
+	    Map<String, Object> body = new HashMap<>();
+	    body.put("model", "gpt-4o"); 
+	    body.put("messages", messages);
+	    body.put("response_format", Map.of("type", "json_object"));
+
+	    HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
+	    ResponseEntity<String> response = restTemplate.postForEntity(API_URL, entity, String.class);
+	    
+	    JsonNode root = objectMapper.readTree(response.getBody());
+	    String jsonStr = root.path("choices").get(0).path("message").path("content").asText();
+	    
+	    return objectMapper.readValue(jsonStr, new TypeReference<Map<String, Object>>(){});
 	}
 }
