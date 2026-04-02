@@ -194,10 +194,6 @@ const ItemDetail = () => {
               <span>상품 가격</span>
               <span>₩{item.itemPrice.toLocaleString()}</span>
             </div>
-            <div className="item-total-row">
-              <span>현지 우편비</span>
-              <span>₩0</span>
-            </div>
           </div>
 
           <button type="button" className="item-cart-btn" onClick={addCart}>

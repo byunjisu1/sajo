@@ -77,7 +77,7 @@ public class RakutenItemDetailService {
 						String priceRaw = String.valueOf(dto.getOffers().getPrice()).replaceAll("[^0-9]", "");
 						int jpyPrice = priceRaw.isEmpty() ? 0 : Integer.parseInt(priceRaw);
 						// 원화 환산 계산 (엔화 * 환율) 후 반올림 처리
-						int krwPrice = (int) Math.round(jpyPrice * 9.0);
+						int krwPrice = (int) Math.round(jpyPrice * 0.9);
 						item.setItemPrice(krwPrice);
 					}
 					
