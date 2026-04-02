@@ -20,6 +20,9 @@ import com.myspringboot.sajo.payment.CustomsService;
 
 @Service
 public class ItemAnalysisService {
+	@Autowired
+	CustomsService cSvc;
+	
 	@Value("${openai.api.key}")
     private String apiKey;
 
@@ -64,9 +67,8 @@ public class ItemAnalysisService {
         
         return objectMapper.readValue(jsonStr, ItemAnalysisDto.class);
 	}
-	@Autowired
-	CustomsService cSvc;
 	
+	// 상품에 대한 관세율 알아내기
 	public ItemCustomsInfoDto getCustomsInfo(String imageUrl, String description) throws Exception{
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -82,7 +84,6 @@ public class ItemAnalysisService {
                 "}";
 
 	    List<Map<String, Object>> messages = new ArrayList<>();
-	    // System 메시지로 JSON 형식을 강제하면 더 정확합니다.
 	    messages.add(Map.of("role", "system", "content", "You are a helpful assistant that outputs JSON."));
 	    
 	    List<Map<String, Object>> contentList = new ArrayList<>();
@@ -116,6 +117,5 @@ public class ItemAnalysisService {
 	    }
 	    
 	    return dto;
-	    
 	}
 }

@@ -197,7 +197,7 @@
 .payment-submit-button:active { transform: scale(0.98); }
 
 .payment-sticky-card {
-    z-index: 10; /* 너무 높지 않게 설정 */
+    z-index: 10;
 }
 
 /* 배송지 목록 컨테이너 */
@@ -255,4 +255,12 @@
 .payment-address-list-container::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 10px;
+}
+
+.payment-tax-basis {
+    font-size: 11px;      
+    color: #888;          
+    text-align: right;    
+    margin-top: 4px;      
+    letter-spacing: -0.5px; 
 }

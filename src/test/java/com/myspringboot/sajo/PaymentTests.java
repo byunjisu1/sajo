@@ -35,6 +35,8 @@ public class PaymentTests {
 	private PaymentService pSvc;
 	@Autowired
 	private ItemAnalysisService itemAnalysisSvc;
+	@Autowired
+	private CustomsService cSvc;
 	
 	// Payment 테이블 더미데이터 추가
 	@Test
@@ -107,6 +109,8 @@ public class PaymentTests {
 		// Then
 		System.out.println("정보 저장 및 트랜잭션 검증 완료");
 	}
+	
+	// 상품 예상 무게, 관세청 세율 구하기
 	@Test
 	void testGetHsCode() throws Exception {
 		//Given
@@ -122,9 +126,7 @@ public class PaymentTests {
         System.out.println("관세청에서 가져온 품명: " + resultDto.getKornPrnm());
 	}
 	
-	@Autowired
-	CustomsService cSvc;
-	
+	// HsCode로 세율 구하기
 	@Test
 	void testGetCustomsInfo() throws Exception {
 		//Given

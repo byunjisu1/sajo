@@ -53,4 +53,18 @@ public class ItemRestController {
 	public List<RakutenItemDto> itemKeywordSearch(@PathVariable("searchValue") String searchValue) {
 		return RakuSvc.getRakutenProducts(searchValue);
 	}
+	
+	// 상품 예상 무게, 세율 구하기
+	@PostMapping("/item/customsInfo")
+	public ItemCustomsInfoDto itemCustomsInfo(@RequestBody Map<String, String> params) {
+		try {
+			String imageUrl = params.get("imageUrl");
+			String description = params.get("description");
+			
+			return IASvc.getCustomsInfo(imageUrl, description);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

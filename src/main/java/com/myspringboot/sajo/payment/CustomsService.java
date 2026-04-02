@@ -19,6 +19,7 @@ public class CustomsService {
 	@Value("${custom.api.key}")
 	private String apiKey;
 	
+	// 관세
 	public void getRealTaxRate(ItemCustomsInfoDto dto, String hsCode) throws Exception {
 		try {
 			String cleanHsCode = dto.getHsCode().replaceAll("[^0-9]", "");
@@ -35,8 +36,6 @@ public class CustomsService {
 				dto.setKornPrnm("기타 품목 (조회 실패)");
 				return;
 			}
-
-			System.out.println("관세청 원문 : " + xmlResponse);
 
 			// XML 파싱 (간단하게 DocumentBuilder 사용)
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

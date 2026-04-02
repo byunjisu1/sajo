@@ -9,7 +9,7 @@ import './ItemDetail.css';
 const ItemDetail = () => {
   const navigate = useNavigate();
   const { itemIdx } = useParams();
-  const [item, setItem] = useState(null); 
+  const [ item, setItem ] = useState(null); 
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ analysis, setAnalysis ] = useState(null);
   const [ isAnalyzing, setIsAnalyzing ] = useState(false);
@@ -95,7 +95,17 @@ const ItemDetail = () => {
 			qty: 1
 		}];
 		
-		navigate(`/payment`, { state: { totalAmount: item.itemPrice, selectedProducts: singleProduct } });
+		alert("상품에 대한 예상 무게와 세율 계산 중 .. 기다려주세요.");
+		axios.post(`/sajo/item/customsInfo`, { imageUrl: item.itemImg, description: item.itemDetail })
+		.then(res => {
+			console.log(res.data);
+			const { estimatedWeight, trrt } = res.data;
+			navigate(`/payment`, { state: { totalAmount: item.itemPrice, selectedProducts: singleProduct, weight: estimatedWeight, trrt: trrt } });
+		})
+		.catch(err => {
+			console.error("세율 에러 : ", err);
+		});
+		
 	} else {
 		alert("로그인 후 이용해주세요.");
 		navigate(`/login`);

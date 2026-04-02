@@ -10,12 +10,23 @@ const Payment = () => {
 	const { memberNo } = useContext(AuthContext);
 	
     // 주문 상품 목록 열림/닫힘 상태 (기본값: false)
-    const [isProductListOpen, setIsProductListOpen] = useState(false);
+    const [ isProductListOpen, setIsProductListOpen ] = useState(false);
 	
-	const { totalAmount=0, selectedProducts=[] } = location.state || {};
+	const { totalAmount=0, selectedProducts=[], weight=0, trrt=0 } = location.state || {};
 	console.log(location.state);
-	const [addressList, setAddressList] = useState([]); // 배송지 목록
-    const [selectedAddr, setSelectedAddr] = useState(null); // 선택된 배송지 ID
+	const [ addressList, setAddressList ] = useState([]); // 배송지 목록
+    const [ selectedAddr, setSelectedAddr ] = useState(null); // 선택된 배송지 ID
+	
+	// 국제 배송비 (기본 10,000원 + 1kg당 5,000원)
+	const basicShippingFee = 10000; 
+	const FeePerKG = 5000;
+	const internationalShippingFee = weight > 0 ? basicShippingFee + (weight * FeePerKG) : basicShippingFee;
+
+	// 통관 및 관세 계산 (상품 가격 + 국제 배송비) * (세율 / 100)
+	const customsFee = totalAmount > 150000 ? Math.floor((totalAmount + internationalShippingFee) * (trrt / 100)) : 0;
+
+	// 최종 결제 금액
+	const finalTotalAmount = totalAmount + internationalShippingFee + customsFee;
 	
 	const getAddressList = () => {
         axios.get(`/sajo/getAddressList/${memberNo}`)
@@ -54,7 +65,7 @@ const Payment = () => {
                 pg: "kakaopay.TC0ONETIME",
                 merchant_uid: `${dateStr}${timeStr}${memberNo}${firstItemIdx}${totalCount}`,
                 name: selectedProducts.length > 1 ? (`${selectedProducts[0].itemName} 외 ${selectedProducts.length - 1}건`) : selectedProducts[0].itemName,
-                amount: totalAmount,
+                amount: finalTotalAmount,
                 buyer_addr: `${selectedAddressDetail.address} ${selectedAddressDetail.detailAddress}`,
                 buyer_postcode: selectedAddressDetail.postCode,
                 custom_data: {"list":[{1:1, 2:2, 3:3}]}
@@ -186,25 +197,26 @@ const Payment = () => {
                         <div className="payment-price-breakdown">
                             <div className="payment-price-row">
                                 <span>상품 소계</span>
-                                <span>₩510,000</span>
-                            </div>
-                            <div className="payment-price-row">
-                                <span>현지 유통비</span>
-                                <span>₩6,025</span>
+                                <span>₩{totalAmount?.toLocaleString()}</span>
                             </div>
                             <div className="payment-price-row">
                                 <span>국제 배송비</span>
-                                <span>₩6,025</span>
+                                <span>₩{internationalShippingFee?.toLocaleString()}</span>
                             </div>
                             <div className="payment-price-row">
                                 <span>통관 · 관세 </span>
-                                <span>₩6,025</span>
+                                <span>₩{customsFee?.toLocaleString()}</span>
                             </div>
+							{customsFee > 0 && (
+							    <div className="payment-tax-basis">
+							        * 적용 근거 : unipass 관세율 기본 조회 API
+							    </div>
+							)}
                         </div>
 
                         <div className="payment-total-section">
                             <span>전체 금액</span>
-                            <span className="payment-total-value">₩{totalAmount?.toLocaleString()}원</span>
+                            <span className="payment-total-value">₩{finalTotalAmount?.toLocaleString()}원</span>
                         </div>
 
                         <button className="payment-submit-button" onClick={btnPay}>
