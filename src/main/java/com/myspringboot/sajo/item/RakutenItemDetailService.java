@@ -25,6 +25,7 @@ public class RakutenItemDetailService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     
+    // DB에 있는 item인지 판단한 후, 해당 itemIdx 반환
     public Integer alreadyScraped(String searchUrl) {
     	Item item = itemRepo.findByItemUrl(searchUrl);
     	if(item != null) {
@@ -33,6 +34,7 @@ public class RakutenItemDetailService {
     	return null;
     }
 
+    // 라쿠텐 url 크롤링
     public Integer scrapeRakuten(String productUrl) {
     	Integer itemIdx = alreadyScraped(productUrl);
     	if(itemIdx == null) {

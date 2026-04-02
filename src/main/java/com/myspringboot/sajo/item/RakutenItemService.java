@@ -19,6 +19,7 @@ public class RakutenItemService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    // 라쿠텐 키워드 크롤링
     public List<RakutenItemDto> getRakutenProducts(String keyword) {
         String url = "https://api.apify.com/v2/acts/hassy~rakuten-marketplace-scraper/run-sync-get-dataset-items?token=" + apifyToken;
 
