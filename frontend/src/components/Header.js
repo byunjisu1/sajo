@@ -53,7 +53,7 @@ const Header = () => {
 						<span className="sajo-search-prefix" aria-hidden="true">
 							<img src={`${process.env.PUBLIC_URL}/search-bar-icon.png`} className="sajo-search-prefix-img" decoding="async" />
 						</span>
-						<input type="text" className="sajo-search" placeholder="키워드 또는 URL 입력" aria-label="검색어 입력" />
+						<input type="text" className="sajo-search" placeholder="키워드(영어) 또는 URL 입력" aria-label="검색어 입력" />
 						<span className="sajo-search-caret-wrap" aria-hidden="true">
 							<svg className="sajo-search-caret-solid" viewBox="0 0 10 6" aria-hidden="true">
 								<path d="M0 0 L5 6 L10 0 Z" fill="currentColor" />
@@ -79,13 +79,6 @@ const Header = () => {
 							<circle cx="9" cy="21" r="1" />
 							<circle cx="20" cy="21" r="1" />
 							<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-						</svg>
-					</button>
-					<button type="button" className="sajo-icon-btn" aria-label="알림">
-						<svg className="sajo-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
-							<path d="M18 8A6 6 0 0 0 6 8c0 7-3 7-3 7h18s-3 0-3-7" />
-							<path d="M13.73 21a2 2 0 0 1-3.46 0" />
-							<circle cx="12" cy="21.1" r="1.15" fill="currentColor" />
 						</svg>
 					</button>
 				</div>
