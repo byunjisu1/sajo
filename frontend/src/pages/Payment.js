@@ -208,7 +208,7 @@ const Payment = () => {
                                 <span>₩{customsFee?.toLocaleString()}</span>
                             </div>
 						    <div className="payment-tax-basis">
-						        {type != null ? "* 적용 근거 : chatGPT API" : "* 적용 근거 : unipass 관세율 기본 조회 API"}
+						        {type != null ? "* 적용 근거 : chatGPT API" : "* 적용 근거 : ﻿UNI-PASS 관세율 기본 조회 API"}
 						    </div>
                         </div>
 
