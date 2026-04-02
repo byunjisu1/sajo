@@ -21,7 +21,7 @@ public class TranslationService {
 	@Value("${deepl.api.key}")
 	private String DEEPL_API_KEY;
     private final String DEEPL_URL = "https://api-free.deepl.com/v2/translate";
-
+   
     public String translateToKorean(String text) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();

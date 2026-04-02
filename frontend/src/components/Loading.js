@@ -20,7 +20,8 @@ const LoadingPage = () => {
           <p className="status-text">잠시만 기다려주세요...</p>
           <h1 className="main-title">
             고객님을 위한<br />
-            상품 정보를 가져오는 중입니다!
+            상품 정보를 가져오는 중입니다!<br/>
+			URL 검색의 경우 약 1분의 시간이 소요될 수 있습니다.
           </h1>
           
           <div className="tip-box">

@@ -13,17 +13,6 @@ public class ItemService {
 	@Autowired
 	private ItemRepository itemRepo;
 	
-	//상품 내역 조회 사용x
-	public List<ItemDto> getItemList() {
-		List<Item> items = itemRepo.findAll();
-		List<ItemDto> listItemDto = new ArrayList<>();
-		for (Item i : items) {
-			listItemDto.add(new ItemDto(i));
-		}
-		
-		return listItemDto;
-	}
-	
 	//상품 상세보기
 	public ItemDto getItemDetail(Integer ItemIdx) {
 		Optional<Item> item = itemRepo.findById(ItemIdx);
