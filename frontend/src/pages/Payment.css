@@ -259,7 +259,7 @@
 
 .payment-tax-basis {
     font-size: 11px;      
-    color: #888;          
+    color: red;         
     text-align: right;    
     margin-top: 4px;      
     letter-spacing: -0.5px; 

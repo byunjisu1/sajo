@@ -41,6 +41,7 @@ const Login = () => {
 					<button className="login-btn test" onClick={handleTestLogin}>
 						<span className="icon">T</span> 테스트 로그인버튼
 					</button>
+					<div style={{color: "red"}}>'테스트 로그인버튼' 누르시면 테스트 계정으로 자동 로그인 됩니다.</div>
 				</div>
 			</div>
 		</>
