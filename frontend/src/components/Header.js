@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../App';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
@@ -36,7 +36,7 @@ const Header = () => {
 		        const res = await axios.post('/sajo/item/url/search', { searchUrl: searchValue });
 		        console.log("서버 응답 데이터:", res.data);
 				const itemIdx = res.data;
-		        navigate(`/itemDetail${itemIdx}`);
+		        navigate(`/itemDetail/${itemIdx}`);
 		    } catch (error) {
 		        console.error("검색 전송 중 오류 발생:", error);
 		        alert("서버와 통신 중 오류가 발생했습니다.");
