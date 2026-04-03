@@ -18,6 +18,7 @@ public class BoardRestController {
 	@Autowired
 	private BoardService bSvc;
 	
+	// 문의게시판 목록 조회
 	@GetMapping("/board/list/{pageNum}")
 	public Map<String, Object> boardListByPage(@PathVariable("pageNum") Integer pageNum) {
 		if(pageNum==null) pageNum=1;
