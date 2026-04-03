@@ -3,7 +3,7 @@
 #### $\color{#007AFF}{\Large {1.\ 프로젝트\ 제목}}$ 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사줘(SAJO) <br><br>
 
-#### $\color{#007AFF}{\Large {2.\ 📅프로젝트\ 개발\ 기간}}$
+#### $\color{#007AFF}{\Large {📅\ 프로젝트\ 개발\ 기간}}$
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2026.03.16 ~ 2026.04.03 <br><br>
 
 #### $\color{#007AFF}{\Large {3.\ 💡프로젝트\ 개요}}$
