@@ -1,6 +1,4 @@
-#🛒 사줘(SAJO)
-
-#### $\color{#007AFF}{\Large {1.\ 프로젝트\ 제목}}$ 
+#### $\color{#007AFF}{\Large {🛒\ 프로젝트\ 제목}}$ 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사줘(SAJO) <br><br>
 
 #### $\color{#007AFF}{\Large {📅\ 프로젝트\ 개발\ 기간}}$
@@ -49,7 +47,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 로딩 페이지 <br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6-4. 변지수<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 찜 : 찜 조회 및 추가/삭제, 정렬<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 문의게시판 : 게시글 CRUD, 페이징, 파일 업로드 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 문의게시판 : 게시글 CRUD, 페이징, 파일 업로드 <br><br>
 
 #### $\color{#007AFF}{\Large {🛠\ 사용\ 기술}}$
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java, Oracle 11.2, HTML/CSS, JS, Spring Boot, JPA, React, Axios, REST API, Google Login API, Kakao Login API, OpenAI API, KakaoPay API, Kakao Post(도로명 검색) API, DeepL API(번역), Apify API(크롤링), UNI-PASS API(관세율), AWS <br><br>
