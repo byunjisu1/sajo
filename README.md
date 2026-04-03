@@ -1,56 +1,65 @@
-🛒 사줘(SAJO)
-해외 직구의 복잡한 절차를 간소화하고, 쉽고 빠른 대리 구매를 위한 일본 쇼핑 플랫폼
+#🛒 사줘(SAJO)
 
-📅 프로젝트 개발 기간
-2026.03.16 ~ 2026.04.03
+#### $\color{#007AFF}{\Large {1.\ 프로젝트\ 제목}}$ 
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사줘(SAJO) <br><br>
 
-💡 프로젝트 개요
-해외 직구의 복잡한 절차를 간소화하고, 쉽고 빠른 대리 구매를 위한 일본 쇼핑 플랫폼
+#### $\color{#007AFF}{\Large {2.\ 📅프로젝트\ 개발\ 기간}}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2026.03.16 ~ 2026.04.03 <br><br>
 
-🎯 프로젝트 선정 이유
-해외 커머스의 상품 정보를 URL 하나로 실시간 동기화하는 백엔드 로직에 깊은 기술적 호기심을 느껴왔습니다. 이를 구체화하고자 대표 서비스인 '사조(sazo.kr)'를 벤치마킹하여 프로젝트를 기획했습니다. 단순히 기존 서비스를 복제하는 데 그치지 않고, 일본어 장벽을 낮추기 위한 자동 번역 시스템을 직접 구현하였으며 특히 해외 직구 시 사용자들이 가장 불안해하는 요소가 ‘가품’이라는 점을 생각하여, 기존 서비스에는 없는 'AI 기반 가품 분석 기능'을 추가했습니다. 이를 통해 기술적 구현을 넘어 사용자에게 실질적인 신뢰와 가치를 제공하는 플랫폼을 구축하는 데 집중했습니다.
+#### $\color{#007AFF}{\Large {3.\ 💡프로젝트\ 개요}}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;해외 직구의 복잡한 절차를 간소화하고, 쉽고 빠른 대리 구매를 위한 일본 쇼핑 플랫폼 <br><br>
 
-✨ 특장점
-﻿① AI 가품 분석 : 상품 이미지를 분석하여, 가품 여부 및 조언 (OpenAI API)
-﻿② Apify 상품 url 크롤링 : 상품 url을 입력하면 해당 url을 크롤링하여 상품 상세 정보 출력
-﻿③ Apify 상품 키워드 크롤링 : 키워드를 영어로 입력하면 <라쿠텐> 사이트를 크롤링하여 해당 키워드의 상품 목록 출력
-﻿④ DeepL 번역 : 일본어로 된 상품 정보를 한국어로 번역
-﻿⑤ 소셜로그인 (Google Login API, Kakao Login API)
-﻿⑥ AI 관세 계산 : 상품 이미지와 가격을 전달하면 해당 상품의 예상 무게와 세율을 계산(OpenAI API, UNI-PASS API)
-﻿⑦ AWS 서버 구축 및 통합 트러블슈팅
+#### $\color{#007AFF}{\Large {4.\ 🎯프로젝트\ 선정\ 이유}}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;해외 커머스의 상품 정보를 URL 하나로 실시간 동기화하는 백엔드 로직에 깊은 기술적 호기심을 느껴왔습니다. 이를 구체화하고자 대표 서비스인 '사조(sazo.kr)'를 벤치마킹하여 프로젝트를 기획했습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;단순히 기존 서비스를 복제하는 데 그치지 않고, 일본어 장벽을 낮추기 위한 자동 번역 시스템을 직접 구현하였으며 특히 해외 직구 시 사용자들이 가장 불안해하는 요소가 ‘가품’이라는 점을 생각하여, 기존 서비스에는 없는 'AI 기반 가품 분석 기능'을 추가했습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이를 통해 기술적 구현을 넘어 사용자에게 실질적인 신뢰와 가치를 제공하는 플랫폼을 구축하는 데 집중했습니다.<br><br>
 
-👥 맡은 역할
-6-1. (공통)
-결제 (KakaoPay API)
-AI 가품 분석 (OpenAI API)
-해외 커머스 크롤링 (Apify API - 키워드 또는 URL 기반)
-번역 (DeepL API)
-AI 관세 계산 (OpenAI API)
+#### $\color{#007AFF}{\Large {5.\ ✨특장점}}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;① AI 가품 분석 : 상품 이미지를 분석하여, 가품 여부 및 조언 (OpenAI API)
+  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;② Apify 상품 url 크롤링 : 상품 url을 입력하면 해당 url을 크롤링하여 상품 상세 정보 출력
 
-6-2. 배승빈
-회원 : 회원 정보 조회 및 수정, 프로필 이미지 업로드
-주문 : 주문 내역 조회
-배송지 : 배송지 관리(Kakao Post API)
-로그인 : (Kakao Login API)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;③ Apify 상품 키워드 크롤링 : 키워드를 영어로 입력하면 <라쿠텐> 사이트를 크롤링하여 해당 키워드의 상품 목록 출력
 
-6-3. 김민재
-장바구니 : 장바구니 조회 및 추가/삭제
-로그인 : (Google Login API)
-상품 : 상세 정보 조회
-로딩 페이지
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;④ DeepL 번역 : 일본어로 된 상품 정보를 한국어로 번역
 
-6-4. 변지수
-찜 : 찜 조회 및 추가/삭제, 정렬
-문의게시판 : 게시글 CRUD, 페이징, 파일 업로드
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⑤ 소셜로그인 (Google Login API, Kakao Login API)
 
-🛠 사용 기술
-﻿Java, Oracle 11.2, HTML/CSS, JS, Spring Boot, JPA, React, Axios, REST API, Google Login API, Kakao Login API, OpenAI API, KakaoPay API, Kakao Post(도로명 검색) API, DeepL API(번역), Apify API(크롤링), UNI-PASS API(관세율), AWS
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⑥ AI 관세 계산 : 상품 이미지와 가격을 전달하면 해당 상품의 예상 무게와 세율을 계산(OpenAI API, UNI-PASS API)
 
-🌱 성장점 및 느낀점
-② (공통) 리액트 기반의 SPA 구현 : 단순한 페이지 렌더링을 넘어, React의 SPA 구조를 깊이 있게 이해하고 프로젝트에 적용했습니다. 특히 소셜 로그인 과정에서 프론트엔드와 백엔드 간의 인증 상태 동기화 문제를 해결하였습니다. 또한, 초기 배포 시 발생했던 라우팅 이슈(404 에러 등)를 서버 측 설정을 통해 해결하며, 라이브러리 활용 능력을 넘어 프레임워크의 동작 원리를 깊이있게 이해하는 계기가 되었습니다.
-③ (공통) AWS 환경에서의 풀스택 배포 : AWS 우분투22 환경에 Tomcat 서버를 구축하고, React 빌드 파일을 통합 배포하는 전체 파이프라인을 직접 경험했습니다. 특히 로컬 환경과 다른 실서버의 환경에서 소셜 로그인의 Redirect URI 문제가 두 API(Kakao, Google)에서 모두 발생하였는데, 이를 해결하는 과정에서 프론트엔드-백엔드-운영서버로 이어지는 전체적인 서비스 흐름과 아키텍처를 명확히 이해하게 되었습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⑦ AWS 서버 구축 및 통합 트러블슈팅 <br><br>
 
-🔗 프로젝트 링크
-API 명세 : <SAJO> 일본 구매대행 웹 프로젝트 API 명세 (작업자 : 배승빈, 김민재, 변지수) | Notion (노션 링크를 여기에 넣어주세요)
-Git : https://github.com/byunjisu1/sajo.git
-Service URL : http://sajoprj.duckdns.org:9090/
+#### $\color{#007AFF}{\Large {6.\ 👥맡은\ 역할}}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6-1. (공통) 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 결제 (KakaoPay API)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- AI 가품 분석 (OpenAI API)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 해외 커머스 크롤링 (Apify API - 키워드 또는 URL 기반)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 번역 (DeepL API)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- AI 관세 계산 (OpenAI API)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6-2. 배승빈
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 회원 : 회원 정보 조회 및 수정, 프로필 이미지 업로드
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 주문 : 주문 내역 조회
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 배송지 : 배송지 관리(Kakao Post API)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 로그인 : (Kakao Login API)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6-3. 김민재
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 장바구니 : 장바구니 조회 및 추가/삭제
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 로그인 : (Google Login API)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 상품 : 상세 정보 조회 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 장바구니 : 장바구니 조회 및 추가/삭제
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 로딩 페이지 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6-4. 변지수
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 찜 : 찜 조회 및 추가/삭제, 정렬
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 문의게시판 : 게시글 CRUD, 페이징, 파일 업로드 <br><br>
+
+#### $\color{#007AFF}{\Large {7.\ 🛠사용\ 기술}}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java, Oracle 11.2, HTML/CSS, JS, Spring Boot, JPA, React, Axios, REST API, Google Login API, Kakao Login API, OpenAI API, KakaoPay API, Kakao Post(도로명 검색) API, DeepL API(번역), Apify API(크롤링), UNI-PASS API(관세율), AWS <br><br>
+
+#### $\color{#007AFF}{\Large {8.\ 🌱성장점\ 및\ 느낀점}}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;② (공통) 리액트 기반의 SPA 구현 : 단순한 페이지 렌더링을 넘어, React의 SPA 구조를 깊이 있게 이해하고 프로젝트에 적용했습니다. 특히 소셜 로그인 과정에서 프론트엔드와 백엔드 간의 인증 상태 동기화 문제를 해결하였습니다. 또한, 초기 배포 시 발생했던 라우팅 이슈(404 에러 등)를 서버 측 설정을 통해 해결하며, 라이브러리 활용 능력을 넘어 프레임워크의 동작 원리를 깊이있게 이해하는 계기가 되었습니다.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;③ (공통) AWS 환경에서의 풀스택 배포 : AWS 우분투22 환경에 Tomcat 서버를 구축하고, React 빌드 파일을 통합 배포하는 전체 파이프라인을 직접 경험했습니다. 특히 로컬 환경과 다른 실서버의 환경에서 소셜 로그인의 Redirect URI 문제가 두 API(Kakao, Google)에서 모두 발생하였는데, 이를 해결하는 과정에서 프론트엔드-백엔드-운영서버로 이어지는 전체적인 서비스 흐름과 아키텍처를 명확히 이해하게 되었습니다. <br><br>
+
+#### $\color{#007AFF}{\Large {9.\ 🔗 프로젝트\  링크}}$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- API 명세 : [<SAJO> 일본 구매대행 웹 프로젝트 API 명세 (작업자 : 배승빈, 김민재, 변지수) | Notion (노션 링크를 여기에 넣어주세요)](https://www.notion.so/SAJO-API-330189ae649c8072b854f8a3bb82d61e)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Git : https://github.com/byunjisu1/sajo.git
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Service URL : http://sajoprj.duckdns.org:9090/
