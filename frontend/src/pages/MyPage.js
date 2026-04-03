@@ -44,7 +44,7 @@ const MyPage = () => {
 				<div className="mypage-profile-info">
 					<span className="mypage-profile-image">
 						{headerProfile.profileImg ? (<img
-							src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+							src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://13.209.208.223:9090/sajo/upload/${headerProfile.profileImg}`}
 							style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 						referrerpolicy="no-referrer" />) : (null)
 

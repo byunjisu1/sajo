@@ -116,7 +116,7 @@ const MemberUpdate = () => {
 				<div className="member-update-profile-info">
 					<span className="member-update-profile-image">
 						{headerProfile.profileImg ? (<img
-							src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://localhost:9090/sajo/uploads/${headerProfile.profileImg}`}
+							src={headerProfile.profileImg.startsWith('http') ? headerProfile.profileImg : `http://13.209.208.223:9090/sajo/upload/${headerProfile.profileImg}`}
 							style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 						/>) : (null)
 
@@ -187,7 +187,7 @@ const MemberUpdate = () => {
 											{previewImage ? (<img src={previewImage} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }} />)
 												: (profileImg && profileImg !== 'null') ?
 													(<img
-														src={profileImg.startsWith('http') ? profileImg : `http://localhost:9090/sajo/uploads/${profileImg}`}
+														src={profileImg.startsWith('http') ? profileImg : `http://13.209.208.223:9090/sajo/upload/${profileImg}`}
 														style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
 														alt="프로필"
 														// 혹시 서버에 사진 파일이 없을 때를 대비한 엑박 방지

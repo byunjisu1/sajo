@@ -13,7 +13,7 @@ const KakaoCallBack = () => {
 		const code = new URL(window.location.href).searchParams.get("code");
 		if (code) {
 			console.log("인가코드 : ", code);
-			axios.get(`/sajo/oauth/kakao/callback?code=${code}`)
+			axios.get(`/sajo/api/oauth/kakao/callback?code=${code}`)
 				.then((res) => {
 					console.log(res.data);
 					const kakaoUserInfo = res.data.member;

@@ -35,7 +35,7 @@ const BoardDetail = () => {
 					{board.fileList.map((file, index) => (
 	                      <div key={index} className="detail-image-item">
 	                          <img 
-	                              src={`http://localhost:9090/sajo${file.fileUrl}`} 
+	                              src={`http://13.209.208.223:9090/sajo${file.fileUrl}`} 
 	                              alt={file.originName} 
 	                              className="detail-view-img"
 	                               

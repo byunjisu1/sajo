@@ -30,7 +30,7 @@ public class KakaoService {
 	
 	@Value("${kakao.api.key}")
 	private String clientId;
-	private final String REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+	private final String REDIRECT_URI = "http://13.209.208.223:9090/oauth/kakao/callback";
 
 	/**
 	 * 1단계: 인가 코드로 Access Token 받기

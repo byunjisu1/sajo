@@ -57,7 +57,7 @@ public class MemberService {
 		
 		MultipartFile file = dto.getUploadFile(); // 파일 이미지 업로드 객체 
 		if(file!=null && !file.isEmpty()) {
-			String path = "/Users/baeseungbin/sajo_uploads";
+			String path = "/upload/";
 			String savedName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 			
 			try {
