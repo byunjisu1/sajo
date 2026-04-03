@@ -15,7 +15,7 @@ const GoogleCallback = () => {
 
         if (code) {
             // 추출한 코드를 백엔드 컨트롤러로 전달
-            axios.post('/sajo/api/v1/auth/google', { code: code })
+            axios.post('/sajo/google', { code: code })
                 .then((response) => {
                     console.log("로그인 성공!", response.data);
                     

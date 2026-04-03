@@ -21,7 +21,7 @@ public class KakaoRestController {
      * 카카오 로그인 후 리다이렉트되는 입구
      * 주소창에 붙어오는 code 값을 @RequestParam으로 받기 .
      */
-    @GetMapping("/api/oauth/kakao/callback")
+    @GetMapping("/oauth/kakao/callback")
     public ResponseEntity<Map<String, Object>> kakaoCallback(@RequestParam("code") String code) {
         
         // 1. 서비스 호출해서 '인가 코드'를 '액세스 토큰'으로 교환
