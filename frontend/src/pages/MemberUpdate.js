@@ -155,9 +155,6 @@ const MemberUpdate = () => {
 							<div className="form-group">
 								<div className="label-row">
 									<label>이메일</label>
-									<div className="link-group">
-										<span onClick={() => navigate(`/`)}>회원탈퇴</span>
-									</div>
 								</div>
 								<input className="email-input" type="email" name="email" value={memberProfile.email} onChange={handleChange} required />
 							</div>
