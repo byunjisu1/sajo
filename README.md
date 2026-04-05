@@ -53,9 +53,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java, Oracle 11.2, HTML/CSS, JS, Spring Boot, JPA, React, Axios, REST API, Google Login API, Kakao Login API, OpenAI API, KakaoPay API, Kakao Post(도로명 검색) API, DeepL API(번역), Apify API(크롤링), UNI-PASS API(관세율), AWS <br><br>
 
 #### $\color{#007AFF}{\Large {🌱\ 성장점\ 및\ 느낀점}}$
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;② (공통) 리액트 기반의 SPA 구현 : 단순한 페이지 렌더링을 넘어, React의 SPA 구조를 깊이 있게 이해하고 프로젝트에 적용했습니다. 특히 소셜 로그인 과정에서 프론트엔드와 백엔드 간의 인증 상태 동기화 문제를 해결하였습니다. 또한, 초기 배포 시 발생했던 라우팅 이슈(404 에러 등)를 서버 측 설정을 통해 해결하며, 라이브러리 활용 능력을 넘어 프레임워크의 동작 원리를 깊이있게 이해하는 계기가 되었습니다.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;① (공통) 리액트 기반의 SPA 구현 : 단순한 페이지 렌더링을 넘어, React의 SPA 구조를 깊이 있게 이해하고 프로젝트에 적용했습니다. 특히 소셜 로그인 과정에서 프론트엔드와 백엔드 간의 인증 상태 동기화 문제를 해결하였습니다. 또한, 초기 배포 시 발생했던 라우팅 이슈(404 에러 등)를 서버 측 설정을 통해 해결하며, 라이브러리 활용 능력을 넘어 프레임워크의 동작 원리를 깊이있게 이해하는 계기가 되었습니다.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;③ (공통) AWS 환경에서의 풀스택 배포 : AWS 우분투22 환경에 Tomcat 서버를 구축하고, React 빌드 파일을 통합 배포하는 전체 파이프라인을 직접 경험했습니다. 특히 로컬 환경과 다른 실서버의 환경에서 소셜 로그인의 Redirect URI 문제가 두 API(Kakao, Google)에서 모두 발생하였는데, 이를 해결하는 과정에서 프론트엔드-백엔드-운영서버로 이어지는 전체적인 서비스 흐름과 아키텍처를 명확히 이해하게 되었습니다. <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;② (공통) AWS 환경에서의 풀스택 배포 : AWS 우분투22 환경에 Tomcat 서버를 구축하고, React 빌드 파일을 통합 배포하는 전체 파이프라인을 직접 경험했습니다. 특히 로컬 환경과 다른 실서버의 환경에서 소셜 로그인의 Redirect URI 문제가 두 API(Kakao, Google)에서 모두 발생하였는데, 이를 해결하는 과정에서 프론트엔드-백엔드-운영서버로 이어지는 전체적인 서비스 흐름과 아키텍처를 명확히 이해하게 되었습니다. <br><br>
 
 #### $\color{#007AFF}{\Large {🔗\ 프로젝트\  링크}}$
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- API 명세 : [<SAJO> 일본 구매대행 웹 프로젝트 API 명세 (작업자 : 배승빈, 김민재, 변지수) | Notion (노션 링크를 여기에 넣어주세요)](https://www.notion.so/SAJO-API-330189ae649c8072b854f8a3bb82d61e)<br>
